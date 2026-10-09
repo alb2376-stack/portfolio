@@ -976,13 +976,17 @@
       // Magnifying glass: a round lens follows the pointer and draws the
       // drawing at full print resolution from 1024px tiles (loaded on demand),
       // so the "days" numbers become readable. Scroll over it to zoom.
-      document.querySelectorAll('.magnify').forEach(function (box) {
+      // On phones, tapping the drawing opens it full screen; drag a finger to
+      // move the lens (drawn just above the finger) and use + / - to zoom.
+      var phone = window.matchMedia('(max-width: 760px)');
+
+      function magnifier(box, opts) {
         var img = box.querySelector('.magnify-img');
         var lens = box.querySelector('.magnify-lens');
         var ctx = lens.getContext('2d');
         var FW = +img.dataset.fullW, FH = +img.dataset.fullH, TS = +img.dataset.tile;
         var base = img.dataset.tiles;
-        var scale = 0.9;            // full-res pixels -> screen pixels inside the lens
+        var scale = opts.scale || 0.9; // full-res pixels -> screen pixels inside the lens
         var tiles = {};
         var mid = null;             // mid-resolution image for low zoom / while tiles load
         var last = null;
@@ -1008,8 +1012,8 @@
           var dpr = window.devicePixelRatio || 1;
           var L = lens.offsetWidth;
           if (lens.width !== Math.round(L * dpr)) { lens.width = lens.height = Math.round(L * dpr); }
-          lens.style.left = x + 'px';
-          lens.style.top = y + 'px';
+          lens.style.left = (x + img.offsetLeft) + 'px';
+          lens.style.top = (y + img.offsetTop - (last.touch ? L * 0.62 : 0)) + 'px';
 
           // centre of the lens in full-resolution pixels, and the area it covers
           var cx = x / r.width * FW, cy = y / r.height * FH;
@@ -1037,23 +1041,105 @@
           if (!pending) { pending = true; requestAnimationFrame(draw); }
         }
 
-        function start(e) {
+        function loadMid() {
           if (!mid) { mid = new Image(); mid.onload = redraw; mid.src = img.dataset.large; }
+        }
+
+        function point(e) {
+          last = { x: e.clientX, y: e.clientY, touch: e.pointerType !== 'mouse' };
+        }
+
+        function start(e) {
+          if (opts.skip && opts.skip()) return;
+          loadMid();
           box.classList.add('is-active');
-          last = { x: e.clientX, y: e.clientY };
+          point(e);
+          redraw();
+        }
+
+        function zoom(f) {
+          scale = Math.min(2.5, Math.max(0.12, scale * f));
           redraw();
         }
 
         box.addEventListener('pointerenter', start);
         box.addEventListener('pointerdown', start);
-        box.addEventListener('pointermove', function (e) { last = { x: e.clientX, y: e.clientY }; redraw(); });
-        box.addEventListener('pointerleave', function () { box.classList.remove('is-active'); });
+        box.addEventListener('pointermove', function (e) {
+          if (opts.skip && opts.skip()) return;
+          point(e); redraw();
+        });
+        box.addEventListener('pointerleave', function () { if (!opts.keep) box.classList.remove('is-active'); });
         box.addEventListener('wheel', function (e) {
           if (!box.classList.contains('is-active')) return;
           e.preventDefault();
-          scale = Math.min(2.5, Math.max(0.12, scale * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
-          redraw();
+          zoom(e.deltaY < 0 ? 1.18 : 1 / 1.18);
         }, { passive: false });
+
+        return {
+          zoom: zoom,
+          centre: function () {
+            var r = img.getBoundingClientRect();
+            loadMid();
+            last = { x: r.left + r.width / 2, y: r.top + r.height * 0.4, touch: false };
+            box.classList.add('is-active');
+            redraw();
+          }
+        };
+      }
+
+      document.querySelectorAll('.magnify').forEach(function (box) {
+        // On the page itself the lens is for mouse / pen; phones use the sheet.
+        magnifier(box, { skip: function () { return phone.matches; } });
+
+        var src = box.querySelector('.magnify-img');
+        var sheet = null, sheetLens = null;
+
+        function close() {
+          sheet.classList.remove('is-open');
+          document.documentElement.classList.remove('has-sheet');
+        }
+
+        box.addEventListener('click', function () {
+          if (!phone.matches) return;
+          if (!sheet) {
+            sheet = document.createElement('div');
+            sheet.className = 'magnify-sheet';
+            sheet.setAttribute('role', 'dialog');
+            sheet.setAttribute('aria-label', 'Magnifying glass');
+            sheet.innerHTML =
+              '<div class="magnify-sheet-bar">' +
+                '<p>drag your finger over the drawing</p>' +
+                '<button type="button" class="magnify-sheet-close" aria-label="Close">&times;</button>' +
+              '</div>' +
+              '<div class="magnify magnify--sheet"></div>' +
+              '<div class="magnify-sheet-zoom">' +
+                '<button type="button" data-z="out" aria-label="Zoom out">&minus;</button>' +
+                '<button type="button" data-z="in" aria-label="Zoom in">+</button>' +
+              '</div>';
+            var inner = sheet.querySelector('.magnify--sheet');
+            var copy = src.cloneNode();
+            copy.removeAttribute('loading');
+            inner.appendChild(copy);
+            var c = document.createElement('canvas');
+            c.className = 'magnify-lens';
+            c.setAttribute('aria-hidden', 'true');
+            inner.appendChild(c);
+            document.body.appendChild(sheet);
+            sheetLens = magnifier(inner, { scale: 0.4, keep: true });
+            sheet.querySelector('.magnify-sheet-close').addEventListener('click', close);
+            sheet.querySelectorAll('[data-z]').forEach(function (b) {
+              b.addEventListener('click', function () { sheetLens.zoom(b.dataset.z === 'in' ? 1.35 : 1 / 1.35); });
+            });
+          }
+          sheet.classList.add('is-open');
+          document.documentElement.classList.add('has-sheet');
+          var copyImg = sheet.querySelector('.magnify-img');
+          if (copyImg.complete) sheetLens.centre(); else copyImg.addEventListener('load', sheetLens.centre, { once: true });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && sheet && sheet.classList.contains('is-open')) close();
+        });
       });
 
       // Project header: home, back to the contents, previous / next project.
