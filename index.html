@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqila Bakri — Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="apple-touch-icon" href="assets/logo-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,900&family=Inter+Tight:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- FRONT PAGE / LANDING TILE -->
+  <section class="landing">
+    <div class="landing-bg" aria-hidden="true">
+      <img class="landing-bg-img landing-bg-img--blur" src="assets/blur.jpg" alt="">
+      <img class="landing-bg-img landing-bg-img--sharp" src="assets/not%20blur.jpg" alt="">
+    </div>
+
+    <div class="landing-cursor" aria-hidden="true"><span>x 000 · y 000</span></div>
+
+    <canvas class="landing-tiles" aria-hidden="true"></canvas>
+
+    <div class="landing-scrim" aria-hidden="true"></div>
+
+    <div class="landing-sheet">
+      <h1 class="landing-title">portfolio</h1>
+      <p class="landing-subtitle">selected works</p>
+    </div>
+
+    <div class="landing-credit">
+      <div class="landing-credit-row">
+        <p class="landing-eyebrow">aqila bakri</p>
+        <div class="landing-social-links" aria-label="Contact links">
+          <a href="https://www.linkedin.com/in/aqila-bakri" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5.2 8.4H2.1V22h3.1V8.4ZM3.65 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM22 13.7c0-4.1-2.2-6-5.1-6a4.4 4.4 0 0 0-3.9 2.1V8.4H9.9V22H13v-7.1c0-1.9.4-3.7 2.7-3.7s2.4 2.1 2.4 3.8V22h3.1l.8-8.3Z"/>
+            </svg>
+          </a>
+          <a href="mailto:alb2376@columbia.edu" aria-label="Email Aqila Bakri">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.5l9 6 9-6V7H3Zm18 10V9.9l-8.4 5.6a1 1 0 0 1-1.1 0L3 9.9V17h18Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-bar">
+      <div class="tab-switch" role="tablist" aria-label="Portfolio section">
+        <button type="button" class="tab-circle tab-circle--architecture active" data-tab="architecture" role="tab" aria-selected="true">architecture</button>
+        <button type="button" class="tab-circle tab-circle--computation" data-tab="computation" role="tab" aria-selected="false">computation</button>
+        <button type="button" class="tab-circle tab-circle--professional" role="tab" aria-selected="false" aria-disabled="true" disabled title="coming soon">professional</button>
+      </div>
+      <span class="landing-page" aria-hidden="true">1</span>
+    </div>
+  </section>
+
+  <div id="site-content">
+
+  <header class="site-contact-bar">
+    <a class="site-contact-name" href="#site-content">Aqila Bakri</a>
+    <nav class="site-contact-links" aria-label="Contact">
+      <a href="mailto:alb2376@columbia.edu" aria-label="Email Aqila Bakri" title="alb2376@columbia.edu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.5l9 6 9-6V7H3Zm18 10V9.9l-8.4 5.6a1 1 0 0 1-1.1 0L3 9.9V17h18Z"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/in/aqila-bakri" aria-label="LinkedIn profile" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5.2 8.4H2.1V22h3.1V8.4ZM3.65 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM22 13.7c0-4.1-2.2-6-5.1-6a4.4 4.4 0 0 0-3.9 2.1V8.4H9.9V22H13v-7.1c0-1.9.4-3.7 2.7-3.7s2.4 2.1 2.4 3.8V22h3.1l.8-8.3Z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ARCHITECTURE -->
+  <section class="category-panel" data-category="architecture">
+
+    <!-- Contents: fills one screen; the open project follows below. -->
+    <div class="discipline-cover" id="architecture-index">
+
+    <div class="discipline-intro">
+      <p class="discipline-eyebrow">Selected Studio Work</p>
+      <h2 class="discipline-heading">architecture.</h2>
+    </div>
+
+    <!-- Project index: thumbnails live in assets/architecture/index/01-04.jpg -->
+    <nav class="project-tabs project-index" data-group="architecture" aria-label="Architecture projects">
+      <button type="button" class="project-tab active" data-project="jakarta">
+        <img src="assets/architecture/index/01.jpg" alt="">
+        <span class="project-index-num">01</span>
+        <span class="project-index-title">why are you shopping in my backyard?</span>
+      </button>
+      <button type="button" class="project-tab" data-project="chicago">
+        <img src="assets/architecture/index/02.jpg" alt="">
+        <span class="project-index-num">02</span>
+        <span class="project-index-title">the 5th facade.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="faux">
+        <img src="assets/architecture/index/03.jpg" alt="">
+        <span class="project-index-num">03</span>
+        <span class="project-index-title">faux.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="soho">
+        <img src="assets/architecture/index/04.jpg" alt="">
+        <span class="project-index-num">04</span>
+        <span class="project-index-title">urban symbiosis.</span>
+      </button>
+    </nav>
+
+    <a class="scroll-hint" href="#architecture-projects">scroll<span aria-hidden="true"></span></a>
+    </div>
+
+    <div class="project-list" id="architecture-projects">
+
+      <!--
+        Projects are laid out as portfolio spreads. Each spread's image is the PDF page with
+        the body text painted out; the text below sits on top of it at the same position.
+        Positions are % of the spread (--x/--y/--w); sizes scale with the spread width (cqw).
+        Mobile shows the two pages stacked (-l/-r images, text kept in them) with the text below.
+      -->
+
+      <!-- PROJECT: JAKARTA -->
+      <article class="project-block project-spreads" data-group="architecture" data-project="jakarta">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>01</span> why are you shopping in my backyard?</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" style="--x:35.29;--y:0;--w:64.71;--h:99.96;--pos:100% 100%" src="assets/architecture/spreads/fig/jakarta-1-hero.jpg" alt="Typology for the Neoliberal City - cutaway facade render of the Butik intervention" loading="lazy">
+            <div class="spread-halves"><img src="assets/architecture/spreads/jakarta-1-l.jpg" alt="" loading="lazy"><img src="assets/architecture/spreads/jakarta-1-r.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text" style="--x:2.9;--y:4.2;--w:29.5">
+              <h3 class="spread-title">why are you shopping in my backyard?</h3>
+              <p class="spread-indent">Jakarta is a city shaped by overlapping forces of modernization, globalization, and colonization. This condition is evident in the stark duality between the kampung, an informal and socially embedded dwelling system, and the emerging typology of the &ldquo;suburb&rdquo; above a mall. This thesis is interested in looking at the architectural tools that have devised this transformation. Through looking at the social frameworks, and looking at what happens when the imported architectural system that was once unfamiliar, colonizes itself within the Indonesian domestic and how it has erased values of cohabitation, mutual assistance, autonomy, sociability, and intergenerational living, that was once an intrinsic element in the neighborhood.</p>
+              <p class="spread-indent">The intention of this thesis is to reimagine a housing typology that intervenes within and reconfigures these existing systems by identifying an intersection where both conditions can learn from one another. We proposed two interventions on two sides of the city, the neoliberal city and the kampung. Each intervention will be a new typology that imports operations that exist from the other side of the city. The typology of the neoliberal city will learn from the kampung and its operations of extendibility, cohabitation, mutual assistance, and economic generation. While the typology in the kampung will learn from the features of the neoliberal city. It will be made constructed modularly, efficiently, easily adaptable, and built using values of the circular economy. In addition to that, the typology also becomes a water infrastructure and a form of extended domesticity to empower the residents and provide necessary frameworks for the typically lacking kampung. In the end, these two typologies hope to challenge and hack our existing idea of domesticity and to provoke an alternative domesticity.</p>
+              <p class="spread-meta">Jakarta, ID<br>Professor Marcos Parga - Thesis and Thesis Preparation<br>Spring 2022 - Fall 2023</p>
+            </div>
+            <span class="spread-num" style="--r:67.6">01</span>
+          </div>
+        </section>
+
+        <!--
+          Inner pages use the "lp" layout: one screen each, same margins and text
+          style on every page; images keep their own shape and are sized by
+          screen height so a page never needs scrolling.
+        -->
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack" style="--w:73">
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:70" src="assets/architecture/spreads/fig/jakarta-2-hacking-toolkit.jpg" alt="Hacking Toolkit" loading="lazy">
+                  <img class="lp-img" style="--h:70" src="assets/architecture/spreads/fig/jakarta-2-neighborhood-toolkit.jpg" alt="Neighborhood Toolkit" loading="lazy">
+                </div>
+                <p class="lp-text">This thesis examines the architectural tools and frameworks that have driven the transformation between these conditions. It investigates how imported architectural systems have reshaped ideas of safety, work, and leisure, mutating values of cohabitation and mutual assistance into mechanisms of exclusion, control, and power. The initial part of the thesis aims to study and unfold the structural flaws in normalized models of modern and capitalistic living, and seek to identify the &ldquo;gray areas&rdquo; between these systems and propose an alternative spatial toolkit that operate between them, revealing how each condition depends on the other to exist.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img" style="--h:88" src="assets/architecture/spreads/fig/jakarta-2-city.jpg" alt="Hacking the City" loading="lazy">
+              <div class="lp-stack" style="--w:31">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/jakarta-2-kampung.jpg" alt="The Kampung" loading="lazy">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/jakarta-2-suburb.jpg" alt="The Suburb Above the Mall" loading="lazy">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/jakarta-2-glitching.jpg" alt="Glitching the Conditions" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:110">
+                <img class="lp-img" style="--h:30" src="assets/architecture/spreads/fig/jakarta-3-urban-diagrams.jpg" alt="Jakarta's centralization and affordability diagrams" loading="lazy">
+                <p class="lp-text">To propose a new typology, this thesis first examines the development of Jakarta&rsquo;s two contrasting urban conditions. Rapid urbanization has produced a hyper-centralized city that remains highly unaffordable for the majority of its inhabitants. The neoliberal city emerged through distorted public and private relationships and corrupt incentive structures, resulting in hyper-development and deeply exclusive environments. In contrast, the kampung evolved through bottom-up, self-initiated processes as a survival strategy, shaped by collective resilience and the formation of strong social and spatial networks. Characterized by flexibility, adaptability, and resilience, the kampung supports everyday life in ways absent from the neoliberal city. Based on this understanding, the thesis proposes two domestic prototypes located on opposing sides of the city, each importing operations from the other to hack, glitch, and challenge conventional notions of domestic space.</p>
+                <img class="lp-img" style="--h:38" src="assets/architecture/spreads/fig/jakarta-3-incentive-diagrams.jpg" alt="1:3:6 rule and FAR incentive diagrams" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--fit" style="--w:40;--hh:86">
+                <img class="lp-img" style="--h:33.05" src="assets/architecture/spreads/fig/jakarta-4-how-does-this-work.jpg" alt="How Does This Work - site selection operations" loading="lazy">
+                <img class="lp-img" style="--h:25" src="assets/architecture/spreads/fig/jakarta-4-site-selection.jpg" alt="Site selection map" loading="lazy">
+                <p class="lp-text">The first intervention on the neoliberal side of the city applies spatial and social operations derived from the kampung to reintroduce values absent from contemporary Indonesian domesticity. Responding to extreme density and unaffordability, the project is situated on a narrow, elongated site and organized as a multi-unit, open-frame structure that allows for customization, extension, and organic growth over time. Drawing from kampung practices, the typology integrates economic-generating spaces that combine living and working, enabling flexible income opportunities for residents. Shared domestic spaces such as kitchens and laundry areas further promote social interaction and collective use, reinforcing community within the housing model.</p>
+              </div>
+              <img class="lp-img" style="--h:86" src="assets/architecture/spreads/fig/jakarta-4-typology-column.jpg" alt="Typology for the Neoliberal City - site condition, basic framework, program diagram, intervention" loading="lazy">
+              <img class="lp-img lp-img--gap" style="--h:86" src="assets/architecture/spreads/fig/jakarta-3-activated.jpg" alt="Typology for the Neoliberal City - Activated" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img" style="--h:72" src="assets/architecture/spreads/fig/jakarta-4-structural.jpg" alt="Typology for the Neoliberal City - Structural Framework" loading="lazy">
+              <img class="lp-img" style="--h:72" src="assets/architecture/spreads/fig/jakarta-4-activated-on-site.jpg" alt="Typology for the Neoliberal City - Activated on Site" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--fit" style="--w:40;--hh:86">
+                <img class="lp-img" style="--h:32.6" src="assets/architecture/spreads/fig/jakarta-5-material-circulation.jpg" alt="Material Circulation - The Issue" loading="lazy">
+                <img class="lp-img" style="--h:26.9" src="assets/architecture/spreads/fig/jakarta-5-issues.jpg" alt="Water and lack of space issues" loading="lazy">
+                <p class="lp-text">The second intervention introduces features of the neoliberal city into the kampung to address issues of inadequate infrastructure and poor development. While the kampung embodies an alternative domesticity, it often lacks access to basic resources such as water and sufficient domestic space. To respond, the proposal applies circular economy principles through a modular framework that reuses materials from the neoliberal city and can adapt to different kampung sites. This framework integrates water infrastructure, shared and rentable domestic spaces, and customizable structures to empower residents while provoking a rethinking of conventional domestic space.</p>
+              </div>
+              <img class="lp-img" style="--h:86" src="assets/architecture/spreads/fig/jakarta-5-typology-column.jpg" alt="Typology for the Kampung - modular construction, circular economy, program, intervention" loading="lazy">
+              <div class="lp-stack lp-img--gap">
+                <img class="lp-img" style="--h:41.8" src="assets/architecture/spreads/fig/jakarta-5-structural.jpg" alt="Typology for the Kampung - Structural Framework" loading="lazy">
+                <img class="lp-img" style="--h:41.8" src="assets/architecture/spreads/fig/jakarta-6-configurations.jpg" alt="Typology for the Kampung - Activated Configurations" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img" style="--h:72" src="assets/architecture/spreads/fig/jakarta-6-perspective.jpg" alt="Typology for the Kampung - Activated Perspective" loading="lazy">
+              <img class="lp-img" style="--h:72" src="assets/architecture/spreads/fig/jakarta-5-activated-on-site.jpg" alt="Typology for the Kampung - Activated on Site" loading="lazy">
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROJECT: CHICAGO -->
+      <article class="project-block project-spreads" data-group="architecture" data-project="chicago" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>02</span> the 5th facade.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" style="--x:35.29;--y:0;--w:64.71;--h:98.78;--pos:100% 100%" src="assets/architecture/spreads/fig/chicago-1-roof-plan.jpg" alt="Roof Plan - Fieldhouse as a Public Space" loading="lazy">
+            <div class="spread-halves"><img src="assets/architecture/spreads/chicago-1-l.jpg" alt="" loading="lazy"><img src="assets/architecture/spreads/chicago-1-r.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text" style="--x:2.9;--y:4.2;--w:29.7">
+              <h3 class="spread-title">the 5th facade.</h3>
+              <p class="spread-indent">Located between Lake Shore Drive and Lake Michigan, the currently underutilized DuSable Park presents an opportunity to reintroduce public life and activate the site through architecture. The project engages the park from the elevated highway, creating a seamless transition from the flyover onto the building&rsquo;s roof, where visitors are gradually drawn down through the site while remaining visually connected to Lake Michigan. This continuous movement blurs the boundary between infrastructure, landscape, and architecture, transforming circulation into an experiential journey.</p>
+              <p class="spread-indent">The project takes the form of a fieldhouse that accommodates a wide range of community-oriented and active programs. Beyond activating the interior, the design emphasizes the importance of the roof as a &ldquo;fifth facade,&rdquo; transforming it into a fully usable public space. By doing so, the project effectively returns the square footage occupied by the building back to the park, ensuring that public access and open space remain central to the intervention.</p>
+              <p class="spread-indent">A habitable sloped roof links the public flyover directly to the park, serving as circulation, gathering space, and a flexible platform for public activities. The design is driven by a continuous grid system, optimized daylighting, and a strong emphasis on accessibility, shaping the project from the below-grade lobby to the roofscape and surrounding landscape. The project also carefully integrates structural systems, passive energy strategies, and coordinated mechanical and green roof systems. Together, these elements form a cohesive public infrastructure that unifies architecture, movement, and landscape into a single, continuous experience.</p>
+              <p class="spread-meta">Chicago, IL<br>Professor Joel Kerner - Comprehensive Studio<br>Spring 2021<br>in collaboration with Tiffany Chen</p>
+            </div>
+            <span class="spread-num" style="--r:67.4">02</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img lp-img--max" src="assets/architecture/spreads/fig/chicago-long-section.jpg" alt="Long section through the multipurpose halls" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img lp-img--max" src="assets/architecture/spreads/fig/chicago-short-section.jpg" alt="Short section through the fieldhouse core and park" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:47.4" src="assets/architecture/spreads/fig/chicago-plan-lower.jpg" alt="Lower floor plan" loading="lazy">
+              <img class="lp-img" style="--h:86" src="assets/architecture/spreads/fig/chicago-plan-ground.jpg" alt="Ground floor plan" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img lp-img--max" src="assets/architecture/spreads/fig/chicago-diagrams.jpg" alt="Program, circulation, passive ventilation, structural, HVAC and urban heat island diagrams" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:45" src="assets/architecture/spreads/fig/chicago-detail-1.jpg" alt="Detailed isometric chunk through entrance and atrium, with wall sections" loading="lazy">
+              <img class="lp-img" style="--h:45" src="assets/architecture/spreads/fig/chicago-detail-2.jpg" alt="Detailed isometric chunk and wall sections through the multipurpose hall" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:31.5" src="assets/architecture/spreads/fig/chicago-3-perspective-roof.jpg" alt="Perspective from sloped roof looking towards lake" loading="lazy">
+              <img class="lp-img" style="--h:31.5" src="assets/architecture/spreads/fig/chicago-3-perspective-hall.jpg" alt="Perspective inside multipurpose hall" loading="lazy">
+              <img class="lp-img" style="--h:31.5" src="assets/architecture/spreads/fig/chicago-3-perspective-entrance.jpg" alt="Perspective from entrance" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" style="--x:0;--y:0;--w:100;--h:99.96;--pos:50% 60%" src="assets/architecture/spreads/fig/chicago-4-site-isometric.jpg" alt="Site isometric" loading="lazy">
+            <div class="spread-halves"><img src="assets/architecture/spreads/chicago-4-l.jpg" alt="" loading="lazy"><img src="assets/architecture/spreads/chicago-4-r.jpg" alt="" loading="lazy"></div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROJECT: FAUX -->
+      <article class="project-block project-spreads" data-group="architecture" data-project="faux" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>03</span> faux.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" style="--x:35.29;--y:0;--w:64.71;--h:99.96;--pos:100% 100%" src="assets/architecture/spreads/fig/faux-1-sound-plan.jpg" alt="Diagrammatic plan of sound distribution in space" loading="lazy">
+            <div class="spread-halves"><img src="assets/architecture/spreads/faux-1-l.jpg" alt="" loading="lazy"><img src="assets/architecture/spreads/faux-1-r.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text spread-text--tight" style="--x:2.9;--y:4.2;--w:29.6">
+              <h3 class="spread-title">faux.</h3>
+              <p class="spread-indent">The project, situated at Onondaga Lake in Syracuse, addresses the urgent climate crisis by examining the impact of human intervention on natural systems. From a geological perspective, rapid industrialization, particularly chemical contamination of the lake&rsquo;s soils, has altered the environment at an unprecedented rate. The first phase of research focused on soil contamination and ecological degradation, combining scientific analysis with artistic interpretation to reveal both measurable and sensorial dimensions of environmental change. Collaborating with the Geological Department at the University, the project explored observable ways to document soil decay and understand the extensive damage caused by industrial pollutants.</p>
+              <p class="spread-indent">Building on the research, the project uses sensory experiences to communicate climate decay, inspired by Olafur Eliasson&rsquo;s Weather Project. It creates a monument that commemorates current environmental conditions for &ldquo;the day after tomorrow,&rdquo; a future in which ecosystems may be irreversibly altered. Visitors first encounter a space filled with natural ambient sounds from the surrounding lake, such as wind, birdsong, and water, creating a sense of comfort and familiarity. As they move into the second interior space, these familiar sounds become disembodied and limited, as they go through the space they will encounter that these sounds are generated using techniques inspired by Foley artists. Here, visitors actively influence the soundscape, surrounded by artificial materials, fabricated textures, and manipulated spatial forms that challenge their perception of the environment and highlight the interplay between natural and human-made experiences.</p>
+              <p class="spread-indent">Sound serves as the primary medium to highlight environmental changes that may be lost or altered due to increasingly volatile weather patterns and flooding. The design embodies decay through incorporating elements such as a central tree, rusting copper materials, and visualizations of soil degradation on the monument walls, drawn from the initial research. By combining scientific observation, artistic interpretation, and sensory engagement, the project documents environmental transformation while immersing visitors in the emotional and tangible consequences of human impact on nature.</p>
+              <p class="spread-meta">Syracuse, NY<br>Professor Yutaka Sho<br>Spring 2020<br>in collaboration with Thomas Brossi &amp; Muskaan Pathak</p>
+            </div>
+            <span class="spread-num" style="--x:2.6">03</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <div class="lp-stack" style="--w:62">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-2-sample-locations.jpg" alt="Location of samples" loading="lazy">
+                <p class="lp-text">In the initial phase of the research, we collected 12 soil samples from six locations around Onondaga Lake to analyze their organic matter content. With the help of the engineering department we experimented with soil chromatography to visualize contamination, with vibrant patterns indicating higher organic content and darker areas reflecting more polluted soil.</p>
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-2-soil-maps.jpg" alt="Hydric soil map and organic soil map" loading="lazy">
+              </div>
+              <div class="lp-stack lp-stack--spread" style="--w:80">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-2-soil-samples.jpg" alt="Soil samples" loading="lazy">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-2-chromatography.jpg" alt="Soil chromatography strips" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img lp-img--max" src="assets/architecture/spreads/fig/faux-model.jpg" alt="Material study model" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:66" src="assets/architecture/spreads/fig/faux-3-recording-locations.jpg" alt="Locations where sounds were recorded from surrounding area" loading="lazy">
+              <img class="lp-img" style="--h:40" src="assets/architecture/spreads/fig/faux-3-tree-study.jpg" alt="Tree shading tolerance - current condition 2020 and future condition 2040" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack" style="--w:136">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-section-2030.jpg" alt="Year 2030 - section depicting the progression from the first listening space to the Foley space" loading="lazy">
+                <img class="lp-img lp-img--fill" src="assets/architecture/spreads/fig/faux-section-2040.jpg" alt="Year 2040 - section depicting the progression and evolution of the building" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:30" src="assets/architecture/spreads/fig/faux-entry.jpg" alt="Entry to monument" loading="lazy">
+                <figcaption class="lp-cap">entry to monument</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:30" src="assets/architecture/spreads/fig/faux-listening-space.jpg" alt="First space - listening space" loading="lazy">
+                <figcaption class="lp-cap">first space - listening space</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:30" src="assets/architecture/spreads/fig/faux-sound-space.jpg" alt="Second space - sound creating space" loading="lazy">
+                <figcaption class="lp-cap">second space - sound creating space</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROJECT: SOHO -->
+      <article class="project-block project-spreads" data-group="architecture" data-project="soho" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>04</span> urban symbiosis.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="computation">computation <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" style="--x:35.29;--y:0;--w:64.71;--h:99.96;--pos:100% 100%" src="assets/architecture/spreads/fig/soho-1-perspective.jpg" alt="Perspective of the activated artist village" loading="lazy">
+            <div class="spread-halves"><img src="assets/architecture/spreads/soho-1-l.jpg" alt="" loading="lazy"><img src="assets/architecture/spreads/soho-1-r.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text" style="--x:2.9;--y:4.2;--w:29.7">
+              <h3 class="spread-title">urban symbiosis.</h3>
+              <p class="spread-indent">Situated in the rapidly urbanizing yet increasingly exclusive neighborhood of SoHo, this project operates as an urban proposal to decommodify the area. Once an artist hub, SoHo has gradually transformed into a landscape dominated by luxury housing and high-end retail, displacing the dynamic artistic culture that originally defined it. During a semester-long program in New York, our interest was sparked by the presence of street graffiti, whose spontaneity and vandalism function as acts of rebellion and as traces of an artistic identity that persists beneath billboards and high-rise developments.</p>
+              <p class="spread-indent">The project proposes a kit-of-parts system that invites artists back into SoHo through the creation of an affordable artist cooperative. This cooperative supports collective living and working, decommodified art production, public engagement with art, and flexible, adaptable domestic spaces. Rather than nostalgically preserving a past image of SoHo, the project seeks to reintroduce artistic life and domesticity through architectural intervention.</p>
+              <p class="spread-indent">Developed in collaboration with a real estate course, the project critically engages with the financial systems that have driven displacement and gentrification. By studying zoning tools such as FAR and existing affordability frameworks in New York City, the proposal introduces an artist-run cooperative housing model that operates symbiotically with private developers. The project ultimately negotiates between market forces and community needs, proposing a non-speculative housing model that preserves SoHo&rsquo;s built and intangible histories while allowing new actors to participate in shaping its future.</p>
+              <p class="spread-meta">New York, NY<br>Professor Angie Co - Urban Studio<br>Spring 2021<br>in collaboration with Ellie Derwenskus &amp; Protik Choudhuri</p>
+            </div>
+            <span class="spread-num" style="--r:67.4">04</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp spread--dark">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center lp-stack--rows">
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:50" src="assets/architecture/spreads/fig/soho-problem.jpg" alt="Artist and affordability - the problem" loading="lazy">
+                  <img class="lp-img" style="--h:50" src="assets/architecture/spreads/fig/soho-coops.jpg" alt="Taking inspiration from current NY artist co-ops" loading="lazy">
+                </div>
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:32" src="assets/architecture/spreads/fig/soho-investment.jpg" alt="Investment highlights - developers and artists" loading="lazy">
+                  <img class="lp-img" style="--h:32" src="assets/architecture/spreads/fig/soho-financial-1.jpg" alt="Financial summary - market rate fragment" loading="lazy">
+                  <img class="lp-img" style="--h:32" src="assets/architecture/spreads/fig/soho-financial-2.jpg" alt="Financial summary - artist fragment" loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp spread--dark">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:58" src="assets/architecture/spreads/fig/soho-kit-of-parts.jpg" alt="Artist Village - a kit of parts" loading="lazy">
+              <img class="lp-img" style="--h:58" src="assets/architecture/spreads/fig/soho-organization.jpg" alt="The Artist Co-op Village organization" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <img class="lp-img lp-img--max" src="assets/architecture/spreads/soho-site-axon.gif" alt="Site axon and fragments animation" loading="lazy">
+            </div>
+            <a class="scroll-hint scroll-hint--page" href="#soho-video">scroll for video<span aria-hidden="true"></span></a>
+          </div>
+        </section>
+
+        <section class="spread spread--lp" id="soho-video">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-embed">
+                <iframe src="https://www.youtube-nocookie.com/embed/swE2a1InbFw?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Urban Symbiosis - project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- COMPUTATION -->
+  <section class="category-panel" data-category="computation" style="display:none;">
+
+    <!-- Contents: fills one screen; the open project follows below. -->
+    <div class="discipline-cover" id="computation-index">
+
+    <div class="discipline-intro">
+      <p class="discipline-eyebrow">Selected Computational Work</p>
+      <h2 class="discipline-heading">computation.</h2>
+    </div>
+
+    <!-- Project index: thumbnails live in assets/computation/index/01-04.jpg -->
+    <nav class="project-tabs project-index" data-group="computation" aria-label="Computation projects">
+      <button type="button" class="project-tab active" data-project="sidewalk">
+        <img src="assets/computation/index/01.jpg" alt="">
+        <span class="project-index-num">01</span>
+        <span class="project-index-title">not on my sidewalk!</span>
+      </button>
+      <button type="button" class="project-tab" data-project="mapping">
+        <img src="assets/computation/index/02.jpg" alt="">
+        <span class="project-index-num">02</span>
+        <span class="project-index-title">mapping active sidewalk sheds.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="modeling">
+        <img src="assets/computation/index/03.jpg" alt="">
+        <span class="project-index-num">03</span>
+        <span class="project-index-title">scaffolding daylight analysis tool. (wip)</span>
+      </button>
+    </nav>
+
+    <a class="scroll-hint" href="#computation-projects">scroll<span aria-hidden="true"></span></a>
+    </div>
+
+    <div class="project-list" id="computation-projects">
+
+      <!-- PROJECT: NOT ON MY SIDEWALK! (colloquium-i) -->
+      <article class="project-block project-spreads" data-group="computation" data-project="sidewalk">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>01</span> not on my sidewalk!</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/computation/sidewalk/poster.jpg" alt="not on my sidewalk! - glitch drawing of sidewalk scaffolding in Central Harlem" loading="lazy">
+            <div class="spread-halves"><img src="assets/computation/sidewalk/poster.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">not on my sidewalk!</h3>
+              <p class="spread-indent">This research began with a precedent: MIT Senseable City Lab&rsquo;s Trash Track, which tagged discarded objects to follow them through Seattle&rsquo;s waste system, combining sensors with community participation to make an invisible infrastructure visible. Reading Carlo Ratti&rsquo;s Open Source Architecture and Dietmar Offenhuber&rsquo;s Waste Is Information, I became interested in infrastructure as something that can be read through the information it leaves behind.</p>
+              <p class="spread-indent">Texts such as Glitch Feminism, QueerOS, and Race After Technology reframed the glitch not as an error to fix, but as evidence: a moment that exposes the gap between how a system is supposed to work and how it actually works. This led to the question of how glitching can serve as a methodology for revealing invisible infrastructures, making urban systems more legible, and encouraging more participatory and open approaches to urbanism.</p>
+              <p class="spread-indent">The experiment focuses on sidewalk scaffolding in New York City. Meant to be temporary, many sidewalk sheds stand for years because leaving them up is cheaper than repairing the fa&ccedil;ade, a glitch in the city&rsquo;s regulatory system. Mapping NYC Open Data led to Central Harlem, where sheds are both dense and long-standing, and to a drawing in which a magnifying glass reveals how many days each structure has stood.</p>
+              <p class="spread-meta">Central Harlem, NY<br>Professors Catherine Griffiths and Celeste Layne - Colloquium I<br><a href="https://alb2376-stack.github.io/colloquium-i/" target="_blank" rel="noopener">view project site &nearr;</a></p>
+            </div>
+            <span class="spread-num">01</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <div class="magnify" style="--h:88" tabindex="0" aria-label="Interactive drawing: move the magnifying glass over it to look closer">
+                <img class="magnify-img" src="assets/computation/sidewalk/poster.jpg" data-large="assets/computation/sidewalk/poster-large.jpg" data-tiles="assets/computation/sidewalk/tiles/" data-full-w="10802" data-full-h="21602" data-tile="1024" alt="not on my sidewalk! - glitch drawing of sidewalk scaffolding in Central Harlem">
+                <canvas class="magnify-lens" aria-hidden="true"></canvas>
+              </div>
+              <div class="lp-stack" style="--w:100">
+                <p class="lp-head">visualizing the hidden layer</p>
+                <p class="magnify-hint"><span aria-hidden="true">&#9906;</span> hover over the drawing to use the magnifying glass. scroll while hovering to zoom in further and read how many days each scaffold has been standing.</p>
+                <div class="lp-row lp-row--bottom">
+                  <img class="lp-img" style="--h:24" src="assets/computation/sidewalk/days-357.jpg" alt="Detail - 357 days" loading="lazy">
+                  <img class="lp-img" style="--h:24" src="assets/computation/sidewalk/days-1519.jpg" alt="Detail - 1519 days" loading="lazy">
+                  <img class="lp-img" style="--h:24" src="assets/computation/sidewalk/days-2057.jpg" alt="Detail - 2057 days" loading="lazy">
+                  <img class="lp-img" style="--h:24" src="assets/computation/sidewalk/days-2923.jpg" alt="Detail - 2923 days" loading="lazy">
+                </div>
+                <p class="lp-text">From a distance, the drawing shows the distribution of sidewalk sheds throughout Central Harlem. Up close, another layer appears: each structure carries the number of days it has been standing, uncovered with a magnifying glass. The interaction mirrors the infrastructure itself. We see scaffolding every day, but not how long it has been there or why. The visualization glitches through its layers, one showing what we normally see, the other revealing what is hidden underneath.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:146">
+                <p class="lp-head">precedent study: trash track (2009)</p>
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:40" src="assets/computation/sidewalk/trashtrack-map.jpg" alt="Trash Track - visualization of tracked trash routes across the United States" loading="lazy">
+                  <img class="lp-img" style="--h:40" src="assets/computation/sidewalk/trashtrack-site.jpg" alt="Trash Track project website" loading="lazy">
+                </div>
+                <p class="lp-text">My research started with this precedent. Led by Carlo Ratti, Dietmar Offenhuber, and Assaf Biderman at the MIT Senseable City Lab, Trash Track was one of the first projects to follow discarded objects through a city&rsquo;s waste system. Electronic tags traced where trash traveled in Seattle, revealing infrastructure that usually remains invisible. Alongside the sensors, researchers worked with volunteers and the community to collect and track different types of waste, combining digital tracking with crowdsourced data to understand how the system actually operated.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:150">
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:38" src="assets/computation/sidewalk/book-open-source.jpg" alt="Open Source Architecture - Carlo Ratti" loading="lazy">
+                  <img class="lp-img" style="--h:38" src="assets/computation/sidewalk/book-waste.jpg" alt="Waste Is Information - Dietmar Offenhuber" loading="lazy">
+                  <img class="lp-img" style="--h:38" src="assets/computation/sidewalk/book-glitch-feminism.jpg" alt="Glitch Feminism - Legacy Russell" loading="lazy">
+                  <img class="lp-img" style="--h:38" src="assets/computation/sidewalk/book-race-after-tech.jpg" alt="Race After Technology - Ruha Benjamin" loading="lazy">
+                </div>
+                <div class="lp-row lp-row--text">
+                  <div>
+                    <p class="lp-head">infrastructure as information</p>
+                    <p class="lp-text">Ratti describes open-source architecture as an evolution of the vernacular: local knowledge and informal practice connected through global networks, with communities taking part in shaping the built environment. Offenhuber treats waste as information. Its traces point to an information deficit, clues about how infrastructure, governance, and urban systems actually work.</p>
+                  </div>
+                  <div>
+                    <p class="lp-head">glitch as a methodology</p>
+                    <p class="lp-text">Glitch Feminism, QueerOS, and Race After Technology read glitches and crashes not simply as errors, but as moments that reveal inefficiencies, discrepancies, and biases within larger systems. Instead of problems to fix, glitches become opportunities for investigation, a form of evidence that makes invisible systems visible.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:120">
+                <p class="lp-head">research question</p>
+                <p class="lp-quote">How can glitching serve as a methodology for revealing invisible infrastructures, making urban systems more legible, and encouraging more participatory and open approaches to urbanism?</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:58" src="assets/computation/sidewalk/observation.jpg" alt="Collage of sidewalk scaffolding in use across New York City" loading="lazy">
+              <div class="lp-stack" style="--w:48">
+                <p class="lp-head">observation: sidewalk scaffolding</p>
+                <p class="lp-text">Scaffolding is meant to be temporary, installed to protect pedestrians while buildings undergo fa&ccedil;ade inspections or repairs. Yet many sidewalk sheds stay up for years, sometimes decades. Fa&ccedil;ades are inspected every five years, and when repairs are expensive it is often cheaper to leave the shed standing than to fix the building, a gap between how the policy is supposed to work and what actually happens.</p>
+                <p class="lp-text">Meanwhile, scaffolding transforms the sidewalk into covered walkways, gathering spaces, places for vendors, advertising surfaces, and extensions of nearby businesses. What begins as a temporary safety structure slowly becomes part of everyday infrastructure.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <div class="lp-stack" style="--w:105">
+                <p class="lp-head">mapping the glitch</p>
+                <div class="lp-row">
+                  <img class="lp-img" style="--h:45" src="assets/computation/sidewalk/map-age.jpg" alt="Average sidewalk shed age by community district" loading="lazy">
+                  <img class="lp-img" style="--h:45" src="assets/computation/sidewalk/map-concentration.jpg" alt="Sidewalk shed concentration by community district" loading="lazy">
+                </div>
+                <p class="lp-text">Using NYC Open Data, I mapped the location and duration of sidewalk scaffolding across the city. Concentration peaks in Midtown Manhattan, but Central Harlem stood out with both a large number of sheds and many that have stood for a long time. As a case study, it asks what density and age can reveal about the systems behind them: delayed maintenance, uneven enforcement, disinvestment, or municipal neglect.</p>
+                <p class="lp-text">I developed these maps further into an interactive citywide map of every active sidewalk shed, shown in project 02.</p>
+                <button type="button" class="lp-link" data-jump="mapping">see 02 mapping active sidewalk sheds &rarr;</button>
+              </div>
+              <figure class="lp-fig lp-fig--top">
+                <figcaption class="lp-cap">central harlem - sidewalk shed age map</figcaption>
+                <img class="lp-img" style="--h:80" src="assets/computation/sidewalk/harlem-age.jpg" alt="Central Harlem - sidewalk shed age map, color showing days since first permit" loading="lazy">
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:58" src="assets/computation/sidewalk/gesture.jpg" alt="Alternative prototype - informal gestures under scaffolding" loading="lazy">
+              <div class="lp-stack" style="--w:50">
+                <p class="lp-head">informal urban gestures</p>
+                <p class="lp-text">When scaffolding stays up long enough, people adapt it: a shelter from the rain, a place for vendors, somewhere to gather, a surface for signs, an extension of a nearby business. These small, informal gestures give infrastructure functions it was never meant to have.</p>
+                <p class="lp-text">Scaffolding represents two kinds of glitches. The first is institutional, held in place by regulatory loopholes, delayed repairs, and maintenance issues. The second is spatial and social: because it remains for so long, people appropriate it into an unintended form of public infrastructure.</p>
+                <a class="lp-link" href="https://alb2376-stack.github.io/colloquium-i/" target="_blank" rel="noopener">view project site &nearr;</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROJECT: MAPPING ACTIVE SIDEWALK SHEDS (mapping-systems-scaffolding) -->
+      <article class="project-block project-spreads" data-group="computation" data-project="mapping" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>02</span> mapping active sidewalk sheds.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/computation/mapping/site.jpg" alt="Mapping Active Sidewalk Sheds in NYC - website" loading="lazy">
+            <div class="spread-halves"><img src="assets/computation/mapping/site.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">mapping active sidewalk sheds.</h3>
+              <p class="spread-indent">This project grew out of the mapping stage of not on my sidewalk!. Where my first project used the data to find a case study, here I turned it into a public, interactive tool: every active sidewalk shed permit in New York City, 7,511 sheds across 59 community districts, mapped and compared district by district.</p>
+              <p class="spread-indent">I built it in Python with pandas and geopandas from NYC Open Data and MapPLUTO. The site reads the city through four lenses: all sheds, sheds by district, sidewalk coverage, and an estimated cost of keeping each shed standing. Hovering any shed reveals its address, length, and how long it has stood.</p>
+              <p class="spread-indent">Together, the two projects take my research from observation to evidence. The glitch identified in Central Harlem becomes measurable citywide, showing where scaffolding has quietly become permanent infrastructure and making the system behind it legible to anyone.</p>
+              <p class="spread-meta">New York, NY<br>Professor Mario Giampieri - Mapping Systems<br><a href="https://alb2376-stack.github.io/mapping-systems-scaffolding/" target="_blank" rel="noopener">open live map &nearr;</a></p>
+            </div>
+            <span class="spread-num">02</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp-frame">
+              <iframe src="https://alb2376-stack.github.io/mapping-systems-scaffolding/" title="Mapping Active Sidewalk Sheds in NYC - interactive map" loading="lazy"></iframe>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROJECT: COMPUTATIONAL MODELING (WIP) -->
+      <article class="project-block project-spreads" data-group="computation" data-project="modeling" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>03</span> scaffolding daylight analysis tool. (wip)</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="architecture">architecture <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/computation/modeling/poster.jpg" alt="Scaffolding Daylight Analysis Tool - a Grasshopper tool" loading="lazy">
+            <div class="spread-halves"><img src="assets/computation/modeling/poster.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">scaffolding daylight analysis tool. (wip)</h3>
+              <p class="spread-indent">The Seasonal Cost of a Loophole: Daylight Under NYC Scaffolding. Scaffolding in New York is supposed to be temporary, but in neighborhoods like Central Harlem it can start to feel permanent. I built this analysis tool to measure what that permanence means for daylight on the sidewalk, and how the loss changes from season to season, especially in winter when daylight is already limited.</p>
+              <p class="spread-indent">The tool is made in Grasshopper with Ladybug. The workflow takes sidewalk geometry, weather and location data, and a season selector, builds scaffolding from curve surfaces and adds it as an obstruction, then runs a direct sun hours analysis with an hourly tally. As an experiment, I first tested it on every sidewalk in Central Harlem, then compared the same streets before and after scaffolding across spring, summer, fall, and winter.</p>
+              <p class="spread-indent">It continues my scaffolding research from not on my sidewalk! and the citywide map, shifting the question from where scaffolding is to what it does to the public realm.</p>
+              <p class="spread-meta">Central Harlem, NY<br>Professors Meli Harvey and Luc Wilson - Computational Design Modeling<br>Summer 2026 - work in progress</p>
+            </div>
+            <span class="spread-num">03</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:186">
+                <p class="lp-head">how the analysis tool works: daylight</p>
+                <img class="lp-img" style="--h:76" src="assets/computation/modeling/tool-diagram.jpg" alt="Tool diagram - inputs, analysis pipeline, and outputs" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center">
+              <div class="lp-stack lp-stack--center" style="--w:160">
+                <p class="lp-head">grasshopper techniques</p>
+                <img class="lp-img" style="--h:80" src="assets/computation/modeling/grasshopper.jpg" alt="Grasshopper definition - Ladybug direct sun analysis and scaffolding built from curve surfaces" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/computation/modeling/harlem-test.jpg" alt="First pass - direct sun hours across all Central Harlem sidewalks" loading="lazy">
+                <figcaption class="lp-cap">first pass - all sidewalks in central harlem</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/computation/modeling/before.jpg" alt="Direct sun hours before scaffolding" loading="lazy">
+                <figcaption class="lp-cap">before scaffolding</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/computation/modeling/after.jpg" alt="Direct sun hours after scaffolding" loading="lazy">
+                <figcaption class="lp-cap">after scaffolding</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/computation/modeling/seasons.gif" alt="Animation - direct sun hours throughout the seasons" loading="lazy">
+                <figcaption class="lp-cap">daylight throughout the seasons</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/computation/modeling/zoom.gif" alt="Animation - zoomed view of seasonal daylight at an intersection" loading="lazy">
+                <figcaption class="lp-cap">daylight throughout the seasons - zoom</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <img class="lp-img" style="--h:68" src="assets/computation/modeling/photos.jpg" alt="Sidewalk scaffolding and stoops in Central Harlem" loading="lazy">
+              <div class="lp-stack" style="--w:70">
+                <p class="lp-head">observation and conclusion</p>
+                <p class="lp-text">The same sidewalk can receive more than nine hours of direct sun in one season and almost none in another. Daylight is not a fixed condition, yet NYC&rsquo;s scaffolding policy does not account for these seasonal differences. A sidewalk with six to nine hours of summer sun can drop to zero to two hours in winter under the same shed, and the longer a shed stays up, the more it affects pedestrians.</p>
+                <p class="lp-text">This raises the question of whether shed duration and renewal should be treated the same throughout the year. Stricter policies and higher renewal costs could apply to scaffolding that stays up for long periods, especially at intersections with high pedestrian activity. At the same time, incentives could make scaffolding perform better as public infrastructure, providing shade in the summer while letting more daylight through in the winter. The question shifts from how to remove scaffolding faster to how temporary infrastructure can respond better to the conditions around it.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+
+
+    </div>
+  </section>
+
+  </div>
+
+  <script>
+    (function () {
+      var disciplineTabs = document.querySelectorAll('.tab-circle');
+      var panels = document.querySelectorAll('.category-panel');
+      var siteContent = document.getElementById('site-content');
+
+      function activateDiscipline(category, scroll) {
+        disciplineTabs.forEach(function (t) {
+          var isActive = t.dataset.tab === category;
+          t.classList.toggle('active', isActive);
+          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          p.style.display = (p.dataset.category === category) ? '' : 'none';
+        });
+        if (scroll) {
+          siteContent.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      disciplineTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          activateDiscipline(tab.dataset.tab, true);
+        });
+      });
+
+      function activateProject(group, project) {
+        document.querySelectorAll('.project-tabs[data-group="' + group + '"] .project-tab').forEach(function (t) {
+          t.classList.toggle('active', t.dataset.project === project);
+        });
+        document.querySelectorAll('.project-block[data-group="' + group + '"]').forEach(function (block) {
+          block.style.display = (block.dataset.project === project) ? '' : 'none';
+        });
+      }
+
+      document.querySelectorAll('.project-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var group = tab.closest('.project-tabs').dataset.group;
+          activateProject(group, tab.dataset.project);
+          // From the index, jump down to the project that just opened.
+          if (tab.closest('.project-index')) {
+            document.querySelector('.project-block[data-group="' + group + '"][data-project="' + tab.dataset.project + '"]')
+              .scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      activateDiscipline('architecture', false);
+
+      // Pan spreads: drag or scroll sideways; the hint shows only when the
+      // drawing is wider than the screen.
+      document.querySelectorAll('.spread--pan').forEach(function (spread) {
+        var track = spread.querySelector('.pan-track');
+        var img = track.querySelector('img');
+        function check() {
+          spread.classList.toggle('can-pan', track.scrollWidth > track.clientWidth + 2);
+          track.scrollLeft = 0;
+        }
+        if (img.complete) check(); else img.addEventListener('load', check);
+        window.addEventListener('resize', check);
+        track.addEventListener('scroll', function () {
+          if (track.scrollLeft > 20) spread.classList.add('has-panned');
+        });
+        var startX = 0, startLeft = 0, dragging = false;
+        track.addEventListener('pointerdown', function (e) {
+          if (e.pointerType !== 'mouse') return;
+          dragging = true; startX = e.clientX; startLeft = track.scrollLeft;
+          track.classList.add('is-dragging');
+          track.setPointerCapture(e.pointerId);
+        });
+        track.addEventListener('pointermove', function (e) {
+          if (dragging) track.scrollLeft = startLeft - (e.clientX - startX);
+        });
+        ['pointerup', 'pointercancel'].forEach(function (type) {
+          track.addEventListener(type, function () {
+            dragging = false;
+            track.classList.remove('is-dragging');
+          });
+        });
+        // Vertical wheel pans sideways until either end is reached.
+        track.addEventListener('wheel', function (e) {
+          if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+          var max = track.scrollWidth - track.clientWidth;
+          var atStart = track.scrollLeft <= 0 && e.deltaY < 0;
+          var atEnd = track.scrollLeft >= max - 1 && e.deltaY > 0;
+          if (max > 0 && !atStart && !atEnd) {
+            e.preventDefault();
+            track.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+      });
+
+      // A small arrow at the foot of every page that has another page after it.
+      document.querySelectorAll('.project-spreads .spread').forEach(function (spread) {
+        var next = spread.nextElementSibling;
+        while (next && !next.classList.contains('spread')) next = next.nextElementSibling;
+        if (!next || spread.querySelector('.scroll-hint--page')) return;
+        var arrow = document.createElement('button');
+        arrow.type = 'button';
+        arrow.className = 'page-arrow';
+        arrow.setAttribute('aria-label', 'Next page');
+        arrow.addEventListener('click', function () {
+          next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        spread.querySelector('.spread-page').appendChild(arrow);
+      });
+
+      // Title pages: jump straight to any project in the same group (01-04).
+      document.querySelectorAll('.project-spreads').forEach(function (article) {
+        var cover = article.querySelector('.spread--cover .spread-page');
+        if (!cover) return;
+        var group = article.dataset.group;
+        var projects = document.querySelectorAll('.project-block[data-group="' + group + '"]');
+        var nav = document.createElement('nav');
+        nav.className = 'cover-projects';
+        nav.setAttribute('aria-label', 'Projects');
+        projects.forEach(function (p, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = ('0' + (i + 1)).slice(-2);
+          var title = p.querySelector('.spread-title');
+          if (title) btn.title = title.textContent;
+          if (p === article) {
+            btn.classList.add('is-current');
+            btn.setAttribute('aria-current', 'page');
+          }
+          btn.addEventListener('click', function () {
+            if (p === article) return;
+            activateProject(group, p.dataset.project);
+            p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          nav.appendChild(btn);
+        });
+        cover.appendChild(nav);
+      });
+
+      // In-page links to another project in the same group (e.g. 01 -> 02).
+      document.querySelectorAll('[data-jump]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var group = link.closest('.project-block').dataset.group;
+          var target = document.querySelector('.project-block[data-group="' + group + '"][data-project="' + link.dataset.jump + '"]');
+          activateProject(group, link.dataset.jump);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Magnifying glass: a round lens follows the pointer and draws the
+      // drawing at full print resolution from 1024px tiles (loaded on demand),
+      // so the "days" numbers become readable. Scroll over it to zoom.
+      document.querySelectorAll('.magnify').forEach(function (box) {
+        var img = box.querySelector('.magnify-img');
+        var lens = box.querySelector('.magnify-lens');
+        var ctx = lens.getContext('2d');
+        var FW = +img.dataset.fullW, FH = +img.dataset.fullH, TS = +img.dataset.tile;
+        var base = img.dataset.tiles;
+        var scale = 0.9;            // full-res pixels -> screen pixels inside the lens
+        var tiles = {};
+        var mid = null;             // mid-resolution image for low zoom / while tiles load
+        var last = null;
+        var pending = false;
+
+        function tile(tx, ty) {
+          var key = tx + '-' + ty;
+          if (!tiles[key]) {
+            var t = new Image();
+            t.onload = function () { t.ready = true; redraw(); };
+            t.src = base + key + '.jpg';
+            tiles[key] = t;
+          }
+          return tiles[key];
+        }
+
+        function draw() {
+          pending = false;
+          if (!last) return;
+          var r = img.getBoundingClientRect();
+          var x = Math.min(Math.max(last.x - r.left, 0), r.width);
+          var y = Math.min(Math.max(last.y - r.top, 0), r.height);
+          var dpr = window.devicePixelRatio || 1;
+          var L = lens.offsetWidth;
+          if (lens.width !== Math.round(L * dpr)) { lens.width = lens.height = Math.round(L * dpr); }
+          lens.style.left = x + 'px';
+          lens.style.top = y + 'px';
+
+          // centre of the lens in full-resolution pixels, and the area it covers
+          var cx = x / r.width * FW, cy = y / r.height * FH;
+          var s = scale * dpr;
+          var half = lens.width / 2 / s;
+          var x0 = cx - half, y0 = cy - half, x1 = cx + half, y1 = cy + half;
+
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, lens.width, lens.height);
+          if (mid && mid.complete) {
+            var k = mid.naturalWidth / FW;
+            ctx.drawImage(mid, x0 * k, y0 * k, (x1 - x0) * k, (y1 - y0) * k, 0, 0, lens.width, lens.height);
+          }
+          if (scale >= 0.3) {
+            for (var ty = Math.max(0, Math.floor(y0 / TS)); ty <= Math.min(Math.floor((FH - 1) / TS), Math.floor(y1 / TS)); ty++) {
+              for (var tx = Math.max(0, Math.floor(x0 / TS)); tx <= Math.min(Math.floor((FW - 1) / TS), Math.floor(x1 / TS)); tx++) {
+                var t = tile(tx, ty);
+                if (t.ready) ctx.drawImage(t, (tx * TS - x0) * s, (ty * TS - y0) * s, t.naturalWidth * s, t.naturalHeight * s);
+              }
+            }
+          }
+        }
+
+        function redraw() {
+          if (!pending) { pending = true; requestAnimationFrame(draw); }
+        }
+
+        function start(e) {
+          if (!mid) { mid = new Image(); mid.onload = redraw; mid.src = img.dataset.large; }
+          box.classList.add('is-active');
+          last = { x: e.clientX, y: e.clientY };
+          redraw();
+        }
+
+        box.addEventListener('pointerenter', start);
+        box.addEventListener('pointerdown', start);
+        box.addEventListener('pointermove', function (e) { last = { x: e.clientX, y: e.clientY }; redraw(); });
+        box.addEventListener('pointerleave', function () { box.classList.remove('is-active'); });
+        box.addEventListener('wheel', function (e) {
+          if (!box.classList.contains('is-active')) return;
+          e.preventDefault();
+          scale = Math.min(2.5, Math.max(0.12, scale * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
+          redraw();
+        }, { passive: false });
+      });
+
+      // Project header: home, back to the contents, previous / next project.
+      document.querySelectorAll('.project-nav [data-go]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var article = btn.closest('.project-block');
+          var group = article.dataset.group;
+          var go = btn.dataset.go;
+          if (go === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+          if (go === 'index') {
+            document.getElementById(group + '-index').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          if (go === 'computation' || go === 'architecture') {
+            activateDiscipline(go, true);
+            return;
+          }
+          var order = Array.prototype.map.call(
+            document.querySelectorAll('.project-block[data-group="' + group + '"]'),
+            function (a) { return a.dataset.project; }
+          );
+          var i = order.indexOf(article.dataset.project);
+          var target = order[(i + (go === 'next' ? 1 : order.length - 1)) % order.length];
+          activateProject(group, target);
+          document.querySelector('.project-block[data-group="' + group + '"][data-project="' + target + '"]')
+            .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Spreads fade up as they come into view, like turning to the next page.
+      var spreads = document.querySelectorAll('.spread');
+      if ('IntersectionObserver' in window) {
+        var spreadObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              spreadObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        spreads.forEach(function (s) { spreadObserver.observe(s); });
+      } else {
+        spreads.forEach(function (s) { s.classList.add('is-in'); });
+      }
+
+      // Landing reveal: the sharp image shows through a spotlight that follows
+      // the pointer and grows with movement until the whole image is clear.
+      var landing = document.querySelector('.landing');
+      var sharp = document.querySelector('.landing-bg-img--sharp');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Pixel tiles across the whole landing, snapped to the background
+      // image's pixel grid (blur.jpg is 4800x2700 in 30px blocks; the img is
+      // object-fit: cover and scaled 1.2 in style.css — keep these in sync).
+      var IMG_W = 4800, IMG_H = 2700, IMG_CELL = 30, IMG_ZOOM = 1.2;
+      var PAPER = '255, 255, 255';
+      var TILE_STYLES = {
+        solid: { wash: 0.72 },
+        dense: { wash: 0.22, dot: 'rgba(' + PAPER + ', 0.9)', size: 0.62 },
+        light: { wash: 0.06, dot: 'rgba(' + PAPER + ', 0.75)', size: 0.5 },
+        navy: { wash: 0.2, dot: 'rgba(63, 102, 144, 0.8)', size: 0.6 },
+        taupe: { wash: 0.2, dot: 'rgba(193, 96, 47, 0.75)', size: 0.6 }
+      };
+      var canvas = document.querySelector('.landing-tiles');
+      var ctx = canvas.getContext('2d');
+      var tileList = [];
+      var sprites = {};
+      var tilesBuilt = false;
+      var animStart = 0;
+      var animEnd = 0;
+
+      // Stable pseudo-random value in [0, 1) for a grid cell.
+      function hash(x, y) {
+        var h = Math.imul(x, 374761393) + Math.imul(y, 668265263);
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+      }
+
+      // p: 0 at the page centre, 1 at the corners. Tiles spread over the
+      // whole page, a little sparser in the middle so the title reads.
+      function tileKind(i, j, p) {
+        // Noise in 3x3 blocks makes tiles clump instead of looking salted.
+        var clump = hash(Math.floor(i / 3), Math.floor(j / 3)) - 0.5;
+        var score = 0.48 + p * 0.14 + clump * 0.8 + (hash(i, j) - 0.5) * 0.25;
+        var kind = null;
+        if (score > 0.8) kind = 'solid';
+        else if (score > 0.56) kind = 'dense';
+        else if (score > 0.38) kind = 'light';
+        else if (hash(j + 91, i + 17) > 0.97) kind = 'light';
+        if (kind === 'dense' || kind === 'light') {
+          var tint = hash(i + 53, j + 29);
+          if (tint > 0.95) kind = 'navy';
+          else if (tint > 0.91) kind = 'taupe';
+        }
+        return kind;
+      }
+
+      // One pre-rendered tile per kind; each halftone tile is a grid of
+      // small square "pixels".
+      function makeSprites(cell, dpr) {
+        var size = Math.max(1, Math.round(cell * dpr));
+        var dots = cell >= 10 ? 4 : 3;
+        Object.keys(TILE_STYLES).forEach(function (kind) {
+          var s = TILE_STYLES[kind];
+          var c = document.createElement('canvas');
+          c.width = c.height = size;
+          var g = c.getContext('2d');
+          g.fillStyle = 'rgba(' + PAPER + ', ' + s.wash + ')';
+          g.fillRect(0, 0, size, size);
+          if (s.dot) {
+            var step = size / dots;
+            var sq = Math.max(1, step * s.size);
+            g.fillStyle = s.dot;
+            for (var a = 0; a < dots; a++) {
+              for (var b = 0; b < dots; b++) {
+                g.fillRect(a * step + (step - sq) / 2, b * step + (step - sq) / 2, sq, sq);
+              }
+            }
+          }
+          sprites[kind] = c;
+        });
+      }
+
+      function buildTiles() {
+        var box = landing.getBoundingClientRect();
+        var dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.round(box.width * dpr);
+        canvas.height = Math.round(box.height * dpr);
+
+        var scale = Math.max(box.width / IMG_W, box.height / IMG_H) * IMG_ZOOM;
+        var cell = IMG_CELL * scale;
+        var ox = (box.width - IMG_W * scale) / 2;
+        var oy = (box.height - IMG_H * scale) / 2;
+        makeSprites(cell, dpr);
+
+        var halfW = box.width / 2, halfH = box.height / 2;
+
+        tileList = [];
+        var i0 = Math.floor(-ox / cell), i1 = Math.ceil((box.width - ox) / cell);
+        var j0 = Math.floor(-oy / cell), j1 = Math.ceil((box.height - oy) / cell);
+        for (var j = j0; j < j1; j++) {
+          for (var i = i0; i < i1; i++) {
+            var x = ox + i * cell;
+            var y = oy + j * cell;
+            var p = Math.min(1, Math.hypot((x + cell / 2 - halfW) / halfW, (y + cell / 2 - halfH) / halfH) / Math.SQRT2);
+            var kind = tileKind(i, j, p);
+            if (!kind) continue;
+            tileList.push({
+              x: Math.round(x * dpr),
+              y: Math.round(y * dpr),
+              w: Math.round((x + cell) * dpr) - Math.round(x * dpr),
+              h: Math.round((y + cell) * dpr) - Math.round(y * dpr),
+              kind: kind,
+              // Ripple outward from the centre, with a little scatter.
+              delay: p * 1.4 + hash(i + 7, j + 3) * 0.25
+            });
+          }
+        }
+        tilesBuilt = true;
+      }
+
+      // Draw tiles revealed by `elapsed` seconds; each fades in over 3 steps.
+      function drawTiles(elapsed) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        tileList.forEach(function (tile) {
+          var k = (elapsed - tile.delay) / 0.4;
+          if (k <= 0) return;
+          ctx.globalAlpha = Math.min(1, Math.ceil(k * 3) / 3);
+          ctx.drawImage(sprites[tile.kind], tile.x, tile.y, tile.w, tile.h);
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      function tick(now) {
+        var elapsed = (now - animStart) / 1000;
+        if (elapsed >= animEnd) elapsed = Infinity;
+        drawTiles(elapsed);
+        if (elapsed !== Infinity) requestAnimationFrame(tick);
+      }
+
+      // Size "portfolio" so it spans ~80% of the page width.
+      var title = document.querySelector('.landing-title');
+      function fitTitle() {
+        title.style.fontSize = '100px';
+        var w = title.getBoundingClientRect().width;
+        if (w) title.style.fontSize = (100 * landing.clientWidth * 0.8 / w) + 'px';
+      }
+      fitTitle();
+
+      // Wait for fonts so the title is measured at its real size.
+      function firstBuild() {
+        if (tilesBuilt) return;
+        fitTitle();
+        buildTiles();
+        if (reduceMotion) {
+          drawTiles(Infinity);
+        } else {
+          animEnd = 1.4 + 0.25 + 0.4;
+          animStart = performance.now();
+          requestAnimationFrame(tick);
+        }
+      }
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(firstBuild);
+      setTimeout(firstBuild, 1200);
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          fitTitle();
+          buildTiles();
+          animEnd = 0;
+          drawTiles(Infinity);
+        }, 150);
+      });
+
+      if (reduceMotion) {
+        landing.classList.add('is-revealed');
+      } else {
+        var travelled = 0;
+        var last = null;
+        var pending = null;
+        var baseRadius = 90;
+
+        function render() {
+          var rect = landing.getBoundingClientRect();
+          var radius = baseRadius + travelled * 0.35;
+          sharp.style.setProperty('--x', (pending.x - rect.left) + 'px');
+          sharp.style.setProperty('--y', (pending.y - rect.top) + 'px');
+          sharp.style.setProperty('--r', radius + 'px');
+          landing.classList.add('is-revealing');
+          if (radius > Math.hypot(rect.width, rect.height)) {
+            landing.classList.add('is-revealed');
+            landing.removeEventListener('pointermove', onMove);
+          }
+          pending = null;
+        }
+
+        function onMove(e) {
+          if (last) travelled += Math.hypot(e.clientX - last.x, e.clientY - last.y);
+          last = { x: e.clientX, y: e.clientY };
+          if (!pending) requestAnimationFrame(render);
+          pending = last;
+        }
+
+        landing.addEventListener('pointermove', onMove);
+
+        // Title sheet drifts against the cursor; a coordinate readout trails it.
+        var sheet = document.querySelector('.landing-sheet');
+        var cursor = document.querySelector('.landing-cursor');
+        var cursorText = cursor.querySelector('span');
+        var pointer = null;
+
+        function pad(n) {
+          return ('000' + Math.max(0, Math.round(n))).slice(-4);
+        }
+
+        function renderPointer() {
+          var rect = landing.getBoundingClientRect();
+          var x = pointer.x - rect.left;
+          var y = pointer.y - rect.top;
+          var nx = x / rect.width - 0.5;
+          var ny = y / rect.height - 0.5;
+          sheet.style.setProperty('--px', (nx * -24) + 'px');
+          sheet.style.setProperty('--py', (ny * -16) + 'px');
+          cursor.style.transform = 'translate(' + (x - 5) + 'px,' + (y - 9) + 'px)';
+          cursorText.textContent = 'x ' + pad(x) + ' · y ' + pad(y);
+          pointer = null;
+        }
+
+        landing.addEventListener('pointermove', function (e) {
+          if (!pointer) requestAnimationFrame(renderPointer);
+          pointer = { x: e.clientX, y: e.clientY };
+          landing.classList.add('has-cursor');
+        });
+
+        landing.addEventListener('pointerleave', function () {
+          landing.classList.remove('has-cursor');
+          sheet.style.setProperty('--px', '0px');
+          sheet.style.setProperty('--py', '0px');
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
