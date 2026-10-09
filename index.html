@@ -511,6 +511,7 @@
     <div class="discipline-intro">
       <p class="discipline-eyebrow">Selected Computational Work</p>
       <h2 class="discipline-heading">computation.</h2>
+      <p class="discipline-lede">three studies of sidewalk scaffolding in New York: seeing it, counting it, and measuring what it takes away.</p>
     </div>
 
     <!-- Project index: thumbnails live in assets/computation/index/01-04.jpg -->
@@ -555,6 +556,7 @@
             <div class="spread-halves"><img src="assets/computation/sidewalk/poster.jpg" alt="" loading="lazy"></div>
             <div class="spread-text">
               <h3 class="spread-title">not on my sidewalk!</h3>
+              <p class="spread-stat"><strong>2,923 days</strong> under a single shed in Central Harlem, about eight years, found with the magnifying glass</p>
               <p class="spread-indent">This research began with a precedent: MIT Senseable City Lab&rsquo;s Trash Track, which tagged discarded objects to follow them through Seattle&rsquo;s waste system, combining sensors with community participation to make an invisible infrastructure visible. Reading Carlo Ratti&rsquo;s Open Source Architecture and Dietmar Offenhuber&rsquo;s Waste Is Information, I became interested in infrastructure as something that can be read through the information it leaves behind.</p>
               <p class="spread-indent">Texts such as Glitch Feminism, QueerOS, and Race After Technology reframed the glitch not as an error to fix, but as evidence: a moment that exposes the gap between how a system is supposed to work and how it actually works. This led to the question of how glitching can serve as a methodology for revealing invisible infrastructures, making urban systems more legible, and encouraging more participatory and open approaches to urbanism.</p>
               <p class="spread-indent">The experiment focuses on sidewalk scaffolding in New York City. Meant to be temporary, many sidewalk sheds stand for years because leaving them up is cheaper than repairing the fa&ccedil;ade, a glitch in the city&rsquo;s regulatory system. Mapping NYC Open Data led to Central Harlem, where sheds are both dense and long-standing, and to a drawing in which a magnifying glass reveals how many days each structure has stood.</p>
@@ -705,6 +707,7 @@
             <div class="spread-halves"><img src="assets/computation/mapping/site.jpg" alt="" loading="lazy"></div>
             <div class="spread-text">
               <h3 class="spread-title">mapping active sidewalk sheds.</h3>
+              <p class="spread-stat"><strong>5,901 days</strong> the longest-standing shed in the city, in Crown Heights South. The Upper East Side has the most sheds (472), but they stay up longest in the outer boroughs: in Coney Island the typical shed has stood 819 days.</p>
               <p class="spread-indent">This project grew out of the mapping stage of not on my sidewalk!. Where my first project used the data to find a case study, here I turned it into a public, interactive tool: every active sidewalk shed permit in New York City, 7,511 sheds across 59 community districts, mapped and compared district by district.</p>
               <p class="spread-indent">I built it in Python with pandas and geopandas from NYC Open Data and MapPLUTO. The site reads the city through four lenses: all sheds, sheds by district, sidewalk coverage, and an estimated cost of keeping each shed standing. Hovering any shed reveals its address, length, and how long it has stood.</p>
               <p class="spread-indent">Together, the two projects take my research from observation to evidence. The glitch identified in Central Harlem becomes measurable citywide, showing where scaffolding has quietly become permanent infrastructure and making the system behind it legible to anyone.</p>
@@ -742,6 +745,7 @@
             <div class="spread-halves"><img src="assets/computation/modeling/poster.jpg" alt="" loading="lazy"></div>
             <div class="spread-text">
               <h3 class="spread-title">scaffolding daylight analysis tool. (wip)</h3>
+              <p class="spread-stat"><strong>6&ndash;9 h &rarr; 0&ndash;2 h</strong> of direct sun on the same sidewalk, from summer in the open to winter under a shed</p>
               <p class="spread-indent">The Seasonal Cost of a Loophole: Daylight Under NYC Scaffolding. Scaffolding in New York is supposed to be temporary, but in neighborhoods like Central Harlem it can start to feel permanent. I built this analysis tool to measure what that permanence means for daylight on the sidewalk, and how the loss changes from season to season, especially in winter when daylight is already limited.</p>
               <p class="spread-indent">The tool is made in Grasshopper with Ladybug. The workflow takes sidewalk geometry, weather and location data, and a season selector, builds scaffolding from curve surfaces and adds it as an obstruction, then runs a direct sun hours analysis with an hourly tally. As an experiment, I first tested it on every sidewalk in Central Harlem, then compared the same streets before and after scaffolding across spring, summer, fall, and winter.</p>
               <p class="spread-indent">It continues my scaffolding research from not on my sidewalk! and the citywide map, shifting the question from where scaffolding is to what it does to the public realm.</p>
@@ -812,6 +816,7 @@
             <div class="lp lp--center lp--wide-gap">
               <img class="lp-img" style="--h:68" src="assets/computation/modeling/photos.jpg" alt="Sidewalk scaffolding and stoops in Central Harlem" loading="lazy">
               <div class="lp-stack" style="--w:70">
+                <p class="lp-stat"><strong>6&ndash;9 h &rarr; 0&ndash;2 h</strong> direct sun hours, summer without a shed vs. winter under one</p>
                 <p class="lp-head">observation and conclusion</p>
                 <p class="lp-text">The same sidewalk can receive more than nine hours of direct sun in one season and almost none in another. Daylight is not a fixed condition, yet NYC&rsquo;s scaffolding policy does not account for these seasonal differences. A sidewalk with six to nine hours of summer sun can drop to zero to two hours in winter under the same shed, and the longer a shed stays up, the more it affects pedestrians.</p>
                 <p class="lp-text">This raises the question of whether shed duration and renewal should be treated the same throughout the year. Stricter policies and higher renewal costs could apply to scaffolding that stays up for long periods, especially at intersections with high pedestrian activity. At the same time, incentives could make scaffolding perform better as public infrastructure, providing shade in the summer while letting more daylight through in the winter. The question shifts from how to remove scaffolding faster to how temporary infrastructure can respond better to the conditions around it.</p>

@@ -1983,3 +1983,74 @@ html.has-sheet body {
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(35, 31, 32, 0.25);
 }
+
+/* ---------- Computation: series line + key numbers ---------- */
+.discipline-lede {
+  max-width: 34em;
+  margin: 14px auto 0;
+  font-family: var(--label-font);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--landing-text-soft);
+}
+
+.spread-stat,
+.lp-stat {
+  margin: 0 0 1.4em;
+  font-family: var(--spread-font);
+  font-weight: 300;
+  color: var(--spread-ink);
+}
+
+.spread-stat strong,
+.lp-stat strong {
+  display: block;
+  font-family: var(--display-font);
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--taupe);
+}
+
+@media (min-width: 761px) {
+  .spread--cover .spread-stat {
+    font-size: 1.62cqh;
+    line-height: 1.3;
+    max-width: 40em;
+  }
+
+  .spread--cover .spread-stat strong {
+    font-size: 4.6cqh;
+    margin-bottom: 0.25em;
+  }
+
+  .spread--lp .lp-stat {
+    font-size: calc(1.6 * var(--u));
+    line-height: 1.3;
+  }
+
+  .spread--lp .lp-stat strong {
+    font-size: calc(5.4 * var(--u));
+    margin-bottom: 0.2em;
+  }
+}
+
+@media (max-width: 760px) {
+  .spread-stat,
+  .lp-stat {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .lp-stat {
+    padding: 8px 20px 0;
+  }
+
+  .spread-stat strong,
+  .lp-stat strong {
+    font-size: 34px;
+    margin-bottom: 6px;
+  }
+}
