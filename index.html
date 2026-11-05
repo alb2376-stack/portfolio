@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aqila Bakri — Portfolio</title>
+  <title>Aqila Bakri | Portfolio</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="apple-touch-icon" href="assets/logo-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,15 +60,54 @@
               <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.5l9 6 9-6V7H3Zm18 10V9.9l-8.4 5.6a1 1 0 0 1-1.1 0L3 9.9V17h18Z"/>
             </svg>
           </a>
+          <a href="assets/aqila-bakri-cv.pdf" download="Aqila-Bakri-CV.pdf" aria-label="Download CV (PDF)" title="Download CV">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h8l6 6v14H6V2Zm7 1.5V9h5.5L13 3.5ZM8 12h8v1.5H8V12Zm0 3.5h8V17H8v-1.5Z"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
+
+    <a class="scroll-hint landing-scroll" href="#home-intro">scroll<span aria-hidden="true"></span></a>
 
     <div class="landing-bar">
       <div class="tab-switch" role="tablist" aria-label="Portfolio section">
         <button type="button" class="tab-circle tab-circle--architecture active" data-tab="architecture" role="tab" aria-selected="true">architecture</button>
         <button type="button" class="tab-circle tab-circle--computation" data-tab="computation" role="tab" aria-selected="false">computation</button>
         <button type="button" class="tab-circle tab-circle--professional" data-tab="professional" role="tab" aria-selected="false">professional</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro: a reason to keep scrolling past the cover. -->
+  <section class="home-intro" id="home-intro">
+    <div class="home-intro-inner">
+      <p class="home-eyebrow">architecture + computation</p>
+      <h2 class="home-statement">I&rsquo;m a designer and researcher working across architecture, urbanism, and computation, exploring how design can help us understand and interpret the built environment and propose alternatives to it, with attention to the everyday experiences, relationships, and conditions that shape how we inhabit it.</h2>
+      <p class="home-meta">M.S. Computational Design Practices, Columbia GSAPP, 2027 &middot; B.Arch, Syracuse University &middot; Architectural Designer, BLD Architecture, 2023 to 2026</p>
+      <a class="home-cv" href="assets/aqila-bakri-cv.pdf" download="Aqila-Bakri-CV.pdf">download cv (pdf)</a>
+
+      <p class="home-featured-label">start here</p>
+      <div class="home-cards">
+        <a class="home-card" href="#architecture-index" data-open="architecture:jakarta">
+          <span class="home-card-img"><img src="assets/architecture/index/01.jpg" alt="" loading="lazy"></span>
+          <span class="home-card-kicker">architecture</span>
+          <span class="home-card-title">why are you shopping in my backyard?</span>
+          <span class="home-card-line">Thesis: two housing typologies in Jakarta, each borrowing from the other side of the city.</span>
+        </a>
+        <a class="home-card" href="#computation-index" data-open="computation:sidewalk">
+          <span class="home-card-img"><img src="assets/computation/index/01.jpg" alt="" loading="lazy"></span>
+          <span class="home-card-kicker">computation</span>
+          <span class="home-card-title">not on my sidewalk!</span>
+          <span class="home-card-line">A study of sidewalk scaffolding in Central Harlem, and the citywide data behind it.</span>
+        </a>
+        <a class="home-card" href="#professional-index" data-open="professional:lynbrook">
+          <span class="home-card-img"><img src="assets/professional/index/01.jpg" alt="" loading="lazy"></span>
+          <span class="home-card-kicker">professional</span>
+          <span class="home-card-title">lynbrook downtown revitalization.</span>
+          <span class="home-card-line">A master plan and residential development beside the Lynbrook train station.</span>
+        </a>
       </div>
     </div>
   </section>
@@ -86,6 +125,11 @@
       <a href="https://www.linkedin.com/in/aqila-bakri" aria-label="LinkedIn profile" title="LinkedIn" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5.2 8.4H2.1V22h3.1V8.4ZM3.65 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM22 13.7c0-4.1-2.2-6-5.1-6a4.4 4.4 0 0 0-3.9 2.1V8.4H9.9V22H13v-7.1c0-1.9.4-3.7 2.7-3.7s2.4 2.1 2.4 3.8V22h3.1l.8-8.3Z"/>
+        </svg>
+      </a>
+      <a href="assets/aqila-bakri-cv.pdf" download="Aqila-Bakri-CV.pdf" aria-label="Download CV (PDF)" title="Download CV">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 2h8l6 6v14H6V2Zm7 1.5V9h5.5L13 3.5ZM8 12h8v1.5H8V12Zm0 3.5h8V17H8v-1.5Z"/>
         </svg>
       </a>
     </nav>
@@ -2220,6 +2264,22 @@
         wrap.addEventListener('mouseenter', load);
         wrap.addEventListener('mousemove', move);
         wrap.addEventListener('mouseleave', function () { wrap.classList.remove('is-zooming'); });
+      });
+    })();
+  </script>
+  <script>
+    /* Featured cards on the intro: open the discipline, then the project, reusing the
+       same tab and index buttons the rest of the page already wires up. */
+    (function () {
+      document.querySelectorAll('[data-open]').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          var parts = card.dataset.open.split(':');
+          var tab = document.querySelector('.tab-circle[data-tab="' + parts[0] + '"]');
+          var proj = document.querySelector('.project-tabs.project-index[data-group="' + parts[0] + '"] .project-tab[data-project="' + parts[1] + '"]');
+          if (tab) tab.click();
+          if (proj) proj.click();
+        });
       });
     })();
   </script>

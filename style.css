@@ -2054,3 +2054,180 @@ html.has-sheet body {
     margin-bottom: 6px;
   }
 }
+
+/* ---------- Intro below the cover ---------- */
+
+/* The scroll cue sits above the bottom bar, over the cover photo. */
+.landing-scroll {
+  z-index: 2;
+  bottom: 84px;
+  color: #ffffff;
+  text-shadow: 0 1px 16px rgba(61, 56, 50, 0.4);
+}
+
+.landing-scroll:hover {
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.home-intro {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background: var(--paper);
+  scroll-snap-align: start;
+  padding: clamp(40px, 7vh, 88px) clamp(20px, 6vw, 96px);
+}
+
+.home-intro-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.home-eyebrow,
+.home-featured-label {
+  font-family: var(--label-font);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--taupe);
+  margin: 0 0 clamp(14px, 2vh, 22px);
+}
+
+.home-statement {
+  font-family: var(--display-font);
+  font-weight: 500;
+  font-size: clamp(20px, 2.3vw, 33px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--cover-black);
+  max-width: 40em;
+  margin: 0;
+}
+
+.home-meta {
+  font-family: var(--text-font);
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.7;
+  color: var(--landing-text-soft);
+  margin: clamp(18px, 3vh, 30px) 0 0;
+}
+
+.home-cv {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--label-font);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--cover-black);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+}
+
+.home-cv:hover {
+  color: var(--taupe);
+}
+
+.home-featured-label {
+  margin-top: clamp(24px, 4.5vh, 48px);
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.4vw, 36px);
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-card:hover {
+  color: inherit;
+}
+
+.home-card-img {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #efece7;
+  margin-bottom: 8px;
+}
+
+.home-card-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.home-card:hover .home-card-img img {
+  transform: scale(1.04);
+}
+
+.home-card-kicker {
+  font-family: var(--label-font);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--taupe);
+}
+
+.home-card-title {
+  font-family: var(--display-font);
+  font-weight: 600;
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.2;
+  color: var(--cover-black);
+}
+
+.home-card:hover .home-card-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-card-line {
+  font-family: var(--text-font);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--landing-text);
+}
+
+@media (max-width: 760px) {
+  .home-intro {
+    align-items: flex-start;
+  }
+
+  .home-cards {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .home-card-img {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* The contact bar is not showing yet, so cancel the page's 48px scroll offset here. */
+.home-intro {
+  scroll-margin-top: -48px;
+}
+
+/* On phones the name and icons sit lower and wider, so lift the cue above them. */
+@media (max-width: 760px) {
+  .landing-scroll {
+    bottom: 132px;
+  }
+}
