@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas of Lingering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111; --paper:#fff; --line:#000; --muted:#666; --faint:#e5e5e5;
+    --base-fill:#f4f4f4; --base-stroke:#111;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{border-bottom:1px solid var(--line); padding:28px 32px 20px}
+  h1{
+    font-family:'Archivo Black',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight:400; font-size:30px; margin:0 0 8px; letter-spacing:-.01em; line-height:1.05;
+  }
+  .sub{font-size:13px; color:var(--muted); margin:0}
+  .meta{font-size:11px; color:var(--muted); margin-top:10px; letter-spacing:.06em; text-transform:uppercase}
+
+  nav{display:flex; border-bottom:1px solid var(--line); flex-wrap:wrap}
+  nav button{
+    background:none; border:0; border-right:1px solid var(--faint);
+    padding:13px 22px; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    cursor:pointer; color:var(--muted); font-family:inherit;
+  }
+  nav button:hover{background:#fafafa; color:var(--ink)}
+  nav button.on{background:var(--ink); color:#fff}
+
+  .subnav{display:flex; border-bottom:1px solid var(--faint); background:#fafafa; flex-wrap:wrap}
+  .subnav button{
+    background:none; border:0; padding:10px 20px; font-size:11px;
+    letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    color:var(--muted); font-family:inherit; border-right:1px solid var(--faint);
+  }
+  .subnav .modesw{margin-left:auto; display:flex; align-items:center; gap:0; padding:0 12px}
+  .subnav .modesw button{border:1px solid #111; border-right:0; padding:4px 12px; font-size:10.5px; color:#111; background:#fff}
+  .subnav .modesw button:last-child{border-right:1px solid #111}
+  .subnav .modesw button.on{background:#111; color:#fff; font-weight:600; box-shadow:none}
+  .subnav button.on{color:var(--ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--ink)}
+
+  .wrap{display:flex; align-items:stretch; min-height:70vh}
+  .stage{flex:1 1 auto; padding:18px 24px; min-width:0}
+  aside{flex:0 0 290px; border-left:1px solid var(--faint); padding:22px 22px 30px; font-size:12px; background:#fcfcfc}
+  @media(max-width:900px){ .wrap{flex-direction:column} aside{flex:auto; border-left:0; border-top:1px solid var(--faint)} }
+
+  .cap{font-size:12px; color:var(--muted); margin:0 0 14px; line-height:1.5; max-width:820px}
+  .cap b{color:var(--ink); font-weight:600}
+
+  .maps{display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap}
+  .mapcol{flex:1 1 300px; min-width:0}
+  .mapcol h2{font-size:11px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 6px; font-weight:600;
+    display:flex; justify-content:space-between; border-bottom:1px solid var(--ink); padding-bottom:6px}
+  .mapcol h2 span{color:var(--muted); font-weight:400}
+  .mapcol svg{width:100%; height:auto; display:block}
+
+  aside h3{font-size:11px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 10px; color:var(--muted); font-weight:400}
+  aside h3:not(:first-child), #panel h3{margin-top:26px}
+
+  .lyr{display:grid; grid-template-columns:14px 1fr auto auto; gap:8px; align-items:center;
+    padding:6px 0; border-bottom:1px solid #eee; cursor:pointer; user-select:none}
+  .lyr input{margin:0; accent-color:#111}
+  .lyr .nm{font-size:11px}
+  .lyr .vl{font-variant-numeric:tabular-nums; font-weight:600; font-size:11px; min-width:26px; text-align:right}
+  .lyr .vl.h{color:var(--muted); font-weight:400}
+  .sw{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:7px; vertical-align:-1px}
+  .colhd{display:grid; grid-template-columns:14px 1fr auto auto; gap:8px; font-size:9.5px; color:#999;
+    letter-spacing:.06em; text-transform:uppercase; padding-bottom:4px}
+  .colhd span:nth-child(3),.colhd span:nth-child(4){min-width:26px; text-align:right}
+
+  .stat{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #eee; font-size:11px}
+  .stat b{font-variant-numeric:tabular-nums}
+
+  .rank{list-style:none; margin:0; padding:0}
+  .rank li{display:flex; justify-content:space-between; gap:10px; padding:5px 0; border-bottom:1px solid #eee; line-height:1.35; cursor:pointer}
+  .rank li:hover{background:#f3f3f3}
+  .rank .nm{flex:1; font-size:11px}
+  .rank .vl{font-variant-numeric:tabular-nums; font-weight:600; font-size:11px; white-space:nowrap}
+  .rank li span.i{color:#bbb; font-size:10px; margin-right:6px}
+
+  /* index of places */
+  .index{margin-top:30px; border-top:1px solid var(--ink); padding-top:14px}
+  .index h2{font-size:11px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 12px; font-weight:600}
+  .idxgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:22px 28px}
+  .idxgrid h4{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 6px; font-weight:600;
+    display:flex; justify-content:space-between; border-bottom:1px solid #ddd; padding-bottom:5px}
+  .idxgrid h4 span{color:var(--muted); font-weight:400}
+  .idxgrid ol{list-style:none; margin:0; padding:0; font-size:11px; line-height:1.35}
+  .idxgrid li{display:flex; gap:8px; padding:3px 0; border-bottom:1px solid #f0f0f0; cursor:pointer}
+  .idxgrid li:hover{background:#f3f3f3}
+  .idxgrid li .n{color:#bbb; font-size:10px; min-width:22px; font-variant-numeric:tabular-nums}
+  .idxgrid li .r{margin-left:auto; color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums}
+  .idxgrid .more{font-size:10.5px; color:var(--muted); padding-top:6px}
+
+  /* compare bars */
+  .bars{max-width:900px}
+  .bars .row{display:grid; grid-template-columns:150px 1fr 60px; gap:12px; align-items:center; padding:7px 0; border-bottom:1px solid #eee; font-size:11px}
+  .bars .track{position:relative; height:26px}
+  .bars .b{height:11px; margin:1px 0}
+  .bars .v{font-variant-numeric:tabular-nums; text-align:right; line-height:13px}
+  .bars .bgrp{font-family:'Archivo Black',"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:13px; margin:12px 0 2px; padding-top:4px; border-top:2px solid var(--ink)}
+  .bars .row{padding:4px 0}
+  .bars .track{height:24px}
+  .bars .key{display:flex; gap:18px; font-size:10.5px; color:var(--muted); margin:0 0 10px; text-transform:uppercase; letter-spacing:.06em}
+  .bars .key i{display:inline-block; width:14px; height:9px; margin-right:6px; vertical-align:-1px}
+
+  #tip{
+    position:fixed; pointer-events:none; background:var(--ink); color:#fff;
+    padding:8px 11px; font-size:11px; line-height:1.5; border-radius:2px;
+    opacity:0; transition:opacity .1s; max-width:260px; z-index:99;
+  }
+  #tip b{display:block; margin-bottom:4px; font-size:11px}
+  #tip .k{display:block; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin-bottom:2px}
+  footer{border-top:1px solid var(--line); padding:18px 32px; font-size:11px; color:var(--muted)}
+  .note{font-size:10.5px; color:#999; line-height:1.5; margin-top:20px; border-top:1px solid #eee; padding-top:12px}
+  /* ---------- fit the whole site in the window, no page scroll (like the scaffolding map's embed mode) ---------- */
+  html,body{height:100%}
+  body{height:100vh; display:flex; flex-direction:column; overflow:hidden}
+  header{padding:14px 24px 10px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap}
+  h1{font-size:22px; margin:0}
+  .sub{font-size:12px}
+  .meta{margin:0 0 0 auto}
+  /* experiments: the top-level parts of the atlas; the numbered tabs below belong to the selected experiment */
+  .experiments{display:flex; gap:0; align-self:center; margin-left:10px}
+  .experiments button{font-family:'Archivo Black',"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:13px; letter-spacing:.04em;
+    text-transform:uppercase; background:#fff; color:#111; border:1.5px solid #111; padding:5px 12px; cursor:pointer}
+  .experiments button + button{border-left:0}
+  .experiments button.on{background:#111; color:#fff}
+  .experiments button span{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.06em; font-weight:400;
+    opacity:.75; margin-left:8px}
+  nav button{padding:9px 18px}
+  .subnav button{padding:7px 18px}
+  .wrap{flex:1 1 auto; min-height:0}
+  .stage{display:flex; flex-direction:column; min-height:0; padding:10px 20px}
+  .cap{margin:0 0 8px}
+  #canvas{flex:1 1 auto; min-height:0}
+  .maps{height:100%; flex-wrap:nowrap; gap:20px}
+  .mapcol{display:flex; flex-direction:column; height:100%; min-height:0}
+  .mapcol > div{flex:1 1 auto; min-height:0}
+  .mapcol svg{width:100%; height:100%}
+  aside{overflow-y:auto; padding:14px 18px}
+  .index{margin-top:22px; padding-top:12px}
+  .index:empty{display:none}
+  .mapcol.x2side{display:block; overflow:hidden; padding-left:6px; height:100%}
+  .x2side > div{flex:none}
+  .x2bars{margin:6px 0 8px}
+  .x2row{display:grid; grid-template-columns:minmax(120px,48%) 1fr 34px; gap:8px; align-items:center; font-size:11px; padding:3px 0}
+  .x2row b{text-align:right; font-variant-numeric:tabular-nums}
+  .x2track{height:11px; background:#f2f2f2}
+  .x2track div{height:100%}
+  .x2stats .stat{font-size:11px}
+  .wiptag{font-size:9px; letter-spacing:.08em; border:1px solid currentColor; padding:1px 4px; margin-left:4px; opacity:.7}
+  .wip{border:1.5px dashed #bbb; color:#999; font-size:12px; letter-spacing:.06em; text-transform:uppercase; text-align:center; padding:22px 10px; margin:8px 0 4px}
+  .plan{margin:6px 0 0; padding-left:16px; font-size:11.5px; line-height:1.45; color:#333}
+  .plan li{margin:0 0 6px}
+  .math{margin:6px 0 0; padding-left:0; list-style:none; font-size:11px; line-height:1.45; color:#333}
+  .math li{margin:0 0 5px}
+  .rulebox{border:1.5px solid #111; padding:7px 10px 4px; margin:0 0 12px; font-size:11px; line-height:1.4}
+  .rulebox .rt{display:block; font-weight:700; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:3px}
+  .rulebox ul{margin:0; padding-left:15px}
+  .rulebox li{margin:0 0 4px}
+  .slrow{display:flex; align-items:center; gap:8px; margin-top:6px}
+  .slrow input{flex:1; accent-color:#111}
+  .tiers{width:100%; border-collapse:collapse; font-size:10.5px; margin-top:4px}
+  .tiers th{text-align:left; font-weight:400; color:#999; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; padding:2px 4px; border-bottom:1px solid #ddd}
+  .tiers td{padding:5px 4px; border-bottom:1px solid #eee; vertical-align:top}
+  .tiers td small{color:#888}
+  .tiers td.n{text-align:right; font-weight:700; font-variant-numeric:tabular-nums}
+  .tiers tr.off td{color:#aaa}
+  .hexsc text{text-anchor:middle; dominant-baseline:central; font-weight:600; pointer-events:none}
+  .needareas text{fill:#fff; font-weight:700; text-anchor:middle; dominant-baseline:central; pointer-events:none}
+  .needlist{list-style:none; margin:6px 0 0; padding:0}
+  .needlist li{display:flex; gap:10px; align-items:center; padding:6px 0; border-bottom:1px solid #eee; cursor:pointer; font-size:11.5px}
+  .needlist li:hover{background:#f6f6f6}
+  .needlist .nn{flex:none; width:20px; height:20px; border-radius:50%; background:#111; color:#fff; font-weight:700; font-size:11px; display:flex; align-items:center; justify-content:center}
+  .needlist .nt{display:flex; flex-direction:column; gap:3px}
+  .needlist .nb{display:flex; gap:2px; height:6px}
+  .needlist .nb i{display:block; height:6px}
+  .needlist .pb{display:flex; flex-direction:column; gap:2px; font-size:10px; color:#555}
+  .needlist .pb span{display:flex; align-items:center; gap:6px}
+  .needlist .pb i{display:inline-block; height:6px; min-width:1px}
+  .needlist .cn{font-size:10px; color:#777; line-height:1.35}
+  .needlist .cn em{font-style:normal; font-weight:700}
+  #m-harlem svg{touch-action:none; cursor:grab}
+  #m-harlem svg path, #m-harlem svg circle{vector-effect:non-scaling-stroke}
+  .x2lbl text{pointer-events:none; paint-order:stroke; stroke:#fff; stroke-linejoin:round}
+  .x2lbl .stl{font-size:calc(9px * var(--fz,1)); stroke-width:calc(2.5px * var(--fz,1)); fill:#555; text-anchor:middle; dominant-baseline:middle; letter-spacing:.03em}
+  .zoombtns{position:absolute; right:6px; top:6px; display:flex; flex-direction:column; gap:0}
+  .zoombtns button{width:26px; height:26px; border:1px solid #111; border-bottom:0; background:#fff; font:14px/1 "Helvetica Neue",Helvetica,Arial,sans-serif; cursor:pointer}
+  .zoombtns button:last-child{border-bottom:1px solid #111}
+  .zoombtns button:hover{background:#111; color:#fff}
+  aside h3{margin-bottom:7px}
+  aside h3:not(:first-child), #panel h3{margin-top:18px}
+  aside .stat{padding:4px 0}
+  aside .rank li{padding:3.5px 0}
+  aside .lyr{padding:4px 0}
+  aside .note{margin-top:14px; padding-top:9px}
+  /* 05 Index: names flow into columns and shrink until everything fits the screen */
+  .idxcols{height:100%; column-width:190px; column-gap:26px; column-fill:auto; overflow:hidden; font-size:var(--fs,11px)}
+  .idxcols h4{break-after:avoid; font-size:.9em; letter-spacing:.08em; text-transform:uppercase; margin:0 0 .3em; font-weight:600;
+    display:flex; justify-content:space-between; gap:8px; border-bottom:1px solid #ccc; padding-bottom:.25em}
+  .idxcols h4 span{color:var(--muted); font-weight:400}
+  .idxcols ol{list-style:none; margin:0 0 1em; padding:0; line-height:1.25}
+  .idxcols li{display:flex; gap:6px; padding:.12em 0; cursor:pointer; break-inside:avoid; white-space:nowrap}
+  .idxcols li:hover{background:#f3f3f3}
+  .idxcols li .t{overflow:hidden; text-overflow:ellipsis}
+  .idxcols li .n{color:#bbb; font-size:.85em; min-width:1.9em; font-variant-numeric:tabular-nums}
+  .idxcols li .r{margin-left:auto; color:var(--muted); font-variant-numeric:tabular-nums}
+  .idxcols .grp{break-after:avoid; font-family:'Archivo Black',"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:1.15em;
+    margin:0 0 .35em; padding-top:.1em; border-top:2px solid var(--ink)}
+  .idxcols .more{font-size:.9em; color:var(--muted); margin:-.6em 0 1em}
+  .idxgrid{grid-template-columns:1fr; gap:16px}
+  footer{padding:6px 24px; font-size:10px}
+  @media(max-width:900px){
+    body{height:auto; overflow:auto}
+    .maps{height:auto; flex-wrap:wrap}
+    .mapcol{height:auto}
+    .mapcol svg{height:auto}
+    aside{overflow:visible}
+  }
+  .plabel{font-size:calc(10px * var(--k, 1)); stroke-width:calc(2.5px * var(--k, 1)) !important; fill:#1d5e2a; font-weight:600; paint-order:stroke; stroke:#fff; stroke-width:2.5px; pointer-events:none;
+    letter-spacing:.02em}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Atlas of Lingering</h1>
+  <nav class="experiments" id="experiments" aria-label="Experiments">
+    <button class="on" data-x="1">Experiment 1 <span>Central Harlem · Midtown</span></button>
+    <button data-x="2">Experiment 2 <span>Central Harlem scaffolding</span></button>
+  </nav>
+  <p class="meta" id="hdrmeta"></p>
+</header>
+
+<nav id="tabs">
+  <button data-t="0" class="on">01 &nbsp;All Places</button>
+  <button data-t="1">02 &nbsp;By Layer</button>
+  <button data-t="2">03 &nbsp;Compare</button>
+  <button data-t="3">04 &nbsp;Formal / Informal</button>
+  <button data-t="4">05 &nbsp;Affordances</button>
+  <button data-t="5">06 &nbsp;Index</button>
+  <button data-t="7" data-x="2" style="display:none">01 &nbsp;Linger Index</button>
+  <button data-t="8" data-x="2" style="display:none">02 &nbsp;Need</button>
+  <button data-t="9" data-x="2" style="display:none">03 &nbsp;Overlay</button>
+  <button data-t="6" data-x="2" style="display:none">04 &nbsp;The Rule: Scaffolding</button>
+  <button data-t="10" data-x="2" style="display:none">05 &nbsp;Hyper Scaffold: TOPS</button>
+</nav>
+<div class="subnav" id="subnav"></div>
+
+<div class="wrap">
+  <div class="stage">
+    <p class="cap" id="cap" hidden></p>
+    <div id="canvas"></div>
+  </div>
+  <aside>
+    <div id="legendbox"></div>
+    <div id="panel"></div>
+    <p class="note" id="note"></p>
+    <div class="index" id="index"></div>
+  </aside>
+</div>
+
+<footer>
+  Atlas of Lingering — Aqila Bakri &nbsp;·&nbsp;
+  Data: NYC Open Data — benches, POPS, parks, DOB shed permits, PLUTO, bus shelters, Facilities DB, 311;
+  NYS barbershop licences; OpenStreetMap laundromats; NYC Planning districts
+</footer>
+
+<div id="tip"></div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  const D = DATA;
+  const HOODS = [
+    { cd:110, key:"harlem",  name:"Central Harlem", short:"HAR" },
+    { cd:105, key:"midtown", name:"Midtown",        short:"MID" }
+  ];
+  const hoodBy = {}; HOODS.forEach(h => hoodBy[h.cd] = h);
+
+  // ---------- layers (point datasets) ----------
+  const LAYERS = [
+    { key:"sheds",   name:"Sidewalk sheds", color:"#c8102e", r:1.6, op:.55,
+      tip:p => '<span class="k">Sidewalk shed</span><b>'+p[3]+'</b>'+nf(p[4])+' permit'+(p[4]>1?'s':'')+' on record'+(p[5]?' · '+p[5]+' renewal'+(p[5]>1?'s':''):''),
+      label:p => p[3], rankVal:p => p[4], rankFmt:v => v+"×" },
+    { key:"benches", name:"City benches", color:"#1f5fbf", r:3, op:.95,
+      tip:p => '<span class="k">City bench</span><b>'+(p[3]||'Bench')+'</b>'+[p[4]&&p[4]+' bench',p[5],p[6]&&'installed '+p[6]].filter(Boolean).join('<br>'),
+      label:p => p[3] || "Bench" },
+    { key:"pops",    name:"Privately owned public spaces", color:"#7b3fb5", r:3.2, op:.95,
+      tip:p => '<span class="k">POPS</span><b>'+p[3]+'</b>'+[p[4]!==p[3]&&p[4],p[5],p[6]&&'Open '+p[6],p[7]].filter(Boolean).join('<br>'),
+      label:p => p[3] },
+    { key:"parks",   name:"Parks & plazas", color:"#2e8b3d", r:3.2, op:.95,
+      tip:p => '<span class="k">Park property</span><b>'+p[3]+'</b>'+[p[4],p[5]!=null&&p[5]+' acres',p[6]].filter(Boolean).join('<br>'),
+      label:p => p[3], rankVal:p => p[5], rankFmt:v => (v==null?'—':v+' ac') }
+  ];
+  // ---------- 06 Conditions layers ----------
+  const C = D.cond;
+  const CLAYERS = [
+    { key:"stoop_hi", name:"Likely high stoop", sub:"row house, 1–3 family", color:"#7a5236", r:2.4, op:.9,
+      data:C.stoops.filter(p => p[8]==="high"),
+      tip:p => '<span class="k">Likely high stoop · row house</span><b>'+p[3]+'</b>Class '+p[4]+' · built '+p[5]+'<br>'+p[6]+' floors · '+p[7]+' ft lot front'+(p[9]?'<br>'+p[9]:''),
+      label:p => p[3] },
+    { key:"stoop_lo", name:"Likely low stoop", sub:"walk-up tenement", color:"#c99a6b", r:2.2, op:.9,
+      data:C.stoops.filter(p => p[8]==="low"),
+      tip:p => '<span class="k">Likely low stoop · walk-up tenement</span><b>'+p[3]+'</b>Class '+p[4]+' · built '+p[5]+'<br>'+p[6]+' floors · '+p[7]+' ft lot front'+(p[9]?'<br>'+p[9]:''),
+      label:p => p[3] },
+    { key:"shelters", name:"Bus stop shelters", color:"#0c8599", r:3.4, op:.95, data:C.shelters,
+      tip:p => '<span class="k">Bus stop shelter</span><b>'+p[3]+'</b>'+(p[4]?p[4]+' corner · ':'')+p[5], label:p => p[3] },
+    { key:"vendors", name:"Food vendor spots", sub:"311 complaints, past year", color:"#e8590c", op:.8,
+      r:3, rf:p => 2 + Math.sqrt(p[4])*1.1, data:C.vendors,
+      tip:p => '<span class="k">Food vendor spot · 311</span><b>'+p[3]+'</b>'+p[4]+' complaint'+(p[4]>1?'s':'')+' in the past year<br>latest '+p[5], label:p => p[3] },
+    { key:"libraries", name:"Libraries", color:"#364fc7", r:4, op:.95, data:C.libraries,
+      tip:p => '<span class="k">'+p[5]+'</span><b>'+p[3]+'</b>'+p[4], label:p => p[3] },
+    { key:"laundromats", name:"Laundromats", sub:"OpenStreetMap", color:"#15aabf", r:3.6, op:.95, data:C.laundromats,
+      tip:p => '<span class="k">Laundromat · OpenStreetMap</span><b>'+p[3]+'</b>'+[p[4],p[5]].filter(Boolean).join(' · '), label:p => p[3] },
+    { key:"barbers", name:"Barbershops", sub:"NYS licences", color:"#d6336c", r:3.2, op:.95, data:C.barbers,
+      tip:p => '<span class="k">Barbershop</span><b>'+p[3]+'</b>'+[p[4],p[5]].filter(Boolean).join('<br>'), label:p => p[3] }
+  ];
+  const ALL_LAYERS = {}; [...LAYERS, ...CLAYERS].forEach(L => ALL_LAYERS[L.key] = L);
+  const SHORT = { sheds:["shed","sheds"], benches:["bench","benches"], pops:["POPS","POPS"], parks:["park","parks"],
+    stoop_hi:["high stoop","high stoops"], stoop_lo:["low stoop","low stoops"], shelters:["bus shelter","bus shelters"],
+    vendors:["vendor spot","vendor spots"], libraries:["library","libraries"], laundromats:["laundromat","laundromats"],
+    barbers:["barbershop","barbershops"] };
+  const nameN = (k, n) => n+' '+SHORT[k][n===1?0:1];
+  ALL_LAYERS.sheds.rankTitle = "Most shed permits"; ALL_LAYERS.parks.rankTitle = "Largest";
+  Object.assign(ALL_LAYERS.vendors, { rankVal:p => p[4], rankFmt:v => v+"×", rankTitle:"Most complaints" });
+  const dataOf = L => L.data || D.layers[L.key];
+  const cnt = (L, cd) => dataOf(L).filter(p => p[2]===cd).length;
+  const on = {}; [...LAYERS, ...CLAYERS].forEach(l => on[l.key] = true);
+
+  // ---------- helpers ----------
+  const nf = n => (+n).toLocaleString("en-US");
+  const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const count = (k, cd) => D.layers[k].filter(p => p[2]===cd).length;
+
+  // ---------- projection: one shared scale so the two neighborhoods compare 1:1 ----------
+  const LAT0 = 40.79, K = Math.cos(LAT0*Math.PI/180);
+  const geoBy = {}; D.geo.forEach(g => geoBy[g.cd] = g);
+  const PADF = 0.06;
+  HOODS.forEach(h => {
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    geoBy[h.cd].rings.forEach(r => r.forEach(p => {
+      const x=p[0]*K, y=-p[1];
+      if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y;
+    }));
+    const pw=(x1-x0)*PADF, ph=(y1-y0)*PADF;
+    h.bx = [x0-pw, y0-ph, x1+pw, y1+ph];
+  });
+  const maxH = Math.max(...HOODS.map(h => h.bx[3]-h.bx[1]));
+  const SC = 760 / maxH;  // drawing units per projected degree
+  HOODS.forEach(h => {
+    h.W = (h.bx[2]-h.bx[0])*SC; h.H = (h.bx[3]-h.bx[1])*SC;
+    h.px = lon => (lon*K - h.bx[0])*SC;
+    h.py = lat => (-lat - h.bx[1])*SC;
+    h.area = polyArea(geoBy[h.cd].rings[0]);
+  });
+  function polyArea(ring){ // square miles, planar approximation
+    let a=0; const mx=69.17*K, my=69.0;
+    for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+      a += (ring[j][0]*mx)*(ring[i][1]*my) - (ring[i][0]*mx)*(ring[j][1]*my);
+    }
+    return Math.abs(a/2);
+  }
+  const path = (h, ring) => "M"+ring.map(p => h.px(p[0]).toFixed(1)+","+h.py(p[1]).toFixed(1)).join("L")+"Z";
+
+  // ---------- tooltip ----------
+  const tip = document.getElementById("tip");
+  function showTip(e, html){
+    tip.innerHTML = html; tip.style.opacity = 1;
+    const r = tip.getBoundingClientRect();
+    let x = e.clientX+14, y = e.clientY+14;
+    if(x+r.width > innerWidth-10) x = e.clientX-r.width-14;
+    if(y+r.height > innerHeight-10) y = e.clientY-r.height-14;
+    tip.style.left = x+"px"; tip.style.top = y+"px";
+  }
+  const hideTip = () => tip.style.opacity = 0;
+
+  // ---------- map drawing ----------
+  let views = []; // per hood: {h, svg, pts:[{L,p,x,y}], grid}
+  function drawMaps(layerKeys){
+    const canvas = document.getElementById("canvas");
+    canvas.innerHTML = '<div class="maps">'+HOODS.map(h =>
+      '<div class="mapcol"><h2>'+h.name+'<span>CD '+h.cd+' · '+h.area.toFixed(2)+' sq mi</span></h2><div id="m-'+h.key+'"></div></div>'
+    ).join("")+'</div>';
+    views = HOODS.map(h => {
+      // drawing units per screen pixel, so labels stay a readable size however small the map is drawn
+      const box = document.getElementById("m-"+h.key).getBoundingClientRect();
+      const shown = Math.min(box.height || h.H, (box.width || h.W) * h.H / h.W);
+      const k = Math.max(1, h.H / shown);
+      let s = '<svg viewBox="0 0 '+h.W.toFixed(0)+' '+h.H.toFixed(0)+'" role="img" style="--k:'+k.toFixed(3)+'">';
+      s += '<defs><clipPath id="clip-'+h.key+'"><path d="'+path(h, geoBy[h.cd].rings[0])+'"/></clipPath></defs>';
+      // neighbors, faint
+      D.geo.forEach(g => { if(g.cd!==h.cd) g.rings.forEach(r => s += '<path d="'+path(h,r)+'" fill="#fbfbfb" stroke="#cfcfcf" stroke-width=".5"/>'); });
+      // focus district
+      s += '<path d="'+path(h, geoBy[h.cd].rings[0])+'" fill="var(--base-fill)" stroke="none"/>';
+      // parks as shapes (context for the park points)
+      if(layerKeys.includes("parks")){
+        s += '<g fill="#cfe8c9" stroke="#7fb27a" stroke-width=".4" clip-path="url(#clip-'+h.key+')">';
+        D.park_shapes.forEach(ps => ps.forEach(r => s += '<path d="'+path(h,r)+'"/>'));
+        s += '</g>';
+      }
+      s += '<path d="'+path(h, geoBy[h.cd].rings[0])+'" fill="none" stroke="#111" stroke-width="1.1"/>';
+      const pts = [];
+      layerKeys.map(key => ALL_LAYERS[key]).filter(Boolean).forEach(L => {
+        s += '<g data-l="'+L.key+'" fill="'+L.color+'" fill-opacity="'+L.op+'"'+(L.r>2?' stroke="#fff" stroke-width=".6"':'')+(on[L.key]?'':' style="display:none"')+'>';
+        dataOf(L).forEach(p => {
+          if(p[2]!==h.cd) return;
+          const x = h.px(p[0]), y = h.py(p[1]);
+          s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+((L.rf?L.rf(p):L.r)*Math.sqrt(k)).toFixed(2)+'"/>';
+          pts.push({L, p, x, y});
+        });
+        s += '</g>';
+      });
+      // park labels for the larger parks
+      if(layerKeys.includes("parks") && on.parks){
+        const placed = [];
+        D.layers.parks.filter(p => p[2]===h.cd && p[5]>=1.2).sort((a,b) => b[5]-a[5]).forEach(p => {
+          const x = h.px(p[0]), y = h.py(p[1]), right = x > h.W*0.62;   // flip labels near the right edge so they stay on the map
+          if(placed.some(q => Math.abs(q[1]-y) < 12*k && Math.abs(q[0]-x) < 150*k)) return;   // larger park wins a collision
+          placed.push([x,y]);
+          s += '<text class="plabel" x="'+(right?x-5*k:x+5*k).toFixed(1)+'" y="'+(h.py(p[1])+3).toFixed(1)+'"'+(right?' text-anchor="end"':'')+'>'+esc(p[3])+'</text>';
+        });
+      }
+      s += '<circle class="hl" r="'+(6*k).toFixed(1)+'" fill="none" stroke="#111" stroke-width="'+(1.6*k).toFixed(1)+'" opacity="0"/>';
+      s += '</svg>';
+      document.getElementById("m-"+h.key).innerHTML = s;
+      const svg = document.querySelector("#m-"+h.key+" svg");
+      const v = { h, svg, pts, hl: svg.querySelector(".hl") };
+      buildGrid(v); bindHover(v);
+      return v;
+    });
+  }
+  function buildGrid(v){
+    const CELL = 14; v.grid = {}; v.CELL = CELL;
+    v.pts.forEach((q,i) => {
+      if(!on[q.L.key]) return;
+      const k = Math.floor(q.x/CELL)+":"+Math.floor(q.y/CELL);
+      (v.grid[k] || (v.grid[k] = [])).push(i);
+    });
+  }
+  function bindHover(v){
+    v.svg.addEventListener("mousemove", e => {
+      const pt = v.svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const loc = pt.matrixTransform(v.svg.getScreenCTM().inverse());
+      const gx = Math.floor(loc.x/v.CELL), gy = Math.floor(loc.y/v.CELL);
+      const kk = (v.h.H / (v.svg.getBoundingClientRect().height || v.h.H))**2;
+      let best=-1, bd=100*Math.max(1,kk);
+      for(let dx=-1;dx<=1;dx++) for(let dy=-1;dy<=1;dy++){
+        const cell = v.grid[(gx+dx)+":"+(gy+dy)]; if(!cell) continue;
+        for(const i of cell){
+          const q=v.pts[i];
+          // small points lose ties to the larger, rarer ones
+          const d = (q.x-loc.x)**2 + (q.y-loc.y)**2 - (q.L.r>2?12:0);
+          if(d<bd){ bd=d; best=i; }
+        }
+      }
+      if(best<0){ v.hl.setAttribute("opacity",0); hideTip(); return; }
+      const q = v.pts[best];
+      v.hl.setAttribute("cx",q.x); v.hl.setAttribute("cy",q.y); v.hl.setAttribute("opacity",1);
+      showTip(e, q.L.tip(q.p.map(x => typeof x==="string"?esc(x):x)));
+    });
+    v.svg.addEventListener("mouseleave", () => { v.hl.setAttribute("opacity",0); hideTip(); });
+  }
+  function flash(L, p){
+    const v = views.find(v => v.h.cd===p[2]); if(!v) return;
+    const x=v.h.px(p[0]), y=v.h.py(p[1]);
+    v.hl.setAttribute("cx",x); v.hl.setAttribute("cy",y); v.hl.setAttribute("opacity",1);
+    const r = v.svg.getBoundingClientRect(), ctm = v.svg.getScreenCTM();
+    showTip({clientX: ctm.a*x+ctm.e, clientY: ctm.d*y+ctm.f}, L.tip(p.map(x => typeof x==="string"?esc(x):x)));
+    clearTimeout(flash.t); flash.t = setTimeout(() => { hideTip(); v.hl.setAttribute("opacity",0); }, 3500);
+  }
+
+  // ---------- sidebar ----------
+  function layerToggles(keys){
+    return '<h3>Layers</h3><div class="colhd"><span></span><span></span><span>Har</span><span>Mid</span></div>'+
+      LAYERS.filter(L => keys.includes(L.key)).map(L =>
+        '<label class="lyr"><input type="checkbox" data-k="'+L.key+'"'+(on[L.key]?' checked':'')+'>'+
+        '<span class="nm"><span class="sw" style="background:'+L.color+'"></span>'+L.name+'</span>'+
+        '<span class="vl">'+nf(count(L.key,110))+'</span><span class="vl">'+nf(count(L.key,105))+'</span></label>'
+      ).join("");
+  }
+  function bindToggles(){
+    document.querySelectorAll(".lyr input").forEach(cb => cb.onchange = () => {
+      on[cb.dataset.k] = cb.checked;
+      views.forEach(v => {
+        const g = v.svg.querySelector('g[data-l="'+cb.dataset.k+'"]');
+        if(g) g.style.display = cb.checked ? "" : "none";
+        v.svg.querySelectorAll(".plabel").forEach(t => t.style.display = on.parks ? "" : "none");
+        buildGrid(v);
+      });
+      renderIndex(curKeys);
+    });
+  }
+  function stat(k,v){ return '<div class="stat"><span>'+k+'</span><b>'+v+'</b></div>'; }
+
+  // ---------- index of places ----------
+  let curKeys = [];
+  function renderIndex(){ document.getElementById("index").innerHTML = ""; }   // the index now lives in tab 05
+
+  // ---------- 05 Index: every named place in one neighborhood, sized to fit the screen ----------
+  // every layer, grouped by affordance; long lists are capped and point to the map
+  const IDX_GROUPS = [
+    ["Sit",            ["stoop_hi","stoop_lo","benches"]],
+    ["Shelter",        ["shelters","sheds"]],
+    ["Social magnets", ["vendors","libraries","laundromats","barbers"]],
+    ["Open space",     ["parks","pops"]]
+  ];
+  const IDX_CAP = { sheds:15, stoop_hi:12, stoop_lo:8, vendors:15, shelters:20 };
+  const IDX_SORT = {   // how each list is ordered, and what the right-hand column shows
+    stoop_hi: { by:p => -p[5], fmt:p => p[5], what:"oldest" },
+    stoop_lo: { by:p => -p[5], fmt:p => p[5], what:"oldest" }
+  };
+  const BYLAYER_SUB = { sheds:0, benches:1, pops:2, parks:3, stoop_hi:4, stoop_lo:4, shelters:5, vendors:6, libraries:7, laundromats:8, barbers:9 };
+  function renderIndexTab(hoodKey){
+    const h = HOODS.find(h => h.key===hoodKey);
+    curKeys = []; views = [];
+    const build = scale => {
+    let s = '<div class="idxcols" id="idxcols">';
+    IDX_GROUPS.forEach(([gname, keys]) => {
+      s += '<div class="grp">'+gname+'</div>';
+      keys.forEach(k => {
+        const L = ALL_LAYERS[k], arr = dataOf(L);
+        let items = arr.filter(p => p[2]===h.cd);
+        const total = items.length, srt = IDX_SORT[k];
+        s += '<h4><span style="color:var(--ink)"><span class="sw" style="background:'+L.color+'"></span>'+L.name+'</span><span>'+nf(total)+'</span></h4>';
+        if(!total){ s += '<div class="more" style="margin:0 0 1em">None recorded in '+h.name+'.</div>'; return; }
+        if(srt) items = items.slice().sort((a,b) => srt.by(b)-srt.by(a));
+        else if(L.rankVal) items = items.slice().sort((a,b) => (L.rankVal(b)||0)-(L.rankVal(a)||0));
+        else items = items.slice().sort((a,b) => String(L.label(a)).localeCompare(String(L.label(b))));
+        const cap = Math.min(total, Math.max(5, Math.round((IDX_CAP[k] || total) * scale)));
+        const right = p => srt ? srt.fmt(p) : (L.rankVal ? L.rankFmt(L.rankVal(p)) : '');
+        s += '<ol>'+items.slice(0,cap).map((p,i) =>
+          '<li data-l="'+k+'" data-i="'+arr.indexOf(p)+'" title="'+esc(L.label(p))+'"><span class="n">'+String(i+1).padStart(2,"0")+'</span>'+
+          '<span class="t">'+esc(L.label(p))+'</span>'+(right(p)!==''?'<span class="r">'+right(p)+'</span>':'')+'</li>').join("")+'</ol>';
+        if(total>cap) s += '<div class="more">'+(srt?'The '+cap+' '+srt.what:'Top '+cap+(L.rankTitle?' · '+L.rankTitle.toLowerCase():''))+' · '+nf(total-cap)+' more on the map</div>';
+      });
+    });
+    s += '</div>';
+    return s; };
+    // shrink the type until every column fits; if even the smallest type overflows, trim the long lists and try again
+    const MIN_FS = 8;
+    let el, scale = 1;
+    const over = () => el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1;
+    for(let tries = 0; tries < 12; tries++){
+      document.getElementById("canvas").innerHTML = build(scale);
+      el = document.getElementById("idxcols");
+      let fs = 12.5; el.style.setProperty("--fs", fs+"px");
+      while(fs > MIN_FS && over()){ fs -= .25; el.style.setProperty("--fs", fs+"px"); }
+      if(!over()) break;
+      scale *= .8;
+    }
+    el.querySelectorAll("li[data-l]").forEach(li => li.onclick = () => {
+      const L = ALL_LAYERS[li.dataset.l], p = dataOf(L)[+li.dataset.i];
+      goTo(1, BYLAYER_SUB[L.key]); flash(L, p);     // jump to that layer's map and point the place out
+    });
+    document.getElementById("legendbox").innerHTML =
+      '<h3>'+h.name+'</h3>'+IDX_GROUPS.map(([g, keys]) =>
+        '<div style="font-weight:600;font-size:10.5px;margin:8px 0 2px;text-transform:uppercase;letter-spacing:.06em">'+g+'</div>'+
+        keys.map(k => ALL_LAYERS[k]).map(L => stat('<span class="sw" style="background:'+L.color+'"></span>'+L.name, nf(cnt(L,h.cd)))).join("")).join("")+
+      stat("District area", h.area.toFixed(2)+" sq mi");
+    document.getElementById("panel").innerHTML = "";
+  }
+
+  // ---------- views ----------
+  // draw order for All Places: small, numerous dots underneath, rarer places on top
+  const ALL_ORDER = ["sheds","stoop_lo","stoop_hi","vendors","shelters","benches","laundromats","barbers","libraries","pops","parks"];
+  function renderAll(){
+    curKeys = ALL_ORDER.slice();
+    drawMaps(curKeys);
+    document.getElementById("legendbox").innerHTML = IDX_GROUPS.map(([g, keys]) =>
+      '<h3>'+g+'</h3>'+condToggles(keys).replace(/<div class="colhd">.*?<\/div>/, g==="Sit" ? '$&' : '')).join("");
+    document.getElementById("panel").innerHTML = "";
+    bindToggles();
+  }
+  function renderLayer(keysIn, title){
+    const keys = Array.isArray(keysIn) ? keysIn : [keysIn];
+    const Ls = keys.map(k => ALL_LAYERS[k]);
+    keys.forEach(k => on[k] = true); curKeys = keys;
+    drawMaps(keys);
+    const tot = cd => Ls.reduce((a,L) => a+cnt(L,cd), 0);
+    document.getElementById("legendbox").innerHTML =
+      '<h3>'+(title || Ls[0].name)+'</h3>'+(keys.length>1 ? condToggles(keys) : '')+
+      HOODS.map(h => stat(h.name, nf(tot(h.cd)))).join("")+
+      HOODS.map(h => stat(h.name+' per sq mi', (tot(h.cd)/h.area).toFixed(1))).join("");
+    let rank = "";
+    const L = Ls[0];
+    if(Ls.length===1 && L.rankVal){
+      const arr = dataOf(L);
+      const top = arr.slice().sort((a,b) => (L.rankVal(b)||0)-(L.rankVal(a)||0)).slice(0,10);
+      rank = '<h3>'+(L.rankTitle||"Top 10")+'</h3><ul class="rank">'+top.map((p,i) =>
+        '<li data-i="'+arr.indexOf(p)+'"><span class="nm"><span class="i">'+String(i+1).padStart(2,"0")+'</span>'+esc(L.label(p))+
+        ' <span style="color:#aaa">'+hoodBy[p[2]].short+'</span></span><span class="vl">'+L.rankFmt(L.rankVal(p))+'</span></li>').join("")+'</ul>';
+    }
+    document.getElementById("panel").innerHTML = rank;
+    document.querySelectorAll("#panel .rank li").forEach(li => li.onclick = () => flash(L, dataOf(L)[+li.dataset.i]));
+    if(keys.length>1) bindToggles();
+  }
+  function renderCompare(mode){
+    curKeys = [];
+    document.getElementById("index").innerHTML = "";
+    const val = (L,h) => mode==="density" ? cnt(L,h.cd)/h.area : cnt(L,h.cd);
+    const fmt = v => mode==="density" ? v.toFixed(1) : nf(v);
+    let s = '<div class="bars" id="bars"><div class="key">'+
+      '<span><i style="background:#111"></i>Central Harlem</span><span><i style="background:#bbb"></i>Midtown</span>'+
+      '<span style="margin-left:auto">'+(mode==="density"?"per square mile":"count")+' · each row scaled to its larger value</span></div>';
+    IDX_GROUPS.forEach(([g, keys]) => {
+      s += '<div class="bgrp">'+g+'</div>';
+      keys.map(k => ALL_LAYERS[k]).forEach(L => {
+        const a = val(L,HOODS[0]), b = val(L,HOODS[1]), mx = Math.max(a,b)||1;
+        s += '<div class="row"><span><span class="sw" style="background:'+L.color+'"></span>'+L.name+'</span>'+
+          '<div class="track"><div class="b" style="width:'+(a/mx*100)+'%;background:#111"></div><div class="b" style="width:'+(b/mx*100)+'%;background:#bbb"></div></div>'+
+          '<div class="v">'+fmt(a)+'<br>'+fmt(b)+'</div></div>';
+      });
+    });
+    s += '</div>';
+    document.getElementById("canvas").innerHTML = s;
+    // shrink to fit the stage if needed
+    const el = document.getElementById("bars"), box = document.getElementById("canvas");
+    let z = 1; el.style.zoom = 1;
+    while(z > .6 && el.scrollHeight*z > box.clientHeight){ z -= .02; el.style.zoom = z; }
+    document.getElementById("legendbox").innerHTML =
+      '<h3>District area</h3>'+HOODS.map(h => stat(h.name, h.area.toFixed(2)+' sq mi')).join("");
+    const ratio = L => { const a=cnt(L,110)/HOODS[0].area, b=cnt(L,105)/HOODS[1].area; return b ? (a/b).toFixed(2)+'×' : (a ? 'Harlem only' : '—'); };
+    document.getElementById("panel").innerHTML =
+      '<h3>Harlem relative to Midtown</h3>'+IDX_GROUPS.flatMap(([g,keys]) => keys).map(k => ALL_LAYERS[k]).map(L =>
+        stat('<span class="sw" style="background:'+L.color+'"></span>'+L.name, ratio(L))).join("")+
+      '<p class="note" style="margin-top:8px;border:0;padding:0">Per-square-mile density in Central Harlem divided by Midtown. Above 1× means more per square mile in Harlem.</p>';
+    views = [];
+  }
+
+  function renderFormalCompare(){
+    curKeys = [];
+    const sum = (keys, cd) => keys.reduce((a,k) => a+cnt(ALL_LAYERS[k],cd), 0);
+    const NOSHED = INFORMAL.filter(k => k!=="sheds");
+    const ROWS = [["Formal", FORMAL, "designed for pausing"], ["Informal", INFORMAL, "lingering happens anyway"], ["Informal without sheds", NOSHED, "stoops, vendors, laundromats, barbers"]];
+    const bar = (label, sub, a, b, fmt) => { const mx = Math.max(a,b)||1;
+      return '<div class="row"><span>'+label+'<br><span style="color:#999;font-size:10px">'+sub+'</span></span>'+
+        '<div class="track"><div class="b" style="width:'+(a/mx*100)+'%;background:#111"></div><div class="b" style="width:'+(b/mx*100)+'%;background:#bbb"></div></div>'+
+        '<div class="v">'+fmt(a)+'<br>'+fmt(b)+'</div></div>'; };
+    // composition: one stacked bar per district and class, coloured by dataset
+    const stack = (keys, h) => { const t = sum(keys,h.cd)||1;
+      return '<div style="display:flex;height:14px;margin:2px 0 6px;border:1px solid #ddd">'+keys.map(k => { const L = ALL_LAYERS[k], v = cnt(L,h.cd);
+        return v ? '<div title="'+L.name+': '+nf(v)+'" style="width:'+(v/t*100)+'%;background:'+L.color+'"></div>' : ''; }).join("")+'</div>'; };
+    let s = '<div class="bars" id="bars"><div class="key"><span><i style="background:#111"></i>Central Harlem</span><span><i style="background:#bbb"></i>Midtown</span>'+
+      '<span style="margin-left:auto">each row scaled to its larger value</span></div>';
+    s += '<div class="bgrp">Count</div>'+ROWS.map(([n,k,sub]) => bar(n, sub, sum(k,110), sum(k,105), nf)).join("");
+    s += '<div class="bgrp">Per square mile</div>'+ROWS.map(([n,k,sub]) => bar(n, sub, sum(k,110)/HOODS[0].area, sum(k,105)/HOODS[1].area, v => v.toFixed(0))).join("");
+    s += '<div class="bgrp">What each side is made of</div><div style="display:grid;grid-template-columns:150px 1fr 1fr;gap:4px 16px;font-size:11px;align-items:center">'+
+      '<span></span><b style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#666">Formal</b><b style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#666">Informal</b>'+
+      HOODS.map(h => '<span>'+h.name+'</span><div>'+stack(FORMAL,h)+'</div><div>'+stack(INFORMAL,h)+'</div>').join("")+'</div>';
+    s += '</div>';
+    document.getElementById("canvas").innerHTML = s;
+    const el = document.getElementById("bars"), box = document.getElementById("canvas");
+    let z = 1; el.style.zoom = 1;
+    while(z > .6 && el.scrollHeight*z > box.clientHeight){ z -= .02; el.style.zoom = z; }
+    const leg = (title, keys) => '<h3>'+title+'</h3><div class="colhd"><span></span><span></span><span>Har</span><span>Mid</span></div>'+
+      keys.map(k => ALL_LAYERS[k]).map(L => '<div class="lyr" style="cursor:default"><span></span><span class="nm"><span class="sw" style="background:'+L.color+'"></span>'+L.name+'</span>'+
+        '<span class="vl">'+nf(cnt(L,110))+'</span><span class="vl">'+nf(cnt(L,105))+'</span></div>').join("");
+    document.getElementById("legendbox").innerHTML = leg("Formal", FORMAL) + leg("Informal", INFORMAL);
+    const r = (k1,k2,cd) => (sum(k2,cd)/(sum(k1,cd)||1)).toFixed(1)+' : 1';
+    document.getElementById("panel").innerHTML = '<h3>Informal places per formal place</h3>'+
+      HOODS.map(h => stat(h.name, r(FORMAL,INFORMAL,h.cd))).join("")+
+      HOODS.map(h => stat(h.name+', without sheds', r(FORMAL,NOSHED,h.cd))).join("");
+    views = [];
+  }
+
+  // ---------- Process II: honeycomb (hexbin) maps ----------
+  const RAMPS = {
+    greens: ["#f7fcf5","#e5f5e0","#c7e9c0","#a1d99b","#74c476","#41ab5d","#238b45","#006d2c","#00441b"],
+    reds:   ["#fff5f0","#fee0d2","#fcbba1","#fc9272","#fb6a4a","#ef3b2c","#cb181d","#a50f15","#67000d"],
+    browns: ["#fbf6f0","#f1e3d1","#e3c9a8","#d1a97c","#b98a58","#9a6c3e","#7a5236","#5c3c26","#3d2717"],
+    teals:  ["#f1fafa","#d4eff0","#ade0e3","#7ccbd0","#4bb2ba","#2596a0","#0c8599","#09687a","#064b59"],
+    oranges:["#fff5eb","#fee6ce","#fdd0a2","#fdae6b","#fd8d3c","#f16913","#d94801","#a63603","#7f2704"],
+    blues:  ["#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"],
+    purples:["#fcfbfd","#efedf5","#dadaeb","#bcbddc","#9e9ac8","#807dba","#6a51a3","#54278f","#3f007d"]
+  };
+  function hexc(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+  function ramp(name, t){
+    const c = RAMPS[name]; t = Math.max(0, Math.min(1, t));
+    const i = Math.min(c.length-2, Math.floor(t*(c.length-1))), f = t*(c.length-1)-i;
+    const a = hexc(c[i]), b = hexc(c[i+1]);
+    return "rgb("+Math.round(a[0]+(b[0]-a[0])*f)+","+Math.round(a[1]+(b[1]-a[1])*f)+","+Math.round(a[2]+(b[2]-a[2])*f)+")";
+  }
+  const HEX_M = 120;                                   // hexagon radius in metres
+  const HR = HEX_M / 111320 * SC;                      // ...in drawing units (1° lat ≈ 111.3 km)
+  // formal / informal split (by design intent): was the place built for people to pause?
+  const FORMAL   = ["parks","pops","benches","shelters","libraries"];
+  const INFORMAL = ["stoop_hi","stoop_lo","sheds","vendors","laundromats","barbers"];
+  const HEXSETS = {
+    a_sit:     { keys:["stoop_hi","stoop_lo","benches"], ramp:"browns", name:"Sit", cap:"",
+      note:"Likely stoops (estimated from PLUTO: row houses and walk-up tenements built by 1915) plus city benches, counted per hexagon. Harlem's estimated sitting area is about 1,800 m² against Midtown's 60 m² (mid estimates; see 02 By Layer → Stoops for the assumptions)." },
+    a_shelter: { keys:["shelters","sheds"], ramp:"teals", name:"Shelter", cap:"",
+      note:"Bus stop shelters plus buildings with a sidewalk shed permit on record, per hexagon. Sheds dominate the count: they are the city's largest, and least intended, source of overhead cover." },
+    a_social:  { keys:["vendors","libraries","laundromats","barbers"], ramp:"oranges", name:"Social magnets", cap:"",
+      note:"Food vendor spots (311 complaints), libraries, laundromats (OpenStreetMap) and barbershops (NYS licences), per hexagon. Laundromats are undercounted, so treat Harlem's cells as a floor." },
+    a_unpaid:  { keys:["pops","stoop_hi","stoop_lo"], ramp:"greens", name:"Permission · unpaid", cap:"",
+      note:"Places you may stay without buying anything: POPS are open to the public by zoning law; stoops are private steps that are customarily shared. Harlem's unpaid places are almost all stoops, Midtown's almost all POPS — legal permission versus customary permission." },
+    a_open:    { keys:["parks","benches","shelters","libraries","sheds"], ramp:"blues", name:"Permission · open", cap:"",
+      note:"Everything else: public places open to anyone, where no one's permission or purchase is needed — parks & plazas, city benches, bus shelters, libraries and the sidewalk under sheds. Food vendor spots are left out because buying is expected there." },
+    a_paid:    { keys:["barbers","laundromats"], ramp:"purples", name:"Permission · paid", cap:"",
+      note:"Places where staying is tied to being a customer: you linger at the barbershop or laundromat because you are paying for a service. Each permission map has its own colour scale, because unpaid places far outnumber paid ones." },
+    formal:   { keys:FORMAL, ramp:"greens", name:"Formal", cap:"",
+      note:"Formal = places designed for people to pause: parks & plazas, POPS, city benches, bus shelters and libraries. Every hexagon is the same size in both districts and both maps share one colour scale, so cells compare directly." },
+    informal: { keys:INFORMAL, ramp:"reds", name:"Informal", cap:"",
+      note:"Informal = places where lingering happens anyway, though they were built for something else: stoops, sidewalk sheds, food vendor spots, laundromats and barbershops. Sheds and stoops make up most of the count." }
+  };
+  function hexKey(x, y){                               // pointy-top axial rounding
+    const q = (Math.sqrt(3)/3*x - y/3)/HR, r = (2/3*y)/HR;
+    let rx=Math.round(q), ry=Math.round(-q-r), rz=Math.round(r);
+    const dx=Math.abs(rx-q), dy=Math.abs(ry+q+r), dz=Math.abs(rz-r);
+    if(dx>dy && dx>dz) rx=-ry-rz; else if(dy>dz) ry=-rx-rz; else rz=-rx-ry;
+    return [rx, rz];
+  }
+  const hexCenter = (q, r) => [HR*Math.sqrt(3)*(q + r/2), HR*1.5*r];
+  function hexPath(cx, cy){
+    let s = "M";
+    for(let i=0;i<6;i++){ const a = Math.PI/180*(60*i-30); s += (cx+HR*Math.cos(a)).toFixed(1)+","+(cy+HR*Math.sin(a)).toFixed(1)+(i<5?"L":""); }
+    return s+"Z";
+  }
+  function inRing(x, y, ring){
+    let ins=false;
+    for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+      const xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];
+      if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) ins=!ins;
+    }
+    return ins;
+  }
+  // legend listing each dataset in a view, with its colour and the count in each district
+  function datasetsLegend(keys){
+    return '<h3>Datasets included</h3><div class="colhd"><span></span><span></span><span>Har</span><span>Mid</span></div>'+
+      keys.map(k => ALL_LAYERS[k]).map(L =>
+        '<div class="lyr" style="cursor:default"><span></span><span class="nm"><span class="sw" style="background:'+L.color+'"></span>'+L.name+
+        (L.sub?' <span style="color:#999">· '+L.sub+'</span>':'')+'</span><span class="vl">'+nf(cnt(L,110))+'</span><span class="vl">'+nf(cnt(L,105))+'</span></div>').join("");
+  }
+  // points twin of a honeycomb: same datasets as dots, with the same legend (as toggles)
+  function renderHexPoints(setKey){
+    const H = HEXSETS[setKey];
+    renderLayer(H.keys, H.name+' — location map');
+    const lb = document.getElementById("legendbox");
+    if(H.keys.length===1) lb.innerHTML = datasetsLegend(H.keys) + lb.innerHTML.replace(/^<h3>.*?<\/h3>/, '<h3>'+H.name+' — location map</h3>');
+    else lb.innerHTML = lb.innerHTML.replace(/^<h3>(.*?)<\/h3>/, '<h3>$1</h3><div style="font-size:10px;color:#999;letter-spacing:.06em;text-transform:uppercase;margin:-4px 0 4px">Datasets included</div>');
+  }
+  function renderHex(setKey){
+    const H = HEXSETS[setKey]; curKeys = [];
+    document.getElementById("index").innerHTML = "";
+    // bin every hood first so both maps share one scale
+    const bins = HOODS.map(h => {
+      const ring = geoBy[h.cd].rings[0].map(p => [h.px(p[0]), h.py(p[1])]);
+      const cells = {};
+      // grid of cells whose centre falls inside the district
+      const qMax = Math.ceil(h.W/(HR*Math.sqrt(3)))+2, rMax = Math.ceil(h.H/(HR*1.5))+2;
+      for(let r=-2;r<=rMax;r++) for(let q=-Math.ceil(rMax/2)-2;q<=qMax;q++){
+        const [cx,cy] = hexCenter(q,r);
+        if(inRing(cx,cy,ring)) cells[q+":"+r] = {q,r,cx,cy,n:0,by:{}};
+      }
+      H.keys.forEach(k => dataOf(ALL_LAYERS[k]).forEach(p => {
+        if(p[2]!==h.cd) return;
+        const [q,r] = hexKey(h.px(p[0]), h.py(p[1])), id = q+":"+r;
+        if(!cells[id]){ const [cx,cy]=hexCenter(q,r); cells[id] = {q,r,cx,cy,n:0,by:{}}; }
+        cells[id].n++; cells[id].by[k] = (cells[id].by[k]||0)+1;
+      }));
+      return { h, ring, cells:Object.values(cells) };
+    });
+    const max = Math.max(1, ...bins.flatMap(b => b.cells.map(c => c.n)));
+    const canvas = document.getElementById("canvas");
+    canvas.innerHTML = '<div class="maps">'+bins.map(b =>
+      '<div class="mapcol"><h2>'+b.h.name+' — '+H.name+'<span>'+nf(b.cells.reduce((a,c)=>a+c.n,0))+' places</span></h2><div id="x-'+b.h.key+'"></div></div>'
+    ).join("")+'</div>';
+    bins.forEach(b => {
+      const h = b.h;
+      let s = '<svg viewBox="0 0 '+h.W.toFixed(0)+' '+h.H.toFixed(0)+'" role="img">';
+      s += '<defs><clipPath id="hc-'+h.key+'"><path d="'+path(h, geoBy[h.cd].rings[0])+'"/></clipPath></defs>';
+      D.geo.forEach(g => { if(g.cd!==h.cd) g.rings.forEach(r => s += '<path d="'+path(h,r)+'" fill="#fbfbfb" stroke="#cfcfcf" stroke-width=".5"/>'); });
+      s += '<g clip-path="url(#hc-'+h.key+')">';
+      b.cells.forEach((c,i) => {
+        const fill = c.n ? ramp(H.ramp, .15 + .85*c.n/max) : "#f6f6f6";
+        s += '<path class="hx" data-i="'+i+'" d="'+hexPath(c.cx,c.cy)+'" fill="'+fill+'" stroke="#fff" stroke-width=".8"/>';
+      });
+      s += '</g><path d="'+path(h, geoBy[h.cd].rings[0])+'" fill="none" stroke="#111" stroke-width="1.1"/></svg>';
+      document.getElementById("x-"+h.key).innerHTML = s;
+      document.querySelectorAll("#x-"+h.key+" .hx").forEach(el => {
+        el.addEventListener("mousemove", e => {
+          const c = b.cells[+el.dataset.i];
+          const parts = H.keys.map(k => c.by[k] ? nameN(k, c.by[k]) : null).filter(Boolean);
+          showTip(e, '<span class="k">'+h.name+' · '+H.name+'</span><b>'+nf(c.n)+' place'+(c.n===1?'':'s')+' in this cell</b>'+(parts.join('<br>')||'Nothing recorded'));
+          el.setAttribute("stroke","#111"); el.setAttribute("stroke-width","1.4");
+        });
+        el.addEventListener("mouseleave", () => { hideTip(); el.setAttribute("stroke","#fff"); el.setAttribute("stroke-width",".8"); });
+      });
+    });
+    // legend + panel
+    let grad = ""; for(let i=0;i<=10;i++) grad += ramp(H.ramp, .15+.85*i/10)+(i<10?",":"");
+    document.getElementById("legendbox").innerHTML =
+      datasetsLegend(H.keys)+
+      '<h3>Places per hexagon</h3>'+
+      '<div class="legend"><div class="bar" style="height:11px;border:1px solid #ddd;margin-bottom:5px;background:linear-gradient(90deg,'+grad+')"></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>1</span><span>'+max+'</span></div></div>'+
+      '<div class="stat" style="margin-top:10px"><span><span class="sw" style="background:#f6f6f6;border:1px solid #ddd;border-radius:0"></span>Empty cell</span><b></b></div>'+
+      stat("Hexagon size", (HEX_M*2)+" m across");
+    document.getElementById("panel").innerHTML =
+      '<h3>Coverage</h3>'+bins.map(b => {
+        const inside = b.cells.filter(c => inRing(c.cx,c.cy,b.ring));
+        const lit = inside.filter(c => c.n>0).length;
+        return stat(b.h.name, lit+' of '+inside.length+' cells · '+Math.round(lit/inside.length*100)+'%');
+      }).join("")+
+      '<p class="note" style="margin-top:6px;border:0;padding:0">Share of hexagons with at least one place.</p>'+
+      '<h3>Densest cells</h3><ul class="rank" id="dense">'+
+      bins.flatMap(b => b.cells.map((c,i) => ({b,c,i}))).sort((x,y)=>y.c.n-x.c.n).slice(0,6).map((o,i) => {
+        const mix = H.keys.length>1 ? ' <span style="color:#aaa">'+H.keys.filter(k=>o.c.by[k]).map(k => nameN(k, o.c.by[k])).join(', ')+'</span>' : '';
+        return '<li data-h="'+o.b.h.key+'" data-i="'+o.i+'"><span class="nm"><span class="i">'+String(i+1).padStart(2,"0")+'</span>'+o.b.h.name+mix+'</span><span class="vl">'+o.c.n+'</span></li>';
+      }).join("")+'</ul>';
+    document.querySelectorAll("#dense li").forEach(li => {
+      const el = document.querySelector('#x-'+li.dataset.h+' .hx[data-i="'+li.dataset.i+'"]');
+      li.onmouseenter = () => { el.setAttribute("stroke","#111"); el.setAttribute("stroke-width","2.4"); el.parentNode.appendChild(el); };
+      li.onmouseleave = () => { el.setAttribute("stroke","#fff"); el.setAttribute("stroke-width",".8"); };
+    });
+    views = [];
+  }
+
+  // ---------- 06 Conditions ----------
+  const COND = {
+    c_sit:        { name:"Sit",            keys:["stoop_hi","stoop_lo","benches"] },
+    c_shelter:    { name:"Shelter",        keys:["shelters","sheds"] },
+    c_social:     { name:"Social magnets", keys:["vendors","libraries","laundromats","barbers"] },
+    c_permission: { name:"Permission",     keys:[] }
+  };
+  function condToggles(keys){
+    return '<div class="colhd"><span></span><span></span><span>Har</span><span>Mid</span></div>'+
+      keys.map(k => ALL_LAYERS[k]).map(L =>
+        '<label class="lyr"><input type="checkbox" data-k="'+L.key+'"'+(on[L.key]?' checked':'')+'>'+
+        '<span class="nm"><span class="sw" style="background:'+L.color+'"></span>'+L.name+(L.sub?' <span style="color:#999">· '+L.sub+'</span>':'')+'</span>'+
+        '<span class="vl">'+nf(cnt(L,110))+'</span><span class="vl">'+nf(cnt(L,105))+'</span></label>').join("");
+  }
+  function sitPanel(){
+    return '<h3>Estimated sitting area</h3>'+HOODS.map(h => {
+      const e = C.sit[String(h.cd)], km2 = h.area*2.58999;
+      return '<div style="margin:2px 0 10px"><div style="font-weight:600;font-size:11px;margin:6px 0 2px">'+h.name+'</div>'+
+        stat("Sitting area, mid", '<span style="font-size:13px">'+nf(e.area_m2_mid)+' m²</span>')+
+        stat("Range, low – high", nf(e.area_m2_low)+' – '+nf(e.area_m2_high)+' m²')+
+        stat("Per km², mid", nf(Math.round(e.area_m2_mid/km2))+' m²')+
+        stat("Seats, mid", nf(e.seats_mid)+' ('+Math.round(e.stoop_seats_mid/e.seats_mid*100)+'% on stoops)')+'</div>';
+    }).join("");
+  }
+  function renderCondition(key){
+    const K = COND[key];
+    curKeys = K.keys; K.keys.forEach(k => on[k] = true);
+    drawMaps(K.keys);
+    const lb = document.getElementById("legendbox"), pn = document.getElementById("panel");
+    if(!K.keys.length){
+      lb.innerHTML = '<h3>'+K.name+'</h3>'+stat("Datasets", "to come")+HOODS.map(h => stat(h.name, "—")).join("");
+      pn.innerHTML = ""; return;
+    }
+    lb.innerHTML = '<h3>'+K.name+'</h3>'+condToggles(K.keys);
+    if(key==="c_sit"){
+      pn.innerHTML = '<h3>Estimated sitting area</h3>'+HOODS.map(h => {
+        const e = C.sit[String(h.cd)], km2 = h.area*2.58999;
+        return '<div style="margin:2px 0 10px"><div style="font-weight:600;font-size:11px;margin:6px 0 2px">'+h.name+'</div>'+
+          stat("Sitting area, mid", '<span style="font-size:13px">'+nf(e.area_m2_mid)+' m²</span>')+
+          stat("Range, low – high", nf(e.area_m2_low)+' – '+nf(e.area_m2_high)+' m²')+
+          stat("Per km², mid", nf(Math.round(e.area_m2_mid/km2))+' m²')+
+          stat("Seats, mid", nf(e.seats_mid)+' ('+Math.round(e.stoop_seats_mid/e.seats_mid*100)+'% on stoops)')+
+          stat("Stoop lots, row house / tenement", nf(e.lots_high)+' / '+nf(e.lots_low))+
+          stat("Benches", e.benches+' ('+e.bench_seats+' seats)')+'</div>';
+      }).join("");
+    } else {
+      pn.innerHTML = '<h3>Per square mile</h3>'+K.keys.map(k => ALL_LAYERS[k]).map(L =>
+        stat('<span class="sw" style="background:'+L.color+'"></span>'+L.name,
+          (cnt(L,110)/HOODS[0].area).toFixed(1)+' / '+(cnt(L,105)/HOODS[1].area).toFixed(1))).join("")+
+        '<p class="note" style="margin-top:6px;border:0;padding:0">Central Harlem / Midtown</p>';
+    }
+    bindToggles();
+  }
+
+  // ---------- Experiment 2: Central Harlem — scaffolding now & next ----------
+  const X2 = D.x2;
+  const AGE_BINS = [   // how long a shed has been up
+    { max:90,       label:"Under 90 days",   color:"#fed976" },
+    { max:180,      label:"90–180 days",     color:"#fd8d3c" },
+    { max:365,      label:"6–12 months",     color:"#f03b20" },
+    { max:730,      label:"1–2 years",       color:"#bd0026" },
+    { max:1826,     label:"2–5 years",       color:"#7a0177" },
+    { max:Infinity, label:"5 years +",       color:"#2d004b" }
+  ];
+  const ageBin = d => AGE_BINS.findIndex(b => d < b.max);
+  const blockOf = bbl => +String(bbl).slice(1,6);
+  const SUBCYC = {
+    A:{ label:"10A · filing Feb 2025 – Feb 2027", color:"#1f5fbf", digits:[4,5,6,9] },
+    B:{ label:"10B · filing opened Feb 2026",     color:"#0c8599", digits:[0,7,8] },
+    C:{ label:"10C · filing opens 2027",          color:"#9c36b5", digits:[1,2,3] }
+  };
+  const subOf = bbl => { const d = blockOf(bbl) % 10; return Object.keys(SUBCYC).find(k => SUBCYC[k].digits.includes(d)); };
+  const shedBbl = new Set(X2.S.map(r => r[1]));
+  const yrs = d => d >= 365 ? (d/365.25).toFixed(1)+" years" : d+" days";
+  const OWN = { C:"City-owned", M:"Mixed city & private", O:"Other public", P:"Private", X:"Tax-exempt (public / non-profit)" };
+  const X2L = {
+    shed: { key:"x2shed", r:4.2, tip:p => '<span class="k">Active sidewalk shed · '+AGE_BINS[ageBin(p[5])].label+'</span><b>'+esc(tc(p[2]))+'</b>Up for <b>'+yrs(p[5])+'</b>'+(p[5]>=365?' ('+nf(p[5])+' days)':'')+'<br>First permit '+p[3]+' · current permit expires '+p[4]+(p[6]>1?'<br>'+p[6]+' active shed jobs on this building':'')+(tallBy[p[1]]?'<br>'+tallBy[p[1]][3]+' floors · facade inspection building':'') },
+    tall: { key:"x2tall", r:5, tip:p => '<span class="k">Over six floors · will need scaffolding</span><b>'+esc(tc(p[1]))+'</b>'+p[3]+' floors'+(p[4]?' · built '+p[4]:'')+(p[5]?' · '+nf(p[5])+' homes':'')+'<br>Facade inspection sub-cycle '+SUBCYC[subOf(p[0])].label+(OWN[p[6]]?'<br>'+OWN[p[6]]:'')+(p[7]?'<br>'+p[7]:'')+(shedBbl.has(p[0])?'<br><b>Shed up now</b>':'') }
+  };
+  const tallBy = {}; X2.tall.forEach(t => tallBy[t[0]] = t);
+  function tc(s){ return String(s||'').toLowerCase().replace(/\s+/g,' ').replace(/\b\w/g, c => c.toUpperCase()).replace(/(\d)(St|Nd|Rd|Th)\b/g, (m,a,b) => a+b.toLowerCase()); }
+  on.x2shed = true; on.x2tall = true;
+
+  // ---- base map: building outlines, tax blocks, streets ----
+  function decPts(str){ const pts=[]; let x=0, y=0; str.split(",").forEach(pr => { const [a,b] = pr.split(" "); x += parseInt(a,36); y += parseInt(b,36); pts.push([x/1e5-74, y/1e5+40]); }); return pts; }
+  let BASE = null;
+  function baseMap(h){
+    if(BASE) return BASE;
+    const P = pts => "M"+pts.map(p => h.px(p[0]).toFixed(1)+","+h.py(p[1]).toFixed(1)).join("L");
+    const B = X2.base;
+    const bldg = B.B.map(([bin, ht, fc, bbl, e]) => ({ bin, ht, bbl, d:P(decPts(e))+"Z" }));
+    // streets: draw every segment; label each named street once per ~600 m along its longest pieces
+    const streets = B.S.map(([name, type, w, e]) => { const pts = decPts(e); return { name, type, pts, d:P(pts) }; });
+    const labels = [], byName = {};
+    streets.forEach(st => { if(!st.name || st.type !== 1 || st.pts.length < 2) return;
+      const a = st.pts[0], b = st.pts[st.pts.length-1];
+      const len = Math.hypot((b[0]-a[0])*Math.cos(40.8*Math.PI/180), b[1]-a[1])*111320;
+      (byName[st.name] = byName[st.name] || []).push({ st, len, mid:[(a[0]+b[0])/2, (a[1]+b[1])/2], a, b }); });
+    Object.entries(byName).forEach(([name, segs]) => {
+      segs.sort((p,q) => q.len - p.len);
+      const placed = [];
+      segs.forEach(sg => {
+        if(sg.len < 45) return;
+        if(placed.some(m => Math.hypot((m[0]-sg.mid[0])*0.757, m[1]-sg.mid[1])*111320 < 600)) return;
+        placed.push(sg.mid);
+        const x1 = h.px(sg.a[0]), y1 = h.py(sg.a[1]), x2 = h.px(sg.b[0]), y2 = h.py(sg.b[1]);
+        let ang = Math.atan2(y2-y1, x2-x1)*180/Math.PI; if(ang > 90) ang -= 180; if(ang < -90) ang += 180;
+        labels.push({ name, x:(x1+x2)/2, y:(y1+y2)/2, ang });
+      });
+    });
+    BASE = { bldg, streets, labels };
+    return BASE;
+  }
+  // zoom & pan for the Harlem map (mouse wheel / drag / buttons)
+  function enableZoom(svg, W, H, onZoom){
+    let vb = { x:0, y:0, w:W, h:H };
+    const set = () => { svg.setAttribute("viewBox", vb.x+" "+vb.y+" "+vb.w+" "+vb.h); onZoom(W/vb.w); };
+    const zoomAt = (f, cx, cy) => {
+      const nw = Math.min(W, Math.max(W/14, vb.w*f)), nh = nw*H/W;
+      vb.x = cx - (cx - vb.x)*nw/vb.w; vb.y = cy - (cy - vb.y)*nh/vb.h; vb.w = nw; vb.h = nh;
+      vb.x = Math.max(0, Math.min(W - vb.w, vb.x)); vb.y = Math.max(0, Math.min(H - vb.h, vb.y)); set();
+    };
+    const toSvg = e => { const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()); };
+    svg.addEventListener("wheel", e => { e.preventDefault(); const p = toSvg(e); zoomAt(e.deltaY > 0 ? 1.25 : 0.8, p.x, p.y); }, { passive:false });
+    let drag = null;
+    svg.addEventListener("pointerdown", e => { drag = { x:e.clientX, y:e.clientY, vx:vb.x, vy:vb.y }; svg.style.cursor = "grabbing"; });
+    window.addEventListener("pointerup", () => { drag = null; svg.style.cursor = ""; });
+    svg.addEventListener("pointermove", e => { if(!drag) return;
+      const sc = vb.w / svg.getBoundingClientRect().width;
+      vb.x = Math.max(0, Math.min(W - vb.w, drag.vx - (e.clientX - drag.x)*sc));
+      vb.y = Math.max(0, Math.min(H - vb.h, drag.vy - (e.clientY - drag.y)*sc)); set(); });
+    return { in:() => zoomAt(0.6, vb.x+vb.w/2, vb.y+vb.h/2), out:() => zoomAt(1/0.6, vb.x+vb.w/2, vb.y+vb.h/2), reset:() => { vb = { x:0, y:0, w:W, h:H }; set(); } };
+  }
+
+  // ---------- 03 Need: a speculative heat map of where people are likely to need a place to pause ----------
+  const NEED_CATS = {
+    S:{ name:"Seniors",      sub:"senior centers",                        color:"#9c36b5" },
+    K:{ name:"Kids",         sub:"schools, day care, pre-K",              color:"#1f5fbf" },
+    P:{ name:"Public space", sub:"parks, gardens, plazas, libraries",     color:"#2e8b3d" },
+    A:{ name:"Activity",     sub:"subway entrances, bus shelters",        color:"#e8590c" }
+  };
+  const NEED_SIGMA = 160;   // metres: halo around each place, fading to almost nothing by ~450 m (a 5–6 minute walk)
+  const NEED_RAMP = ["#fff7bc","#fee391","#fec44f","#fe9929","#ec7014","#cc4c02","#8c2d04"];
+  const needPts = () => {
+    if(needPts.v) return needPts.v;
+    const pts = X2.need.map(r => ({ c:r[0], name:r[1], lat:r[2], lon:r[3], type:r[4] }));
+    C.shelters.forEach(p => pts.push({ c:"A", name:p[3], lat:p[1], lon:p[0], type:"Bus shelter" }));
+    return needPts.v = pts;
+  };
+  function needGrid(h){
+    if(needGrid.v) return needGrid.v;
+    const CELL = 15, mPerUnit = 111320/SC;                 // drawing units → metres
+    const nx = Math.ceil(h.W*mPerUnit/CELL), ny = Math.ceil(h.H*mPerUnit/CELL);
+    const lay = {}; Object.keys(NEED_CATS).forEach(c => lay[c] = new Float32Array(nx*ny));
+    const R = Math.ceil(3*NEED_SIGMA/CELL), two = 2*NEED_SIGMA*NEED_SIGMA;
+    needPts().forEach(p => {
+      const gx = Math.floor(h.px(p.lon)*mPerUnit/CELL), gy = Math.floor(h.py(p.lat)*mPerUnit/CELL), L = lay[p.c];
+      for(let y=Math.max(0,gy-R); y<=Math.min(ny-1,gy+R); y++) for(let x=Math.max(0,gx-R); x<=Math.min(nx-1,gx+R); x++){
+        const d2 = ((x-gx)**2 + (y-gy)**2)*CELL*CELL; L[y*nx+x] += Math.exp(-d2/two);
+      }
+    });
+    // only cells inside Central Harlem count toward each layer's maximum
+    const ring = geoBy[h.cd].rings[0].map(p => [h.px(p[0]), h.py(p[1])]);
+    const inside = new Uint8Array(nx*ny);
+    for(let y=0;y<ny;y++) for(let x=0;x<nx;x++) inside[y*nx+x] = inRing((x+.5)*CELL/mPerUnit, (y+.5)*CELL/mPerUnit, ring) ? 1 : 0;
+    const norm = {};
+    Object.keys(lay).forEach(c => { let m = 0; lay[c].forEach((v,i) => { if(inside[i] && v>m) m = v; }); norm[c] = m || 1; });
+    const all = new Float32Array(nx*ny);
+    for(let i=0;i<nx*ny;i++){ let s2 = 0; Object.keys(lay).forEach(c => s2 += Math.min(1, lay[c][i]/norm[c])); all[i] = s2/4; }
+    return needGrid.v = { nx, ny, CELL, mPerUnit, lay, norm, all, inside };
+  }
+  // ---------- 02 Linger Index (Experiment 1 data only) and 04 Overlay (index × need) ----------
+  const LING = {   // informal lingering: people already stop here
+    stoops:  { name:"Stoops",       color:"#7a5236", pts:() => C.stoops },
+    vendors: { name:"Food vendors", color:"#e8590c", pts:() => C.vendors },
+    barbers: { name:"Barbershops",  color:"#d6336c", pts:() => C.barbers },
+    laund:   { name:"Laundromats",  color:"#15aabf", pts:() => C.laundromats }
+  };
+  const SUPP = {   // formal supply: places designed for pausing
+    benches:  { name:"Benches",      color:"#1f5fbf", pts:() => D.layers.benches },
+    shelters: { name:"Bus shelters", color:"#0c8599", pts:() => C.shelters },
+    parks:    { name:"Parks",        color:"#2e8b3d", pts:() => D.layers.parks, w:p => Math.max(.5, Math.min(4, Math.sqrt(p[5]||0.25))) },
+    libs:     { name:"Libraries",    color:"#364fc7", pts:() => C.libraries }
+  };
+  const IDX_RAMP = ["#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#2171b5","#08306b"];
+  const OVL_RAMP = ["#fee5d9","#fcbba1","#fc9272","#fb6a4a","#ef3b2c","#cb181d","#67000d"];
+  function kernel(G, pts){   // smooth halo around each point, scaled 0–1 inside Central Harlem
+    const a = new Float32Array(G.nx*G.ny), R = Math.ceil(3*NEED_SIGMA/G.CELL), two = 2*NEED_SIGMA*NEED_SIGMA, h = HOODS[0];
+    pts.forEach(([lon,lat,w]) => {
+      const gx = Math.floor(h.px(lon)*G.mPerUnit/G.CELL), gy = Math.floor(h.py(lat)*G.mPerUnit/G.CELL);
+      for(let y=Math.max(0,gy-R); y<=Math.min(G.ny-1,gy+R); y++) for(let x=Math.max(0,gx-R); x<=Math.min(G.nx-1,gx+R); x++)
+        a[y*G.nx+x] += w*Math.exp(-((x-gx)**2+(y-gy)**2)*G.CELL*G.CELL/two);
+    });
+    let m = 0; a.forEach((v,i) => { if(G.inside[i] && v>m) m = v; }); if(m) for(let i=0;i<a.length;i++) a[i] = Math.min(1, a[i]/m);
+    return a;
+  }
+  const scale01 = (a, G) => { let m = 0; a.forEach((v,i) => { if(G.inside[i] && v>m) m = v; }); if(m) for(let i=0;i<a.length;i++) a[i] = Math.min(1, a[i]/m); return a; };
+  function idxGrid(h){
+    const G = needGrid(h);
+    if(G.idx) return G;
+    const mk = (set) => { const out = {}; Object.entries(set).forEach(([k,d]) => out[k] = kernel(G, d.pts().filter(p => p[2]===110).map(p => [p[0], p[1], d.w ? d.w(p) : 1]))); return out; };
+    G.L = mk(LING); G.F = mk(SUPP);
+    const n = G.nx*G.ny, avg = (o) => { const r = new Float32Array(n); const ks = Object.keys(o); for(let i=0;i<n;i++){ let t=0; ks.forEach(k => t += o[k][i]); r[i] = t/ks.length; } return r; };
+    G.ling = scale01(avg(G.L), G); G.supp = scale01(avg(G.F), G);
+    G.idx = new Float32Array(n); for(let i=0;i<n;i++) G.idx[i] = G.ling[i]*(1 - G.supp[i]);
+    scale01(G.idx, G);
+    const need = new Float32Array(n); for(let i=0;i<n;i++) need[i] = G.all[i]; scale01(need, G); G.needN = need;
+    G.ovl = new Float32Array(n); for(let i=0;i<n;i++) G.ovl[i] = Math.sqrt(G.idx[i]*need[i]);
+    scale01(G.ovl, G);
+    return G;
+  }
+  // what each map is made of: used for the breakdown bars
+  function partsFor(cat){
+    if(cat==="idx")  return [{ name:"Informal lingering", color:"#7a5236", f:(G,i)=>G.ling[i] }, { name:"Formal supply (lower is a bigger gap)", color:"#2e8b3d", f:(G,i)=>G.supp[i] }];
+    if(cat==="ling") return Object.entries(LING).map(([k,d]) => ({ name:d.name, color:d.color, f:(G,i)=>G.L[k][i] }));
+    if(cat==="supp") return Object.entries(SUPP).map(([k,d]) => ({ name:d.name, color:d.color, f:(G,i)=>G.F[k][i] }));
+    if(cat==="ovl")  return [{ name:"Linger index (01)", color:"#2171b5", f:(G,i)=>G.idx[i] }, { name:"Need (02)", color:"#ec7014", f:(G,i)=>G.needN[i] }];
+    const cs = cat==="all" ? Object.keys(NEED_CATS) : [cat];
+    return cs.map(c => ({ name:NEED_CATS[c].name, color:NEED_CATS[c].color, f:(G,i)=>Math.min(1, G.lay[c][i]/G.norm[c]) }));
+  }
+  // counts of each kind of place within a 5-minute walk (~450 m) of an area centre
+  function countsNear(h, x, y, sets){
+    const mPer = 111320/SC, R = 450/mPer, out = [];
+    sets.forEach(set => Object.values(set).forEach(d => {
+      const n = d.pts().filter(p => Math.hypot(h.px(p[0])-x, h.py(p[1])-y) < R).length;
+      out.push({ name:d.name, color:d.color, n });
+    }));
+    return out;
+  }
+  function needValue(G, cat, i){
+    if(cat==="idx") return G.idx[i]; if(cat==="ovl") return G.ovl[i]; if(cat==="ling") return G.ling[i]; if(cat==="supp") return G.supp[i];
+    return cat==="all" ? G.all[i] : Math.min(1, G.lay[cat][i]/G.norm[cat]);
+  }
+  const rampFor = cat => cat==="idx" || cat==="ling" ? IDX_RAMP : cat==="ovl" ? OVL_RAMP : cat==="supp" ? RAMPS.greens.slice(1,8) : NEED_RAMP;
+  function needImage(G, cat){
+    const cv = document.createElement("canvas"); cv.width = G.nx; cv.height = G.ny;
+    const ctx = cv.getContext("2d"), img = ctx.createImageData(G.nx, G.ny);
+    let mx = 0; for(let i=0;i<G.nx*G.ny;i++) if(G.inside[i]) mx = Math.max(mx, needValue(G,cat,i));
+    for(let i=0;i<G.nx*G.ny;i++){
+      const t = needValue(G,cat,i)/(mx||1); if(t < .04) continue;
+      const RMP = rampFor(cat);
+      const f = Math.min(RMP.length-1.001, t*(RMP.length-1)), k0 = Math.floor(f), w = f-k0;
+      const a = hexc(RMP[k0]), b = hexc(RMP[k0+1]);
+      img.data[i*4] = a[0]+(b[0]-a[0])*w; img.data[i*4+1] = a[1]+(b[1]-a[1])*w; img.data[i*4+2] = a[2]+(b[2]-a[2])*w;
+      img.data[i*4+3] = Math.round(70 + 170*Math.min(1,t*1.2));
+    }
+    ctx.putImageData(img,0,0); return { url:cv.toDataURL(), mx };
+  }
+  // the highest-need spots, at least ~450 m apart, named by their two nearest streets
+  function needAreas(G, cat, h, n){
+    const cand = [];
+    for(let i=0;i<G.nx*G.ny;i++) if(G.inside[i]) cand.push([needValue(G,cat,i), i]);
+    cand.sort((a,b) => b[0]-a[0]);
+    const out = [], minD = 450/G.CELL;
+    for(const [v,i] of cand){
+      const x = i%G.nx, y = Math.floor(i/G.nx);
+      if(out.some(o => Math.hypot(o.gx-x, o.gy-y) < minD)) continue;
+      const dx = (x+.5)*G.CELL/G.mPerUnit, dy = (y+.5)*G.CELL/G.mPerUnit;
+      const parts = partsFor(cat).map(pt => ({ name:pt.name, color:pt.color, v:pt.f(G,i) }));
+      out.push({ gx:x, gy:y, x:dx, y:dy, v, parts, name:nearStreets(h, dx, dy) });
+      if(out.length >= n) break;
+    }
+    return out;
+  }
+  function nearStreets(h, x, y){
+    const BM = baseMap(h), best = {};
+    BM.streets.forEach(st => { if(!st.name || st.type !== 1) return;
+      st.pts.forEach(p => { const d = Math.hypot(h.px(p[0])-x, h.py(p[1])-y); if(best[st.name] === undefined || d < best[st.name]) best[st.name] = d; }); });
+    return Object.entries(best).sort((a,b) => a[1]-b[1]).slice(0,2).map(e => tc(e[0])).join(" & ");
+  }
+
+  // need sources as a "set" so overlay areas can count them too
+  const MATH = { idx:"L × (1 − S)", ovl:"√(Index × Need)", all:"(Seniors + Kids + Public space + Activity) ÷ 4",
+                 ling:"(Stoops + Vendors + Barbershops + Laundromats) ÷ 4", supp:"(Benches + Bus shelters + Parks + Libraries) ÷ 4", one:"Layer value" };
+  const MATH_STEPS = {
+    idx: ['<b>1 · Halo.</b> Every place spreads a value that fades with distance: weight × e<sup>−d²/(2·160²)</sup>, d in metres. Most of it is gone by ~450 m (a 5-minute walk).',
+          '<b>2 · Scale each layer 0–1.</b> Divide each layer (stoops, vendors, barbers, laundromats, benches, shelters, parks, libraries) by its highest value in Central Harlem. Parks are weighted by √acres (0.5–4).',
+          '<b>3 · Average.</b> L = mean of the 4 informal layers; S = mean of the 4 formal layers. Rescale both 0–1.',
+          '<b>4 · Combine.</b> Index = L × (1 − S): high where lingering is high and supply is low. A spot with L = 0.9, S = 0.3 scores 0.9 × 0.7 = 0.63.',
+          '<b>5 · Rescale & score.</b> The result is rescaled 0–1 across Central Harlem (÷ its highest cell). Each hexagon averages its cells, then ÷ the highest hexagon × 100. Because the formula runs cell by cell, a hexagon’s score won’t exactly equal its average L × (1 − average S).'],
+    ovl: ['<b>1 · Inputs.</b> I = Linger index (01), N = Need (02), both scaled 0–1.',
+          '<b>2 · Combine.</b> Overlay = √(I × N), the geometric mean. Both must be high: I = 0.9, N = 0.2 gives √0.18 = 0.42, while I = 0.6, N = 0.6 gives 0.60.',
+          '<b>3 · Score.</b> Each hexagon averages its cells, then ÷ the highest hexagon × 100.'],
+    need:['<b>1 · Halo.</b> Every place spreads a value that fades with distance: e<sup>−d²/(2·160²)</sup>, d in metres (~450 m reach).',
+          '<b>2 · Scale each kind 0–1.</b> Seniors, kids, public space and activity are each divided by their highest value in Central Harlem.',
+          '<b>3 · Average.</b> Need = (Seniors + Kids + Public space + Activity) ÷ 4.',
+          '<b>4 · Score.</b> Each hexagon averages its cells, then ÷ the highest hexagon × 100.'] };
+  function NEED_SETS(){
+    const o = {}; Object.keys(NEED_CATS).forEach(c => o[c] = { name:NEED_CATS[c].name, color:NEED_CATS[c].color,
+      pts:() => needPts().filter(p => p.c===c).map(p => [p.lon, p.lat]) }); return o;
+  }
+  let TOPS_MIN = 40, TOPS = [], NEXT = [], SHOW_NOW = true, SHOW_NEXT = true;
+  const TIERS = [   // TOPS kit (what the public gets) + incentive tier (what the owner gets), by Overlay score
+    { min:80, name:"TOPS kit I",   inc:"Incentive tier I",   kit:"Premium · highest demand: the most public space, shaped by adjacent needs", color:"#111" },
+    { min:60, name:"TOPS kit II",  inc:"Incentive tier II",  kit:"Standard · high demand: more public space for adjacent needs", color:"#6b6b6b" },
+    { min:0,  name:"TOPS kit III", inc:"Incentive tier III", kit:"Basic · lower demand: minimum public space", color:"#fff" }
+  ];
+  const tierOf = sc => sc < TOPS_MIN ? null : TIERS.find(t => sc >= t.min);
+  function renderX2(mode, ph){
+    curKeys = [];
+    const SHED = mode==="both" || mode==="days", TALL = mode==="both" || mode==="next";
+    const h = HOODS[0];   // Central Harlem
+    const canvas = document.getElementById("canvas");
+    canvas.innerHTML = '<div class="maps"><div class="mapcol" style="flex:1.4 1 0"><h2>Central Harlem<span>CD 110 · '+h.area.toFixed(2)+' sq mi · scroll to zoom, drag to pan</span></h2>'+
+      '<div id="m-harlem" style="position:relative"></div></div>'+
+      '<div class="mapcol x2side" id="x2side" style="flex:1 1 0"></div></div>';
+    const box = document.getElementById("m-harlem").getBoundingClientRect();
+    const shown = Math.min(box.height || h.H, (box.width || h.W) * h.H / h.W);
+    const k = Math.max(1, h.H / shown);
+    let s = '<svg viewBox="0 0 '+h.W.toFixed(0)+' '+h.H.toFixed(0)+'" role="img">';
+    D.geo.forEach(g => { if(g.cd!==h.cd) g.rings.forEach(r => s += '<path d="'+path(h,r)+'" fill="#fbfbfb" stroke="#cfcfcf" stroke-width=".5"/>'); });
+    s += '<defs><clipPath id="clip-x2"><path d="'+path(h, geoBy[h.cd].rings[0])+'"/></clipPath></defs>';
+    s += '<path d="'+path(h, geoBy[h.cd].rings[0])+'" fill="#fff" stroke="none"/>';
+    const BM = baseMap(h);
+    const shedAge = {}; X2.S.forEach(r => shedAge[r[0]] = r[5]);
+    const tallSet = new Set(X2.tall.map(t => t[0]));
+    // building outlines: shed buildings filled by time up, buildings over six floors outlined
+    const BLANK = mode === "blank" || (ph && ph.tops);
+    s += '<g fill="none" stroke="'+(BLANK?"#dedede":"#cfcfcf")+'" stroke-width="'+(BLANK?1:1.2)+'" stroke-linecap="round" clip-path="url(#clip-x2)">'+BM.streets.map(st => '<path d="'+st.d+'"/>').join("")+'</g>';
+    if(!BLANK) s += '<g stroke-linejoin="round">'+BM.bldg.map(b => {
+      const age = shedAge[b.bin], tall = tallSet.has(b.bbl);
+      let fill = "#f1f1f1", stroke = "#c4c4c4", sw = .5;
+      if(SHED && age !== undefined){ fill = AGE_BINS[ageBin(age)].color; stroke = "#fff"; }
+      if(mode === "next" && tall){ fill = shedBbl.has(b.bbl) ? SUBCYC[subOf(b.bbl)].color : "#fff"; stroke = SUBCYC[subOf(b.bbl)].color; sw = 1.2; }
+      else if(mode === "both" && tall){ stroke = "#111"; sw = 1.2; }
+      return '<path d="'+b.d+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>'; }).join("")+'</g>';
+    // street names
+    const NEED = mode === "need";
+    let G, NI, AREAS, HXS = {};
+    if(NEED){
+      G = ["idx","ovl","ling","supp"].includes(ph.cat) ? idxGrid(h) : needGrid(h); NI = needImage(G, ph.cat); AREAS = needAreas(G, ph.cat, h, ph.cat==="supp" ? 0 : 6);
+      const gw = G.nx*G.CELL/G.mPerUnit, gh = G.ny*G.CELL/G.mPerUnit;
+      if(needView==="hex" || ph.tops){
+        // average score of the grid cells in each 240 m hexagon (inside Central Harlem only)
+        const acc = {}, PRT = partsFor(ph.cat);
+        for(let i=0;i<G.nx*G.ny;i++){ if(!G.inside[i]) continue;
+          const x = (i%G.nx+.5)*G.CELL/G.mPerUnit, y = (Math.floor(i/G.nx)+.5)*G.CELL/G.mPerUnit, [q,r] = hexKey(x,y), id = q+":"+r;
+          (acc[id] = acc[id] || { q, r, t:0, n:0, ps:PRT.map(() => 0) }); acc[id].t += needValue(G, ph.cat, i); acc[id].n++;
+          PRT.forEach((pt,j) => acc[id].ps[j] += pt.f(G,i)); }
+        const hRingX = geoBy[h.cd].rings[0].map(q => [h.px(q[0]), h.py(q[1])]);
+        const hx = Object.values(acc).filter(o => { const [cx,cy] = hexCenter(o.q,o.r); return o.n >= 8 && inRing(cx, cy, hRingX); }).map(o => ({ ...o, v:o.t/o.n }));
+        const mxv = Math.max(...hx.map(o => o.v)) || 1, RMP = rampFor(ph.cat);
+        const col = t => { const f = Math.min(RMP.length-1.001, t*(RMP.length-1)), k0 = Math.floor(f), w = f-k0, a = hexc(RMP[k0]), b = hexc(RMP[k0+1]);
+          return "rgb("+Math.round(a[0]+(b[0]-a[0])*w)+","+Math.round(a[1]+(b[1]-a[1])*w)+","+Math.round(a[2]+(b[2]-a[2])*w)+")"; };
+        s += '<g clip-path="url(#clip-x2)">'+hx.map(o => { const [cx,cy] = hexCenter(o.q,o.r), sc = Math.round(o.v/mxv*100);
+          const comps = PRT.map((pt,j) => pt.name.split(" (")[0]+" = "+(o.ps[j]/o.n).toFixed(2)).join("\n");
+          const tip = "Score "+sc+" / 100\n\n"+comps+"\n\n"+MATH[ph.cat in MATH ? ph.cat : "one"]+", worked out cell by cell and rescaled 0–1, averaged over this hexagon = "+o.v.toFixed(2)+"\nScore = "+o.v.toFixed(2)+" ÷ "+mxv.toFixed(2)+" (highest hexagon) × 100 = "+sc;
+          return '<path d="'+hexPath(cx,cy)+'" fill="'+col(o.v/mxv)+'" fill-opacity="'+(ph.tops?.38:.92)+'" stroke="#fff" stroke-width="1"><title>'+esc(tip)+'</title></path>'; }).join("")+'</g>';
+        HXS = {}; hx.forEach(o => HXS[o.q+":"+o.r] = Math.round(o.v/mxv*100));
+        if(!ph.tops) s += '<g class="hexsc">'+hx.map(o => { const [cx,cy] = hexCenter(o.q,o.r), sc = Math.round(o.v/mxv*100);
+          return '<text x="'+cx.toFixed(1)+'" y="'+cy.toFixed(1)+'" fill="'+(sc>55?"#fff":"#333")+'">'+sc+'</text>'; }).join("")+'</g>';
+      } else
+      s += '<image href="'+NI.url+'" x="0" y="0" width="'+gw.toFixed(1)+'" height="'+gh.toFixed(1)+'" preserveAspectRatio="none" clip-path="url(#clip-x2)" style="image-rendering:auto"/>';
+    }
+    s += '<path d="'+path(h, geoBy[h.cd].rings[0])+'" fill="none" stroke="'+(BLANK?"#888":"#111")+'" stroke-width="'+(BLANK?.8:1.1)+'"/>';
+    s += '<g class="x2lbl">'+BM.labels.map(l => '<text class="stl" transform="translate('+l.x.toFixed(1)+','+l.y.toFixed(1)+') rotate('+l.ang.toFixed(1)+')">'+esc(l.name)+'</text>').join("")+'</g>';
+    const pts = [];
+    const rr = r => (r*Math.sqrt(k)).toFixed(2);
+    if(NEED && ph.tops){
+      // TOPS: active sheds, black if their hexagon scores ≥ threshold
+      const TL = { key:"tops", r:3.4, tip:p => '<span class="k">'+(p.t?'TOPS · '+p.t.name:'Below minimum score')+'</span><b>'+esc(tc(p.r[2]))+'</b>Overlay score <b>'+p.sc+'</b>'+(p.t?'<br>'+p.t.kit+'<br>Owner gets: '+p.t.inc:'')+'<br>Shed up '+yrs(p.r[5]) }; on.tops = true;
+      TOPS = X2.S.map(r => { const x = h.px(r[8]), y = h.py(r[7]), [q,rr2] = hexKey(x,y), sc = HXS[q+":"+rr2] ?? 0, t = tierOf(sc); return { r, x, y, sc, t, q:!!t }; });
+      if(SHOW_NOW) s += '<g>'+TOPS.filter(o => o.t).sort((a,b) => a.sc-b.sc).map(o =>
+        '<circle cx="'+o.x.toFixed(1)+'" cy="'+o.y.toFixed(1)+'" r="'+rr(2.6)+'" fill="'+o.t.color+'" stroke="'+(o.t.color==="#fff"?"#111":"#fff")+'" stroke-width="1"/>').join("")+'</g>';
+      if(SHOW_NOW) TOPS.filter(o => o.t).forEach(o => pts.push({ L:TL, p:o, x:o.x, y:o.y }));
+      // potential scaffolding: buildings over six floors with no shed yet (squares)
+      NEXT = X2.tall.filter(t => !shedBbl.has(t[0])).map(t => { const x = h.px(t[9]), y = h.py(t[8]), [q,rr2] = hexKey(x,y), sc = HXS[q+":"+rr2] ?? 0, tr = tierOf(sc); return { t, x, y, sc, tr }; });
+      const sq = (o, sz) => '<rect x="'+(o.x-sz).toFixed(1)+'" y="'+(o.y-sz).toFixed(1)+'" width="'+(2*sz).toFixed(1)+'" height="'+(2*sz).toFixed(1)+'"';
+      if(SHOW_NEXT) s += '<g>'+NEXT.filter(o => o.tr).sort((a,b) => a.sc-b.sc).map(o =>
+        sq(o, +rr(2))+' fill="'+o.tr.color+'" stroke="'+(o.tr.color==="#fff"?"#111":"#fff")+'" stroke-width="1"/>').join("")+'</g>';
+      const NL2 = { key:"topsnext", r:3, tip:p => '<span class="k">Potential scaffolding · '+(p.tr?'TOPS · '+p.tr.name:'below minimum')+'</span><b>'+esc(tc(p.t[1]))+'</b>'+p.t[3]+' floors · facade inspection '+SUBCYC[subOf(p.t[0])].label.split(" · ")[0]+'<br>Overlay score <b>'+p.sc+'</b>'+(p.tr?'<br>'+p.tr.kit+'<br>Owner gets: '+p.tr.inc:'') }; on.topsnext = true;
+      if(SHOW_NEXT) NEXT.filter(o => o.tr).forEach(o => pts.push({ L:NL2, p:o, x:o.x, y:o.y }));
+    }
+    if(NEED && needView!=="hex" && !ph.tops){
+      // the places behind the heat: all four kinds on the combined map, one kind on the others
+      const NL = {}; Object.keys(NEED_CATS).forEach(c => NL[c] = { key:"need"+c, r:2.6,
+        tip:p => '<span class="k">'+NEED_CATS[c].name+' · '+esc(p.type)+'</span><b>'+esc(tc(p.name))+'</b>' });
+      Object.keys(NL).forEach(c => on["need"+c] = true);
+      const hRing = geoBy[h.cd].rings[0].map(q => [h.px(q[0]), h.py(q[1])]);
+      s += '<g stroke="#fff" stroke-width=".8">';
+      if(["ling","idx","supp"].includes(ph.cat)){
+        const sets = ph.cat==="ling" ? [LING] : ph.cat==="supp" ? [SUPP] : [LING, SUPP];
+        sets.forEach(set => Object.values(set).forEach(d => {
+          const L = { key:"ix"+d.name, r:2.4, tip:p => '<span class="k">'+d.name+'</span><b>'+esc(tc(p[3]||d.name))+'</b>' }; on[L.key] = true;
+          d.pts().forEach(p => { if(p[2]!==110) return; const x = h.px(p[0]), y = h.py(p[1]);
+            const formal = set===SUPP && ph.cat==="idx";
+            s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr(d===LING.stoops?1.4:2.4)+'" fill="'+(formal?"#fff":d.color)+'" stroke="'+(formal?d.color:"#fff")+'" stroke-width="'+(formal?1.4:.6)+'" fill-opacity=".9"/>';
+            pts.push({ L, p, x, y }); });
+        }));
+      }
+      needPts().forEach(p => {
+        if(["ling","idx","supp","ovl"].includes(ph.cat)) return;
+        if(ph.cat !== "all" && p.c !== ph.cat) return;
+        const x = h.px(p.lon), y = h.py(p.lat);
+        if(!inRing(x, y, hRing)) return;   // show only places inside Central Harlem (nearby ones still add to the heat)
+        s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr(ph.cat==="all"?1.9:2.6)+'" fill="'+NEED_CATS[p.c].color+'" fill-opacity="'+(ph.cat==="all"?.75:.95)+'"/>';
+        pts.push({ L:NL[p.c], p, x, y });
+      });
+      s += '</g>';
+      // numbered areas of need
+      s += '<g class="needareas">'+AREAS.map((a,i) => '<circle cx="'+a.x.toFixed(1)+'" cy="'+a.y.toFixed(1)+'" r="'+(260/G.mPerUnit).toFixed(1)+'" fill="none" stroke="#111" stroke-width="1.4" stroke-dasharray="4 3"/>'+
+        '<circle cx="'+a.x.toFixed(1)+'" cy="'+a.y.toFixed(1)+'" r="'+rr(6)+'" fill="#111"/><text x="'+a.x.toFixed(1)+'" y="'+a.y.toFixed(1)+'">'+(i+1)+'</text>').join("")+'</g>';
+    }
+    // buildings over six floors: rings (coloured by inspection sub-cycle in the "next" view)
+    if(TALL){
+      s += '<g fill="none" stroke-width="1.6">';
+      X2.tall.forEach(t => {
+        const x = h.px(t[9]), y = h.py(t[8]), has = shedBbl.has(t[0]);
+        const col = mode==="next" ? SUBCYC[subOf(t[0])].color : "#111";
+        s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr(mode==="next"?4.4:5.2)+'" stroke="'+col+'"'+(mode==="next"?' fill="'+col+'" fill-opacity="'+(has?.9:.18)+'"':'')+' />';
+        pts.push({L:X2L.tall, p:t, x, y});
+      });
+      s += '</g>';
+    }
+    // active sheds: filled dots coloured by how long they have been up
+    if(SHED){
+      s += '<g stroke="#fff" stroke-width="1">';
+      X2.S.slice().sort((a,b) => a[5]-b[5]).forEach(r => {
+        const x = h.px(r[8]), y = h.py(r[7]);
+        s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr(3.6)+'" fill="'+AGE_BINS[ageBin(r[5])].color+'"/>';
+        pts.push({L:X2L.shed, p:r, x, y});
+      });
+      s += '</g>';
+    }
+    s += '<circle class="hl" r="'+(7*k).toFixed(1)+'" fill="none" stroke="#111" stroke-width="2" opacity="0"/></svg>';
+    document.getElementById("m-harlem").innerHTML = s;
+    const svg = document.querySelector("#m-harlem svg");
+    const v = { h, svg, pts, hl: svg.querySelector(".hl") };
+    buildGrid(v); bindHover(v);
+    views = [v];
+    // labels and dots keep a steady on-screen size while zooming; labels appear once zoomed in
+    const setZ = z => {
+      svg.style.setProperty("--fz", (k/z).toFixed(4));
+      svg.querySelector(".x2lbl").style.display = z >= 1.8 ? "" : "none";
+      svg.querySelectorAll(".needareas text").forEach(t => t.style.fontSize = (8*k/z)+"px");
+      svg.querySelectorAll(".hexsc text").forEach(t => t.style.fontSize = Math.min(HR*0.62, 9*k/z)+"px");
+      svg.querySelectorAll("circle:not(.hl)").forEach(c => { if(!c.dataset.r) c.dataset.r = c.getAttribute("r"); c.setAttribute("r", (c.dataset.r/Math.pow(z,0.8)).toFixed(2)); });
+    };
+    const Z = enableZoom(svg, h.W, h.H, setZ); setZ(1);
+    const zb = document.createElement("div"); zb.className = "zoombtns";
+    zb.innerHTML = '<button title="Zoom in">+</button><button title="Zoom out">−</button><button title="Reset">⟲</button>';
+    const [bi, bo, br] = zb.querySelectorAll("button"); bi.onclick = Z.in; bo.onclick = Z.out; br.onclick = Z.reset;
+    document.getElementById("m-harlem").appendChild(zb);
+
+    // ---- right-hand panel inside the stage: charts ----
+    const days = X2.S.map(r => r[5]);
+    const counts = AGE_BINS.map((b,i) => days.filter(d => ageBin(d)===i).length);
+    const mx = Math.max(...counts);
+    const median = days.slice().sort((a,b)=>a-b)[Math.floor(days.length/2)];
+    const over180 = days.filter(d => d>=180).length;
+    const tallN = X2.tall.length, tallShed = X2.tall.filter(t => shedBbl.has(t[0])).length;
+    const shedTall = X2.S.filter(r => tallBy[r[1]]).length;
+    const subCount = k => X2.tall.filter(t => subOf(t[0])===k).length;
+    const subShed = k => X2.tall.filter(t => subOf(t[0])===k && shedBbl.has(t[0])).length;
+    let side = '';
+    if(SHED || TALL) side += '<div class="rulebox"><span class="rt">The rule</span><ul>'+
+      '<li><b>Buildings taller than six stories</b> must have their facades inspected every 5 years (Local Law 11 / FISP). Inspections and repairs usually mean a sidewalk shed.</li>'+
+      '<li>Inspections are staggered by the <b>last digit of the tax block</b>: Cycle 10A (4, 5, 6, 9) files Feb 2025 – Feb 2027, 10B (0, 7, 8) from Feb 2026, 10C (1, 2, 3) from 2027.</li>'+
+      '<li>Since 2025, shed permits last <b>90 days</b> instead of a year, and owners are <b>penalised when a shed stays up longer than 180 days</b>.</li></ul></div>';
+    if(SHED){
+      side += '<h2>How long sheds have been up<span>'+X2.S.length+' buildings</span></h2><div class="x2bars">'+
+        AGE_BINS.map((b,i) => '<div class="x2row"><span><span class="sw" style="background:'+b.color+';border-radius:0"></span>'+b.label+'</span>'+
+          '<div class="x2track"><div style="width:'+(counts[i]/mx*100)+'%;background:'+b.color+'"></div></div><b>'+counts[i]+'</b></div>').join("")+'</div>'+
+        '<div class="x2stats">'+stat("Median time up", yrs(median))+stat("Up longer than 180 days", over180+' of '+X2.S.length+' ('+Math.round(over180/X2.S.length*100)+'%)')+
+        stat("Up longer than 5 years", counts[5])+'</div>';
+      const longest = X2.S.slice().sort((a,b) => b[5]-a[5]).slice(0,6);
+      side += '<h2 style="margin-top:14px">Longest standing<span>days</span></h2><ul class="rank" id="x2long">'+longest.map((r,i) =>
+        '<li data-i="'+X2.S.indexOf(r)+'"><span class="nm"><span class="i">'+String(i+1).padStart(2,"0")+'</span>'+esc(tc(r[2]))+'</span><span class="vl">'+nf(r[5])+'</span></li>').join("")+'</ul>';
+    }
+    if(TALL){
+      side += '<h2 style="margin-top:'+(mode==="next"?0:14)+'px">Buildings over six floors<span>'+tallN+' buildings</span></h2>'+
+        '<div class="x2stats">'+stat("Shed up now", tallShed+' of '+tallN+' ('+Math.round(tallShed/tallN*100)+'%)')+
+        stat("No shed yet", (tallN-tallShed)+' — will need one at inspection or repair')+
+        (mode!=="next" ? stat("Active sheds on these buildings", shedTall+' of '+X2.S.length) : '')+'</div>';
+      if(mode==="next"){
+        side += '<h2 style="margin-top:14px">Facade inspection sub-cycle<span>by block number</span></h2><div class="x2bars">'+
+          Object.keys(SUBCYC).map(k => { const n = subCount(k), sh = subShed(k);
+            return '<div class="x2row"><span><span class="sw" style="background:'+SUBCYC[k].color+'"></span>'+SUBCYC[k].label+'</span>'+
+              '<div class="x2track"><div style="width:'+(n/Math.max(...Object.keys(SUBCYC).map(subCount))*100)+'%;background:'+SUBCYC[k].color+';opacity:.55"></div></div><b>'+n+'</b></div>'; }).join("")+'</div>'+
+          '<div class="x2stats">'+Object.keys(SUBCYC).map(k => stat("Sub-cycle "+k+": shed up now", subShed(k)+' of '+subCount(k))).join("")+'</div>';
+      }
+    }
+    if(NEED && ph.tops){
+      const qs = TOPS.filter(o => o.q).sort((a,b) => b.sc-a.sc);
+      side = '<div class="rulebox"><span class="rt">TOPS rule</span>A sidewalk shed becomes a <b>Temporary Open Public Space</b> when its hexagon scores at least the minimum on the Overlay. Higher scores mean higher demand from adjacent needs, so more public space is required.'+
+        '<div class="slrow"><span>Minimum score</span><input type="range" id="topsmin" min="0" max="100" step="5" value="'+TOPS_MIN+'"><b>'+TOPS_MIN+'</b></div>'+
+        '<div class="slrow"><label><input type="checkbox" id="shownow"'+(SHOW_NOW?' checked':'')+'> ● Existing sheds</label><label><input type="checkbox" id="shownext"'+(SHOW_NEXT?' checked':'')+'> ■ Potential (over 6 floors)</label></div></div>'+
+        '<h2>TOPS kits &amp; incentives<span>'+qs.length+' of '+TOPS.length+' sheds qualify</span></h2><table class="tiers"><tr><th></th><th>Score</th><th>Owner gets</th><th>Now ●</th><th>Next ■</th></tr>'+
+        TIERS.map((t,i) => { const hi = i===0 ? 100 : TIERS[i-1].min-1, lo = Math.max(t.min, TOPS_MIN), n = TOPS.filter(o => o.t===t).length, n2 = NEXT.filter(o => o.tr===t).length;
+          return '<tr class="'+(lo>hi?'off':'')+'"><td><span class="sw" style="background:'+t.color+';border:1.5px solid #111"></span><b>'+t.name+'</b><br><small>'+t.kit+'</small></td><td>'+(lo>hi?'—':lo+'–'+hi)+'</td><td>'+t.inc+'</td><td class="n">'+n+'</td><td class="n">'+n2+'</td></tr>'; }).join("")+
+        '<tr class="off"><td><span class="sw" style="background:#fff;border:1px solid #999"></span>Not in programme</td><td>&lt; '+TOPS_MIN+'</td><td>—</td><td class="n">'+TOPS.filter(o=>!o.t).length+'</td><td class="n">'+NEXT.filter(o=>!o.tr).length+'</td></tr></table>'+
+        '<p class="note" style="margin:4px 0 0;border:0;padding:0">● sheds up now · ■ buildings over six floors that will need scaffolding (no shed yet).</p>'+
+        '<h2 style="margin-top:10px">Top sites<span>score</span></h2><ul class="rank" id="topslist">'+qs.slice(0,8).map((o,i) =>
+          '<li data-i="'+TOPS.indexOf(o)+'"><span class="nm"><span class="i">'+String(i+1).padStart(2,"0")+'</span>'+esc(tc(o.r[2]))+' <span style="color:#999">· '+o.t.name+'</span></span><span class="vl">'+o.sc+'</span></li>').join("")+'</ul>';
+    }
+    else if(NEED && ["idx","ovl","ling","supp"].includes(ph.cat)){
+      const T = { idx:["Linger index · biggest gaps","Where people already linger informally but formal places to pause are scarce."],
+                  ovl:["Overlay · index × need","High only where the linger gap (01) and need (02) are both high — the strongest case for intervention."],
+                  ling:["Informal lingering","Stoops, food vendors, barbershops and laundromats: evidence that people already stop here."],
+                  supp:["Formal supply","Benches, bus shelters, parks (weighted by size) and libraries: places designed for pausing."] }[ph.cat];
+      const sets = ph.cat==="ovl" ? [LING, SUPP, NEED_SETS()] : ph.cat==="ling" ? [LING] : ph.cat==="supp" ? [SUPP] : [LING, SUPP];
+      side = '<h2>'+T[0]+'<span>'+(ph.cat==="ovl"?"speculative":"Experiment 1 data")+'</span></h2><p class="cap" style="margin:6px 0 8px;font-size:11.5px;color:#444">'+T[1]+'</p>';
+      if(AREAS.length){
+        side += '<ol class="needlist" id="needlist">'+AREAS.map((a,i) => {
+          const cn = countsNear(h, a.x, a.y, sets);
+          return '<li data-i="'+i+'"><span class="nn">'+(i+1)+'</span><span class="nt"><b>'+esc(a.name || "Unnamed")+'</b>'+
+            '<span class="pb">'+a.parts.map(pt => '<span><i style="background:'+pt.color+';width:'+Math.round(pt.v*60)+'px"></i>'+pt.name.split(" (")[0]+' '+Math.round(pt.v*100)+'</span>').join("")+'</span>'+
+            '<span class="cn">'+cn.map(c => '<em style="color:'+c.color+'">'+c.n+'</em> '+c.name.toLowerCase()).join(" · ")+'</span></span></li>'; }).join("")+'</ol>'+
+          '<p class="note" style="margin-top:6px;border:0;padding:0">Scores are 0–100 within Central Harlem. Counts are places within a 5-minute walk (450 m) of each area.</p>';
+      } else {
+        side += '<div class="x2stats">'+Object.values(SUPP).map(d => stat('<span class="sw" style="background:'+d.color+'"></span>'+d.name, d.pts().filter(p => p[2]===110).length)).join("")+'</div>';
+      }
+      side += '<h2 style="margin-top:12px">The math<span>hover a hexagon for its numbers</span></h2><ol class="math">'+(MATH_STEPS[ph.cat==="ovl"?"ovl":"idx"]).map(t => '<li>'+t+'</li>').join("")+'</ol>';
+    }
+    else if(NEED){
+      const label = ph.cat==="all" ? "Areas of need" : NEED_CATS[ph.cat].name+" — areas of need";
+      side = '<h2>'+label+'<span>speculative</span></h2><ol class="needlist" id="needlist">'+AREAS.map((a,i) =>
+        '<li data-i="'+i+'"><span class="nn">'+(i+1)+'</span><span class="nt"><b>'+esc(a.name || "Unnamed")+'</b>'+
+        '<span class="nb">'+a.parts.map(pt => '<i title="'+pt.name+'" style="background:'+pt.color+';width:'+Math.round(pt.v*34)+'px"></i>').join("")+'</span></span></li>').join("")+'</ol>'+
+        '<p class="note" style="margin-top:6px;border:0;padding:0">Bars show how much seniors, kids, public space and activity each contribute to the area.</p>'+
+        '<h2 style="margin-top:12px">The math<span>hover a hexagon for its numbers</span></h2><ol class="math">'+MATH_STEPS.need.map(t => '<li>'+t+'</li>').join("")+'</ol>'+
+        '<p class="cap" style="display:none">Every senior center, school or day care, park or library, subway entrance and bus shelter gives off a soft halo of need that fades over a 5–6 minute walk. Where halos overlap, the map gets darker. '+
+        (ph.cat==="all" ? 'The four kinds are scaled to the same strength and averaged, so one kind of place cannot dominate.' : 'This map shows one kind of place on its own.')+' It is a speculative model of likely need, not a measurement.</p>';
+    }
+    if(mode === "blank" && ph){
+      side = '<h2>'+ph.title+'<span>work in progress</span></h2><div class="wip">Placeholder — content to come</div>'+
+        '<h2 style="margin-top:14px">Planned<span></span></h2><ul class="plan">'+ph.plan.map(t => '<li>'+t+'</li>').join("")+'</ul>';
+    }
+    const xs = document.getElementById("x2side"); xs.innerHTML = side; xs.style.zoom = 1;
+    for(let z = 1; z > .55 && xs.scrollHeight > xs.clientHeight + 1; ){ z -= .03; xs.style.zoom = z; }
+    const sl = document.getElementById("topsmin");
+    if(sl) sl.oninput = () => { TOPS_MIN = +sl.value; render(); };
+    const c1 = document.getElementById("shownow"), c2 = document.getElementById("shownext");
+    if(c1) c1.onchange = () => { SHOW_NOW = c1.checked; render(); };
+    if(c2) c2.onchange = () => { SHOW_NEXT = c2.checked; render(); };
+    document.querySelectorAll("#topslist li").forEach(li => li.onclick = () => {
+      const o = TOPS[+li.dataset.i]; v.hl.setAttribute("cx",o.x); v.hl.setAttribute("cy",o.y); v.hl.setAttribute("opacity",1);
+      const ctm = svg.getScreenCTM(); showTip({clientX:ctm.a*o.x+ctm.e, clientY:ctm.d*o.y+ctm.f}, '<span class="k">TOPS site</span><b>'+esc(tc(o.r[2]))+'</b>Overlay score '+o.sc);
+    });
+    document.querySelectorAll("#needlist li").forEach(li => li.onclick = () => {
+      const a = AREAS[+li.dataset.i]; v.hl.setAttribute("cx",a.x); v.hl.setAttribute("cy",a.y); v.hl.setAttribute("opacity",1);
+      const ctm = svg.getScreenCTM();
+      showTip({clientX:ctm.a*a.x+ctm.e, clientY:ctm.d*a.y+ctm.f}, '<span class="k">Area of need '+(+li.dataset.i+1)+'</span><b>'+esc(a.name)+'</b>'+
+        a.parts.map(pt => pt.name+': '+Math.round(pt.v*100)).join('<br>'));
+    });
+    document.querySelectorAll("#x2long li").forEach(li => li.onclick = () => {
+      const r = X2.S[+li.dataset.i], x = h.px(r[8]), y = h.py(r[7]);
+      v.hl.setAttribute("cx",x); v.hl.setAttribute("cy",y); v.hl.setAttribute("opacity",1);
+      const ctm = svg.getScreenCTM(); showTip({clientX:ctm.a*x+ctm.e, clientY:ctm.d*y+ctm.f}, X2L.shed.tip(r));
+    });
+
+    // ---- legend in the sidebar ----
+    let lg = '';
+    if(SHED) lg += '<h3>Active sheds · time up</h3>'+AGE_BINS.map((b,i) => stat('<span class="sw" style="background:'+b.color+'"></span>'+b.label, counts[i])).join("");
+    if(mode === "both") lg += '<h3>Will need scaffolding</h3>'+stat('<span class="sw" style="background:#fff;border:1.5px solid #111"></span>Building over six floors', tallN);
+    if(mode === "next") lg += '<h3>Buildings over six floors</h3>'+
+      stat('<span class="sw" style="background:#555"></span>Filled = shed up now', tallShed)+
+      stat('<span class="sw" style="background:#fff;border:1.5px solid #555"></span>Faint = no shed yet', tallN-tallShed)+
+      '<h3>Colour = inspection sub-cycle</h3>'+Object.keys(SUBCYC).map(k => stat('<span class="sw" style="background:'+SUBCYC[k].color+'"></span>'+SUBCYC[k].label, subCount(k))).join("");
+    if(mode === "blank") lg = '<h3>'+(ph ? ph.title : "")+'</h3>'+stat("Status", "work in progress")+stat("Base map", "streets");
+    if(NEED && ph.tops){
+      lg = '<h3>Overlay score, low → high</h3><div style="height:11px;margin:4px 0 4px;background:linear-gradient(90deg,'+OVL_RAMP.join(",")+')"></div>'+
+        '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px"><span>0</span><span>100</span></div>'+
+        '<h3>Tier · now ● / next ■</h3>'+TIERS.map(t => stat('<span class="sw" style="background:'+t.color+';border:1.5px solid #111"></span>'+t.name, TOPS.filter(o=>o.t===t).length+' / '+NEXT.filter(o=>o.tr===t).length)).join("")+
+        stat('<span class="sw" style="background:#fff;border:1px solid #999"></span>Not in programme', TOPS.filter(o=>!o.t).length+' / '+NEXT.filter(o=>!o.tr).length)+
+        '<h3>Shapes</h3>'+stat('● Circle', 'shed up now')+stat('■ Square', 'over 6 floors, shed likely next')+
+        '<h3>How it’s funded</h3><svg viewBox="0 0 250 236" style="width:100%;display:block;margin-top:4px;font-family:inherit"><defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#111" stroke-width="1.4"/></marker></defs><g font-size="9" fill="#111" text-anchor="middle"><rect x="1" y="1" width="118" height="40" fill="#fff" stroke="#111"/><text x="60" y="17" font-weight="600">OVERSTAY FEE</text><text x="60" y="31" fill="#666">every shed past 180 days</text><rect x="131" y="1" width="118" height="40" fill="#fff" stroke="#111"/><text x="190" y="17" font-weight="600">RENEWAL SURCHARGE</text><text x="190" y="31" fill="#666">every 90-day permit</text><path d="M60 41V58H118V68M190 41V58H132V68" fill="none" stroke="#111" marker-end="url(#fa)"/><rect x="55" y="72" width="140" height="40" fill="#111"/><text x="125" y="88" font-weight="600" fill="#fff">TOPS KIT FUND</text><text x="125" y="102" fill="#bbb">pooled · CB10 oversight</text><path d="M125 112V126M42 126H208M42 126V136M125 126V136M208 126V136" fill="none" stroke="#111"/><path d="M42 130V138M125 130V138M208 130V138" fill="none" stroke="#111" marker-end="url(#fa)"/><rect x="1" y="142" width="80" height="40" fill="#fff" stroke="#111"/><text x="41" y="158" font-weight="600">KIT III</text><text x="41" y="172" fill="#666">basic, fully paid</text><rect x="85" y="142" width="80" height="40" fill="#fff" stroke="#111"/><text x="125" y="158" font-weight="600">KIT I · II</text><text x="125" y="172" fill="#666">premium top-up</text><rect x="169" y="142" width="80" height="40" fill="#fff" stroke="#111"/><text x="209" y="158" font-weight="600">STEWARDS</text><text x="209" y="172" fill="#666">paid to maintain</text><text x="125" y="204" fill="#666">overstay is never rewarded: every shed pays</text><text x="125" y="220" fill="#666">overstay money buys more public space</text></g></svg>';
+    }
+    else if(NEED && ["idx","ovl","ling","supp"].includes(ph.cat)){
+      const RMP = rampFor(ph.cat);
+      const lst = (title, set) => '<h3>'+title+'</h3><div class="colhd"><span></span><span></span><span></span><span>In CD 10</span></div>'+
+        Object.values(set).map(d => '<div class="lyr" style="cursor:default"><span></span><span class="nm"><span class="sw" style="background:'+d.color+'"></span>'+d.name+'</span><span></span><span class="vl">'+d.pts().filter(p => p[2]===110).length+'</span></div>').join("");
+      lg = '<h3>'+({idx:"Linger gap",ovl:"Overlay score",ling:"Informal lingering",supp:"Formal supply"})[ph.cat]+', low → high</h3><div style="height:11px;margin:4px 0 4px;background:linear-gradient(90deg,'+RMP.join(",")+')"></div>'+
+        '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px"><span>low</span><span>high</span></div>'+
+        (AREAS.length ? stat('<span class="sw" style="background:#111"></span>Numbered area', AREAS.length) : '')+
+        (ph.cat==="ovl" ? '<h3>Combines</h3>'+stat('<span class="sw" style="background:#2171b5"></span>01 Linger index', 'informal × low supply')+stat('<span class="sw" style="background:#ec7014"></span>02 Need', 'seniors · kids · public space · activity')
+          : (ph.cat!=="supp" ? lst("Informal lingering (adds)", LING) : '')+(ph.cat!=="ling" ? lst("Formal supply"+(ph.cat==="idx"?" (subtracts)":""), SUPP) : ''));
+    }
+    else if(NEED){
+      const cnt = c => needPts().filter(p => p.c===c && inRing(h.px(p.lon), h.py(p.lat), geoBy[h.cd].rings[0].map(q => [h.px(q[0]), h.py(q[1])]))).length;
+      lg = '<h3>Need, low → high</h3><div style="height:11px;margin:4px 0 4px;background:linear-gradient(90deg,'+NEED_RAMP.join(",")+')"></div>'+
+        '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px"><span>low</span><span>high</span></div>'+
+        stat('<span class="sw" style="background:#111"></span>Numbered area of need', AREAS.length)+
+        '<h3>Datasets included</h3><div class="colhd"><span></span><span></span><span></span><span>In CD 10</span></div>'+
+        Object.keys(NEED_CATS).filter(c => ph.cat==="all" || c===ph.cat).map(c => '<div class="lyr" style="cursor:default"><span></span><span class="nm"><span class="sw" style="background:'+NEED_CATS[c].color+'"></span>'+NEED_CATS[c].name+
+          ' <span style="color:#999">· '+NEED_CATS[c].sub+'</span></span><span></span><span class="vl">'+cnt(c)+'</span></div>').join("");
+    }
+    document.getElementById("legendbox").innerHTML = lg;
+    document.getElementById("panel").innerHTML = "";
+  }
+  const X2_PH = {
+    tops: { title:"Hyper Scaffold: TOPS", plan:[
+      "<b>TOPS rule v1:</b> any sidewalk shed on a block scoring <b>60+</b> on the Overlay, with <b>12 ft+</b> of sidewalk, offers a free public kit within <b>14 days</b>.",
+      "<b>Kit:</b> seats every 25 ft (backed and backless), lean bar on narrow walks, shade, warm light, notice board; water and charging near seniors and transit. A <b>5 ft clear path</b> always.",
+      "<b>Time:</b> 90-day permits renew only with proof of work; the <b>180-day penalty still applies</b>; the kit leaves with the shed and moves on.",
+      "<b>Open to all:</b> no purchase, no ads, no hostile design, no loitering enforcement.",
+      "<b>Blocks decide:</b> the block association or Community Board 10 can choose a light kit or veto; a local steward is paid to care for it.",
+      "<b>Next:</b> map which current sheds and the 121 buildings due by Feb 2027 qualify, with sliders for the score threshold and sidewalk width."] },
+    index:   { title:"New Linger Index", plan:[
+      "Lingering need: informal lingering (stoops, vendors, barbershops, laundromats) plus who needs rest (seniors, children, heat-vulnerable blocks)",
+      "Formal supply: parks, benches, bus shelters, libraries, POPS",
+      "Gap score = need minus supply, by block face",
+      "Which sheds sit on high-gap blocks — where a Hyper Scaffold would matter most"] },
+    need:    { title:"Need", plan:[
+      "Demographics: older adults, children, households without a car",
+      "Heat vulnerability and shade",
+      "Bus stops, clinics, senior centers and schools — where people need to rest on the way",
+      "Distance to the next place to sit",
+      "Other analyses to add"] },
+    overlay: { title:"Overlay", plan:[
+      "Sheds now and next, on top of the Linger Index and Need layers",
+      "Find blocks where scaffolding, unmet need and few formal places coincide",
+      "Shortlist of candidate sites for a pilot"] }
+  };
+
+  const VIEWS = {
+    x2_idx:  { cap:"", run:()=>renderX2("need", { cat:"idx" }),
+      note:"Experiment 1 data only, for Central Harlem. Informal lingering: estimated stoops (PLUTO), food vendor spots (311), barbershops (NYS licences), laundromats (OpenStreetMap). Formal supply: city benches, bus shelters, parks (weighted by acreage), libraries. Sheds, POPS (none in Harlem) and the need data are left out." },
+    x2_ling: { cap:"", run:()=>renderX2("need", { cat:"ling" }), note:"Informal lingering only. Each of the four kinds is scaled equally, so the ~2,000 stoops don't drown out the vendors, barbers and laundromats." },
+    x2_supp: { cap:"", run:()=>renderX2("need", { cat:"supp" }), note:"Formal supply only: benches, bus shelters, parks (bigger parks count more) and libraries." },
+    x2_need_all: { cap:"", run:()=>renderX2("need", { cat:"all" }),
+      note:"Speculative. Places that create a need to pause, from the NYC Facilities Database (senior centers; schools, day care and pre-K; parks, gardens, plazas, libraries), MTA subway entrances and DOT bus shelters. Each place spreads need over ~450 m with a smooth falloff; the four kinds are scaled equally and averaged." },
+    x2_need_S: { cap:"", run:()=>renderX2("need", { cat:"S" }), note:"Senior centers and senior service sites (NYC Facilities Database)." },
+    x2_need_K: { cap:"", run:()=>renderX2("need", { cat:"K" }), note:"Public, charter and private schools, day care and pre-K (NYC Facilities Database)." },
+    x2_need_P: { cap:"", run:()=>renderX2("need", { cat:"P" }), note:"Parks, gardens, plazas, recreation sites, POPS and libraries (NYC Facilities Database)." },
+    x2_need_A: { cap:"", run:()=>renderX2("need", { cat:"A" }), note:"Subway entrances (MTA) and bus shelters (NYC DOT) — where people wait and arrive." },
+    x2_tops: { cap:"", run:()=>renderX2("need", { cat:"ovl", tops:true }),
+      note:"TOPS — Temporary Open Public Space, modelled on POPS. An active shed qualifies when its 240 m hexagon scores at least the chosen minimum on the Overlay (01 Linger index × 02 Need); the score sets its incentive tier. Sheds: DOB active permits, Nov 4 2026." },
+    x2_ovl: { cap:"", run:()=>renderX2("need", { cat:"ovl" }),
+      note:"Overlay of 01 Linger index and 02 Need, combined as their geometric mean so an area must be high on both. Speculative: a way to shortlist blocks to study and test, not a verdict." },
+    x2_both: { cap:"", run:()=>renderX2("both"),
+      note:"Active sheds: DOB NOW approved sidewalk-shed permits in Community District 10 that are issued and not expired (Nov 4 2026). Days up = since the first permit of the same job. DOB NOW records begin around 2016–2020, so the oldest sheds may have been up even longer. Rings: PLUTO lots over six floors, which must have facade inspections (Local Law 11 / FISP) and usually need scaffolding for them." },
+    x2_days: { cap:"", run:()=>renderX2("days"),
+      note:"Colour = how long each active shed has been up. Since 2025 the city penalises sheds up longer than 180 days, so the orange-to-purple dots are the ones city policy now targets." },
+    x2_next: { cap:"", run:()=>renderX2("next"),
+      note:"Buildings over six floors, coloured by their facade-inspection sub-cycle in Cycle 10, which is set by the last digit of the tax block: 10A (4, 5, 6, 9), 10B (0, 7, 8), 10C (1, 2, 3). Filled rings already have a shed; faint rings are where scaffolding is likely to appear next." },
+    a_sit:     { cap:"", note:HEXSETS.a_sit.note,     run:()=>renderHex("a_sit") },
+    a_shelter: { cap:"", note:HEXSETS.a_shelter.note, run:()=>renderHex("a_shelter") },
+    a_social:  { cap:"", note:HEXSETS.a_social.note,  run:()=>renderHex("a_social") },
+    a_unpaid:  { cap:"", note:HEXSETS.a_unpaid.note,  run:()=>renderHex("a_unpaid") },
+    a_paid:    { cap:"", note:HEXSETS.a_paid.note,    run:()=>renderHex("a_paid") },
+    a_open:    { cap:"", note:HEXSETS.a_open.note,    run:()=>renderHex("a_open") },
+    l_stoops:  { cap:"", run:()=>{ renderLayer(["stoop_hi","stoop_lo","benches"], "Sit — stoops + benches"); document.getElementById("panel").innerHTML = sitPanel(); },
+      note:"Estimated from PLUTO, not counted: lots built by 1915, 3–6 floors, 12–27 ft wide; row-house classes = likely high stoop, walk-up tenement classes = likely low stoop. For the sitting area estimate: 70% of row houses and 30% of tenements assumed to keep a usable stoop; 4/6/10 seats per high stoop, 2/4/6 per low stoop; 3 per bench; 0.27 m² per seated person." },
+    l_shelters:{ cap:"", run:()=>renderLayer("shelters"), note:"NYC DOT Bus Stop Shelters." },
+    l_vendors: { cap:"", run:()=>renderLayer("vendors"),
+      note:"No dataset records where food vendors stand, so these are 311 'Mobile Food Vendor' complaints from the past year, grouped by spot. A recurring complaint spot is a good sign of a recurring vendor; bigger dot = more complaints." },
+    l_libraries:{ cap:"", run:()=>renderLayer("libraries"), note:"NYC Facilities Database: public, academic and special libraries." },
+    l_laundromats:{ cap:"", run:()=>renderLayer("laundromats"), note:"OpenStreetMap self-service laundromats. Clearly incomplete, especially in Harlem — a placeholder until a better source or fieldwork count." },
+    l_barbers: { cap:"", run:()=>renderLayer("barbers"),
+      note:"NYS barbershop owner licences, plus appearance-enhancement businesses with 'barber' in their name. Many shops are licensed under the broader category, so Harlem is likely undercounted." },
+    c_sit: { cap:"", run:()=>renderCondition("c_sit"),
+      note:"Stoops are estimated, not counted: PLUTO lots built by 1915, 3–6 floors, 12–27 ft wide, row-house classes (high stoop) or walk-up tenement classes (low stoop). Assumes 70% of row houses and 30% of tenements keep a usable stoop; 4/6/10 seats per high stoop and 2/4/6 per low stoop (low/mid/high); 3 seats per bench; 0.27 m² per seated person." },
+    c_shelter: { cap:"", run:()=>renderCondition("c_shelter"),
+      note:"Bus stop shelters: NYC DOT. Sidewalk sheds: buildings with a DOB shed permit on record (all years, from your Datasets folder), so not every one is standing today." },
+    c_social: { cap:"", run:()=>renderCondition("c_social"),
+      note:"Food vendors have no location dataset, so these are 311 'Mobile Food Vendor' complaints from the past year grouped by spot; bigger dot = more complaints. Libraries: Facilities Database. Barbershops: NYS licences, including appearance businesses with 'barber' in the name. Laundromats: OpenStreetMap, which is incomplete." },
+    c_permission: { cap:"", note:"", run:()=>renderCondition("c_permission") },
+    formal:   { cap:HEXSETS.formal.cap,   note:HEXSETS.formal.note,   run:()=>renderHex("formal") },
+    informal: { cap:HEXSETS.informal.cap, note:HEXSETS.informal.note, run:()=>renderHex("informal") },
+    all:  { cap:"", run:renderAll,
+            note:"Every dataset at once, drawn at the same scale in both districts. Untick a layer to hide it; hover a dot for details. Stoops are estimated from PLUTO, food vendors are 311 complaint spots, laundromats come from OpenStreetMap." },
+    sheds:{ cap:"Buildings with a <b>sidewalk shed permit</b> on record — shelter by accident, the scaffolding a pedestrian can wait under.",
+            note:"From DOB permits with subtype SH. Permits are grouped by building; addresses were matched to coordinates with NYC Planning's address search. Records span all years, not only sheds standing today.", run:()=>renderLayer("sheds") },
+    benches:{ cap:"<b>City benches</b> installed by DOT's CityBench program and its partners — the city's explicit invitation to sit.",
+            note:"City Bench Locations (Historical) — includes benches that may since have been removed.", run:()=>renderLayer("benches") },
+    pops: { cap:"<b>Privately owned public spaces</b> — plazas and arcades that buildings provide in exchange for extra floor area.",
+            note:"POPS are concentrated where zoning bonuses were used. Central Harlem has none on record.", run:()=>renderLayer("pops") },
+    parks:{ cap:"<b>Parks properties</b> — parks, playgrounds, gardens, triangles and plazas, shaded at their real extent.",
+            note:"A park is assigned to the district that contains a point inside it. Large parks such as Central Park and Morningside Park sit just outside both districts.", run:()=>renderLayer("parks") },
+    count:{ cap:"How many records of each kind fall inside each district.", note:"Raw counts. Midtown and Central Harlem differ in size — see per square mile.", run:()=>renderCompare("count") },
+    density:{ cap:"Records per square mile — a size-normalized comparison of the two districts.", note:"Area is computed from the community district outline.", run:()=>renderCompare("density") },
+    fvi:{ cap:"", run:renderFormalCompare,
+      note:"Split by design intent: formal places were built for people to pause; informal ones were built for something else and get lingered in anyway. Sheds are shown both in and out because they dominate the informal count." },
+    idxH: { cap:"Every place in <b>Central Harlem</b>, by name, grouped by affordance. Click a name to point it out on its map.",
+            note:"", run:()=>renderIndexTab("harlem") },
+    idxM: { cap:"Every place in <b>Midtown</b>, by name, grouped by affordance. Click a name to point it out on its map.",
+            note:"", run:()=>renderIndexTab("midtown") }
+  };
+  Object.keys(HEXSETS).forEach(k => {
+    VIEWS[k+"_pts"] = { cap:"", note:HEXSETS[k].note.replace(/,? (counted )?per hexagon/g,"").replace("Every hexagon is the same size in both districts and both maps share one colour scale, so cells compare directly. Empty cells are outlined only.","The same datasets as the hexbin map, drawn as individual points. Untick a dataset to hide it."), run:()=>renderHexPoints(k) };
+  });
+  const TABS = [
+    { subs:[["All places","all"]] },
+    { subs:[["Sheds","sheds"],["Benches","benches"],["POPS","pops"],["Parks","parks"],["Stoops","l_stoops"],["Bus shelters","l_shelters"],["Food vendors","l_vendors"],["Libraries","l_libraries"],["Laundromats","l_laundromats"],["Barbershops","l_barbers"]] },
+    { subs:[["Count","count"],["Per square mile","density"],["Formal vs informal","fvi"]] },
+    { switch:true, subs:[["Formal","formal"],["Informal","informal"]] },
+    { switch:true, subs:[["Sit","a_sit"],["Shelter","a_shelter"],["Social magnets","a_social"],["Permission — unpaid","a_unpaid"],["Permission — paid","a_paid"],["Permission — open","a_open"]] },
+    { subs:[["Central Harlem","idxH"],["Midtown","idxM"]] },
+    { subs:[["Sheds now + buildings next","x2_both"],["How long sheds have been up","x2_days"],["Who's next: inspection cycle","x2_next"]] },
+    { subs:[["Linger index","x2_idx"],["Informal lingering","x2_ling"],["Formal supply","x2_supp"]] },
+    { subs:[["Areas of need","x2_need_all"],["Seniors","x2_need_S"],["Kids","x2_need_K"],["Public space","x2_need_P"],["Activity","x2_need_A"]] },
+    { subs:[["Index × Need","x2_ovl"]] },
+    { subs:[["TOPS rule v1","x2_tops"]] }
+  ];
+
+  let tab=0, sub=0, mapMode="hex", needView="hex";   // mapMode: "hex" = hexbin map, "pts" = location map
+  function render(){
+    const t = TABS[tab], sn = document.getElementById("subnav");
+    sn.style.display = t.subs.length>1 || t.switch || (tab>=7 && tab<=9) ? "flex" : "none";
+    sn.innerHTML = t.subs.map((s,i) => '<button data-s="'+i+'" class="'+(i===sub?"on":"")+'">'+s[0]+'</button>').join("");
+    if(t.switch) sn.innerHTML += '<div class="modesw"><button data-m="hex" class="'+(mapMode==="hex"?"on":"")+'">Hexbin map</button>'+
+                                  '<button data-m="pts" class="'+(mapMode==="pts"?"on":"")+'">Location map</button></div>';
+    if(tab>=7 && tab<=9) sn.innerHTML += '<div class="modesw"><button data-nv="hex" class="'+(needView==="hex"?"on":"")+'">Hexbin scores</button>'+
+                                         '<button data-nv="heat" class="'+(needView==="heat"?"on":"")+'">Heat map</button></div>';
+    sn.querySelectorAll("button[data-nv]").forEach(b => b.onclick = () => { needView=b.dataset.nv; render(); });
+    sn.querySelectorAll("button[data-s]").forEach(b => b.onclick = () => { sub=+b.dataset.s; render(); });
+    sn.querySelectorAll("button[data-m]").forEach(b => b.onclick = () => { mapMode=b.dataset.m; render(); });
+    const vkey = t.subs[sub][1] + (t.switch && mapMode==="pts" ? "_pts" : "");
+    const v = VIEWS[vkey];
+    if(tab!==1) LAYERS.forEach(L => on[L.key] = on[L.key]); // keep toggles
+    document.getElementById("cap").innerHTML = v.cap;
+    document.getElementById("note").textContent = v.note;
+    document.getElementById("note").style.display = v.note ? "" : "none";
+    hideTip(); v.run();
+    fitAside();
+  }
+  // last resort on small screens: scale the sidebar down until it fits without scrolling
+  function fitAside(){
+    const a = document.querySelector("aside"); a.style.zoom = 1;
+    if(innerWidth <= 900) return;
+    let z = 1;
+    while(z > .6 && a.scrollHeight > a.clientHeight + 1){ z -= .02; a.style.zoom = z; }
+  }
+  function goTo(t, s){
+    document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", +x.dataset.t===t));
+    tab=t; sub=s||0;
+    if(tab===0) Object.keys(ALL_LAYERS).forEach(k => on[k] = true);
+    render();
+  }
+  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => goTo(+b.dataset.t, 0));
+  // each experiment owns a set of the numbered tabs; tabs without data-x belong to Experiment 1
+  let exp = "1";
+  const firstTab = { "1":0, "2":7 };
+  function setExperiment(x){
+    exp = x;
+    document.querySelectorAll("#experiments button").forEach(b => b.classList.toggle("on", b.dataset.x===x));
+    document.querySelectorAll("#tabs button").forEach(b => b.style.display = (b.dataset.x || "1")===x ? "" : "none");
+    goTo(firstTab[x], 0);
+  }
+  document.querySelectorAll("#experiments button").forEach(b => b.onclick = () => setExperiment(b.dataset.x));
+
+  const total = Object.values(ALL_LAYERS).reduce((a,L) => a+dataOf(L).length, 0);
+  document.getElementById("hdrmeta").textContent =
+    nf(total)+" places · 2 community districts · "+Object.keys(ALL_LAYERS).length+" layers";
+  render();
+  let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(render, 200); });
+})();
+</script>
+<script>
+  /* Embed mode for the portfolio: atlas/index.html?view=tops opens straight on
+     Experiment 2 > Hyper Scaffold: TOPS (the one with the score slider) and hides
+     the other experiments and step tabs. Without the parameter the full atlas loads. */
+  (function () {
+    if (new URLSearchParams(location.search).get("view") !== "tops") return;
+    var css = document.createElement("style");
+    css.textContent = "nav#experiments, nav#tabs { display: none !important; }";
+    document.head.appendChild(css);
+    var exp2 = document.querySelector('#experiments button[data-x="2"]');
+    if (exp2) exp2.click();
+    var tops = Array.prototype.find.call(document.querySelectorAll("#tabs button"), function (b) {
+      return b.textContent.indexOf("Hyper Scaffold") !== -1;
+    });
+    if (tops) tops.click();
+  })();
+</script>
+</body>
+</html>

@@ -10,6 +10,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,900&family=Inter+Tight:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700;1,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sheet zoom: hover a drawing to read it at full resolution; click opens the full sheet. */
+    .zoom-wrap { position: relative; display: inline-block; line-height: 0; cursor: zoom-in; }
+    .zoom-wrap .lp-img { display: block; }
+    .zoom-lens { position: absolute; width: 240px; height: 240px; border-radius: 50%; pointer-events: none;
+      border: 1px solid rgba(0,0,0,.35); box-shadow: 0 6px 24px rgba(0,0,0,.18); background-color: #fff;
+      background-repeat: no-repeat; opacity: 0; transition: opacity .15s ease; transform: translate(-50%, -50%); z-index: 3; }
+    .zoom-wrap.is-zooming .zoom-lens { opacity: 1; }
+    .zoom-hint { display: block; margin-top: .35em; font-size: .72em; letter-spacing: .04em; opacity: .6; }
+    @media (hover: none) { .zoom-lens { display: none; } }
+    .sub-divider { padding: 16vh 8% 4vh; border-top: 1px solid rgba(0,0,0,.08); text-align: left; max-width: 1100px; margin: 0 auto; }
+    .sub-eyebrow { font-family: var(--label-font, inherit); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; color: var(--taupe, #c1602f); margin: 0 0 .6em; }
+    .sub-title { font-family: var(--spread-font, inherit); font-weight: 900; font-style: italic; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.05; letter-spacing: -.01em; margin: 0; color: var(--spread-ink, #222); }
+    .sub-text { margin: .8em 0 0; max-width: 60ch; font-size: 15px; line-height: 1.5; opacity: .75; }
+  </style>
 </head>
 <body>
 
@@ -53,9 +68,8 @@
       <div class="tab-switch" role="tablist" aria-label="Portfolio section">
         <button type="button" class="tab-circle tab-circle--architecture active" data-tab="architecture" role="tab" aria-selected="true">architecture</button>
         <button type="button" class="tab-circle tab-circle--computation" data-tab="computation" role="tab" aria-selected="false">computation</button>
-        <button type="button" class="tab-circle tab-circle--professional" role="tab" aria-selected="false" aria-disabled="true" disabled title="coming soon">professional</button>
+        <button type="button" class="tab-circle tab-circle--professional" data-tab="professional" role="tab" aria-selected="false">professional</button>
       </div>
-      <span class="landing-page" aria-hidden="true">1</span>
     </div>
   </section>
 
@@ -84,7 +98,7 @@
     <div class="discipline-cover" id="architecture-index">
 
     <div class="discipline-intro">
-      <p class="discipline-eyebrow">Selected Studio Work</p>
+      <p class="discipline-eyebrow">Academic Work &middot; Syracuse University</p>
       <h2 class="discipline-heading">architecture.</h2>
     </div>
 
@@ -509,12 +523,12 @@
     <div class="discipline-cover" id="computation-index">
 
     <div class="discipline-intro">
-      <p class="discipline-eyebrow">Selected Computational Work</p>
+      <p class="discipline-eyebrow">Academic Work &middot; Columbia GSAPP</p>
       <h2 class="discipline-heading">computation.</h2>
-      <p class="discipline-lede">three studies of sidewalk scaffolding in New York: seeing it, counting it, and measuring what it takes away.</p>
+      <p class="discipline-lede">three studies of sidewalk scaffolding in New York, seeing it, counting it, and measuring what it takes away, plus my work-in-progress capstone on where the city lingers.</p>
     </div>
 
-    <!-- Project index: thumbnails live in assets/computation/index/01-04.jpg -->
+    <!-- Project index: thumbnails live in assets/computation/index/01-03.jpg and assets/computation/atlas/thumb.jpg -->
     <nav class="project-tabs project-index" data-group="computation" aria-label="Computation projects">
       <button type="button" class="project-tab active" data-project="sidewalk">
         <img src="assets/computation/index/01.jpg" alt="">
@@ -530,6 +544,11 @@
         <img src="assets/computation/index/03.jpg" alt="">
         <span class="project-index-num">03</span>
         <span class="project-index-title">scaffolding daylight analysis tool. (wip)</span>
+      </button>
+      <button type="button" class="project-tab" data-project="atlas">
+        <img src="assets/computation/atlas/thumb.jpg" alt="">
+        <span class="project-index-num">04</span>
+        <span class="project-index-title">atlas of lingering. (wip)</span>
       </button>
     </nav>
 
@@ -736,7 +755,7 @@
           <p class="project-nav-title"><span>03</span> scaffolding daylight analysis tool. (wip)</p>
           <div class="project-nav-side project-nav-side--end">
             <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
-            <button type="button" data-go="architecture">architecture <span aria-hidden="true">&rarr;</span></button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
           </div>
         </nav>
         <section class="spread spread--cover">
@@ -826,6 +845,746 @@
         </section>
       </article>
 
+      <!-- PROJECT: ATLAS OF LINGERING (CAPSTONE, WIP) -->
+      <article class="project-block project-spreads" data-group="computation" data-project="atlas" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>04</span> atlas of lingering. (wip)</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="professional">professional <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/computation/atlas/e2-overlay.jpg" alt="Atlas of Lingering - overlay of the linger index and need" loading="lazy">
+            <div class="spread-halves"><img src="assets/computation/atlas/e2-overlay.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">atlas of lingering. (wip)</h3>
+              <p class="spread-stat"><strong>work in progress</strong> capstone, built as a series of experiments: mapping, visualization, and an alternative policy proposal</p>
+              <p class="spread-indent">My capstone looks at informal public space and the act of slowing down in the city. Where do people pause when no one designed a place for them to? Building on my sidewalk scaffolding research, the Atlas of Lingering maps where lingering happens in Central Harlem and Midtown Manhattan, and where it is needed but missing.</p>
+              <p class="spread-indent">Experiment 1 sorts places into affordances, sit, shelter, social magnets, and open space, and splits them into formal places designed for pausing, like benches, parks, and POPS, and informal ones where lingering happens anyway: stoops, sidewalk sheds, food vendors, laundromats, and barbershops.</p>
+              <p class="spread-indent">Experiment 2 focuses on Central Harlem. A linger index and a speculative map of need, around seniors, kids, public space, and transit, are overlaid to find where demand is high but formal space is scarce. From there, an alternative to the city&rsquo;s scaffolding rule, Hyper Scaffold, proposes that long-standing sidewalk sheds in high-need blocks become Temporary Open Public Spaces (TOPS), offering seating, shade, and light in exchange for owner incentives.</p>
+              <p class="spread-meta">Central Harlem &amp; Midtown, NY<br>Capstone - Columbia GSAPP<br>Work in progress<br>Python &middot; JavaScript &middot; NYC Open Data<br><a href="atlas/index.html?view=tops" target="_blank" rel="noopener">open hyper scaffold tool &nearr;</a></p>
+            </div>
+            <span class="spread-num">04</span>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/computation/atlas/e1-all.jpg" alt="experiment 1 - all places, Central Harlem and Midtown" loading="lazy">
+                <figcaption class="lp-cap">experiment 1 - all places, Central Harlem and Midtown</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/computation/atlas/e1-formal.jpg" alt="experiment 1 - formal vs. informal" loading="lazy">
+                <figcaption class="lp-cap">experiment 1 - formal vs. informal</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/computation/atlas/e1-afford.jpg" alt="experiment 1 - affordances" loading="lazy">
+                <figcaption class="lp-cap">experiment 1 - affordances</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/computation/atlas/e2-linger.jpg" alt="experiment 2 - linger index" loading="lazy">
+                <figcaption class="lp-cap">experiment 2 - linger index</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/computation/atlas/e2-need.jpg" alt="experiment 2 - need" loading="lazy">
+                <figcaption class="lp-cap">experiment 2 - need</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/computation/atlas/e2-overlay.jpg" alt="experiment 2 - overlay: where lingering is needed but missing" loading="lazy">
+                <figcaption class="lp-cap">experiment 2 - overlay: where lingering is needed but missing</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/computation/atlas/e2-rule.jpg" alt="experiment 2 - the rule: how long sheds stay up, and which buildings will need them next" loading="lazy">
+                <figcaption class="lp-cap">experiment 2 - the rule: how long sheds stay up, and which buildings will need them next</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/computation/atlas/e2-tops.jpg" alt="proposal - hyper scaffold: sidewalk sheds as Temporary Open Public Spaces (TOPS)" loading="lazy">
+                <figcaption class="lp-cap">proposal - hyper scaffold: sidewalk sheds as Temporary Open Public Spaces (TOPS)</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp-frame">
+              <iframe src="atlas/index.html?view=tops" title="Hyper Scaffold - interactive TOPS map with score slider" loading="lazy"></iframe>
+            </div>
+          </div>
+        </section>
+      </article>
+
+
+
+
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL -->
+  <section class="category-panel" data-category="professional" style="display:none;">
+
+    <div class="discipline-cover" id="professional-index">
+
+    <div class="discipline-intro">
+      <p class="discipline-eyebrow">Professional Work &middot; BLD Architecture &middot; Individual Work</p>
+      <h2 class="discipline-heading">professional.</h2>
+      <p class="discipline-lede">residential, hospitality, and healthcare work at BLD Architecture, from site planning and design through interiors and construction documents, plus individual work.</p>
+    </div>
+
+    <nav class="project-tabs project-index" data-group="professional" aria-label="Professional work">
+      <button type="button" class="project-tab active" data-project="lynbrook">
+        <img src="assets/professional/index/01.jpg" alt="">
+        <span class="project-index-num">01</span>
+        <span class="project-index-title">lynbrook downtown revitalization.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="middle-island">
+        <img src="assets/professional/index/02.jpg" alt="">
+        <span class="project-index-num">02</span>
+        <span class="project-index-title">mixed-use development in middle island.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="hospitality">
+        <img src="assets/professional/index/03.jpg" alt="">
+        <span class="project-index-num">03</span>
+        <span class="project-index-title">hospitality interiors.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="healthcare">
+        <img src="assets/professional/index/04-healthcare.jpg" alt="">
+        <span class="project-index-num">04</span>
+        <span class="project-index-title">healthcare interiors.</span>
+      </button>
+      <button type="button" class="project-tab" data-project="construction-documents">
+        <img src="assets/professional/index/05-cd-elevations.jpg" alt="">
+        <span class="project-index-num">05</span>
+        <span class="project-index-title">construction documents.</span>
+      </button>
+    </nav>
+
+    <a class="scroll-hint" href="#professional-projects">scroll<span aria-hidden="true"></span></a>
+    </div>
+
+    <div class="project-list" id="professional-projects">
+
+      <!-- PROFESSIONAL: LYNBROOK -->
+      <article class="project-block project-spreads" data-group="professional" data-project="lynbrook">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>01</span> lynbrook downtown revitalization.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/professional/lynbrook-ii-final-1.jpg" alt="Building A - final rendering" loading="lazy">
+            <div class="spread-halves"><img src="assets/professional/lynbrook-ii-final-1.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">lynbrook downtown revitalization.</h3>
+              <p class="spread-stat"><strong>my role</strong> massing and concept diagrams, master plan and circulation studies, floor plans and program data, and design iterations through final renderings.</p>
+              <p class="spread-indent">A master plan and residential development for downtown Lynbrook, Long Island. Two multifamily, mixed-use buildings sit beside the Lynbrook train station, providing new housing while reactivating the village downtown.</p>
+              <p class="spread-indent">The design evolved through rounds of client presentations: from early massing and program studies, through rounds of fa&ccedil;ade iterations and A/B options, to a classical-contemporary language with refined detailing that responds to the surrounding single-family neighborhood. In the long term, the master plan adds new retail, integrated parking, and improved vehicular and pedestrian circulation.</p>
+              <p class="spread-meta">Lynbrook, NY<br>BLD Architecture - Residential / Mixed-Use<br>Rhino &middot; AutoCAD &middot; Enscape &middot; Photoshop &middot; Illustrator</p>
+            </div>
+            <span class="spread-num">01</span>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/lynbrook-masterplan.jpg" alt="future master plan - proposed multi-family mixed-use developments" loading="lazy">
+                <figcaption class="lp-cap">future master plan - proposed multi-family mixed-use developments</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-vehicular.jpg" alt="proposed vehicular circulation" loading="lazy">
+                <figcaption class="lp-cap">proposed vehicular circulation</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-pedestrian.jpg" alt="proposed pedestrian circulation" loading="lazy">
+                <figcaption class="lp-cap">proposed pedestrian circulation</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-2024-massing.jpg" alt="iteration 1 - massing studies" loading="lazy">
+                <figcaption class="lp-cap">iteration 1 - massing studies</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-2024-concept-render.jpg" alt="iteration 1 - first concept" loading="lazy">
+                <figcaption class="lp-cap">iteration 1 - first concept</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-2025-03-iteration.jpg" alt="iteration 2 - fa&ccedil;ade study" loading="lazy">
+                <figcaption class="lp-cap">iteration 2 - fa&ccedil;ade study</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-2025-03-concept.jpg" alt="iteration 2 - revised concept" loading="lazy">
+                <figcaption class="lp-cap">iteration 2 - revised concept</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-option-a.jpg" alt="iteration 3 - option A" loading="lazy">
+                <figcaption class="lp-cap">iteration 3 - option A</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/lynbrook-option-b.jpg" alt="iteration 3 - option B" loading="lazy">
+                <figcaption class="lp-cap">iteration 3 - option B</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:74" src="assets/professional/lynbrook-ii-final-1.jpg" alt="building A - final rendering" loading="lazy">
+                <figcaption class="lp-cap">building A - final rendering</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/professional/lynbrook-iii-final-2.jpg" alt="building B - final rendering" loading="lazy">
+                <figcaption class="lp-cap">building B - final rendering</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:42" src="assets/professional/lynbrook-ground-floor.jpg" alt="building A - ground floor plan" loading="lazy">
+                <figcaption class="lp-cap">building A - ground floor plan</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:42" src="assets/professional/lynbrook-iii-ground-floor.jpg" alt="building B - ground floor plan" loading="lazy">
+                <figcaption class="lp-cap">building B - ground floor plan</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROFESSIONAL: MIDDLE-ISLAND -->
+      <article class="project-block project-spreads" data-group="professional" data-project="middle-island" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>02</span> mixed-use development in middle island.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/professional/mi24-nature-walk.jpg" alt="Middle Island - north facing building within the nature walk" loading="lazy">
+            <div class="spread-halves"><img src="assets/professional/mi24-nature-walk.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">mixed-use development in middle island.</h3>
+              <p class="spread-stat"><strong>my role</strong> concept design of the residential buildings, site planning, 3D modeling, and rendering.</p>
+              <p class="spread-indent">A mixed-use, multifamily development in Middle Island, Long Island. Residential buildings, a resident clubhouse, and retail are arranged around a preserved meadow and a new nature walk.</p>
+              <p class="spread-indent">For the design concept, I developed a &ldquo;second generation&rdquo; residential building with enhanced relief: crisp lines, warm wood-toned panels, and deep balconies that open the fa&ccedil;ades toward the landscape. The landscape takes an organic, experiential approach, with a nature walk winding through the meadow between buildings.</p>
+              <p class="spread-meta">Middle Island, NY<br>BLD Architecture - Residential / Mixed-Use<br>Rhino &middot; AutoCAD &middot; Enscape &middot; Photoshop &middot; Illustrator</p>
+            </div>
+            <span class="spread-num">02</span>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/mi24-site-plan.jpg" alt="colorized site plan" loading="lazy">
+                <figcaption class="lp-cap">colorized site plan</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/mi24-meadow.jpg" alt="west facing building fa&ccedil;ade in the meadow" loading="lazy">
+                <figcaption class="lp-cap">west facing building fa&ccedil;ade in the meadow</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/mi24-entry.jpg" alt="south facing entryway fa&ccedil;ade" loading="lazy">
+                <figcaption class="lp-cap">south facing entryway fa&ccedil;ade</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/mi24-aerial.jpg" alt="west facing aerial site view" loading="lazy">
+                <figcaption class="lp-cap">west facing aerial site view</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROFESSIONAL: HOSPITALITY -->
+      <article class="project-block project-spreads" data-group="professional" data-project="hospitality" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>03</span> hospitality interiors.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/professional/fore-pour-bar.jpg" alt="Golf lounge and bar - proposed bar" loading="lazy">
+            <div class="spread-halves"><img src="assets/professional/fore-pour-bar.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">hospitality interiors.</h3>
+              <p class="spread-stat"><strong>my role</strong> interior design, space planning, materials and finishes, and rendering.</p>
+              <p class="spread-indent">Two hospitality interiors: a golf simulator lounge and bar, and the renovation of a hotel&rsquo;s guestrooms and suites.</p>
+              <p class="spread-indent">The golf lounge organizes eight simulator bays alongside a reception, lounge, and bar, pairing dark green millwork and plaid wallcovering with antiqued copper for a warm, clubhouse-like atmosphere. For the hotel, renderings carried the new finishes, furniture, and lighting from the typical guestroom to the suite&rsquo;s kitchen, living, and bath spaces.</p>
+              <p class="spread-meta">Long Island, NY<br>BLD Architecture - Hospitality<br>Rhino &middot; Enscape &middot; AutoCAD &middot; Photoshop</p>
+            </div>
+            <span class="spread-num">03</span>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; hospitality</p>
+                <h4 class="sub-title">i. golf lounge &amp; bar.</h4>
+                <p class="sub-text">A golf simulator lounge and bar: eight simulator bays organized alongside a reception, lounge, and bar.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:58" src="assets/professional/fore-pour-floor-plan.jpg" alt="golf lounge and bar - floor plan with eight simulator bays" loading="lazy">
+                <figcaption class="lp-cap">floor plan with eight simulator bays</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/fore-pour-reception.jpg" alt="golf lounge and bar - reception" loading="lazy">
+                <figcaption class="lp-cap">reception</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/fore-pour-golf.jpg" alt="golf lounge and bar - simulator area" loading="lazy">
+                <figcaption class="lp-cap">simulator area</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; hospitality</p>
+                <h4 class="sub-title">ii. hotel renovation.</h4>
+                <p class="sub-text">Guestrooms and suites for a hotel renovation, carried from the typical guestroom to the suite&rsquo;s kitchen, living, and bath spaces.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:76" src="assets/professional/otb-typical-king.jpg" alt="hotel renovation - typical king guestroom" loading="lazy">
+                <figcaption class="lp-cap">typical king guestroom</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/otb-kitchen-living-dining.jpg" alt="hotel renovation - suite kitchen, living, and dining" loading="lazy">
+                <figcaption class="lp-cap">suite kitchen, living, and dining</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/otb-master-bath.jpg" alt="hotel renovation - suite primary bath" loading="lazy">
+                <figcaption class="lp-cap">suite primary bath</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROFESSIONAL: HEALTHCARE -->
+      <article class="project-block project-spreads" data-group="professional" data-project="healthcare" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>04</span> healthcare interiors.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="next">next <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/professional/hc-ac-youth-reception.jpg" alt="Behavioral health clinic - children and youth reception" loading="lazy">
+            <div class="spread-halves"><img src="assets/professional/hc-ac-youth-reception.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">healthcare interiors.</h3>
+              <p class="spread-stat"><strong>my role</strong> interior visualization and rendering, and Rhino and Enscape rendering standards.</p>
+              <p class="spread-indent">A selection of healthcare interiors: a behavioral health clinic, an imaging center, an outpatient medical office, and a psychiatric hospital addition, from receptions and waiting rooms to group rooms and MRI suites.</p>
+              <p class="spread-indent">I led visualization across these projects, producing renderings for interiors presentations and finish packages. To keep views consistent across a growing set of projects, I set up custom Rhino and Enscape standards for modeling, materials, and rendering.</p>
+              <p class="spread-meta">Long Island, NY<br>BLD Architecture - Healthcare<br>Rhino &middot; Enscape &middot; AutoCAD &middot; Photoshop</p>
+            </div>
+            <span class="spread-num">04</span>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; healthcare</p>
+                <h4 class="sub-title">i. behavioral health clinic.</h4>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-ac-lobby.jpg" alt="behavioral health clinic - main entry lobby" loading="lazy">
+                <figcaption class="lp-cap">main entry lobby</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-ac-group-room.jpg" alt="behavioral health clinic - group program room" loading="lazy">
+                <figcaption class="lp-cap">group program room</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; healthcare</p>
+                <h4 class="sub-title">ii. imaging center.</h4>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-nyu-radiology-waiting.jpg" alt="imaging center - waiting room" loading="lazy">
+                <figcaption class="lp-cap">waiting room</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-nyu-radiology-mri-prep.jpg" alt="imaging center - MRI prep" loading="lazy">
+                <figcaption class="lp-cap">MRI prep</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; healthcare</p>
+                <h4 class="sub-title">iii. outpatient office &amp; hospital addition.</h4>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-nyu-sills-reception.jpg" alt="outpatient medical office - reception" loading="lazy">
+                <figcaption class="lp-cap">outpatient medical office - reception</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:40" src="assets/professional/hc-rumc-reception.jpg" alt="psychiatric hospital addition - reception" loading="lazy">
+                <figcaption class="lp-cap">psychiatric hospital addition - reception</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- PROFESSIONAL: CONSTRUCTION-DOCUMENTS -->
+      <article class="project-block project-spreads" data-group="professional" data-project="construction-documents" style="display:none;">
+        <nav class="project-nav" aria-label="Project navigation">
+          <div class="project-nav-side">
+            <button type="button" data-go="home">home</button>
+            <button type="button" data-go="index">index</button>
+          </div>
+          <p class="project-nav-title"><span>05</span> construction documents.</p>
+          <div class="project-nav-side project-nav-side--end">
+            <button type="button" data-go="prev"><span aria-hidden="true">&larr;</span> previous</button>
+            <button type="button" data-go="architecture">architecture <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </nav>
+        <section class="spread spread--cover">
+          <div class="spread-page">
+            <img class="sp-fig sp-fig--contain" src="assets/professional/otb-bathroom-plans.jpg" alt="Hotel renovation - enlarged bathroom plans and elevations" loading="lazy">
+            <div class="spread-halves"><img src="assets/professional/otb-bathroom-plans.jpg" alt="" loading="lazy"></div>
+            <div class="spread-text">
+              <h3 class="spread-title">construction documents.</h3>
+              <p class="spread-stat"><strong>my role</strong> construction documents across DD and CD phases, and BIM modeling in Revit.</p>
+              <p class="spread-indent">Sheet sets from my work at BLD Architecture: a hotel guestroom renovation, attached residential units, and a warehouse project. Plus an individual Revit project, the Tree House. Hover over any sheet to read it at full resolution.</p>
+              <p class="spread-meta">BLD Architecture &amp; individual work<br>Hospitality / Residential / Industrial<br>AutoCAD &middot; Revit &middot; Rhino</p>
+            </div>
+            <span class="spread-num">05</span>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; construction documents</p>
+                <h4 class="sub-title">i. hotel renovation.</h4>
+                <p class="sub-text">100% bid set and FF&amp;E bid set for the interior renovation of a hotel&rsquo;s guestroom floors.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/otb-furniture-plans.jpg" data-zoom="assets/professional/otb-furniture-plans-hi.jpg" alt="hotel renovation - overall furniture plans, typical guestroom floor" loading="lazy">
+                <figcaption class="lp-cap">overall furniture plans, typical guestroom floor</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/otb-rcp-9th.jpg" data-zoom="assets/professional/otb-rcp-9th-hi.jpg" alt="hotel renovation - overall reflected ceiling plans, typical guestroom floor" loading="lazy">
+                <figcaption class="lp-cap">overall reflected ceiling plans, typical guestroom floor</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:80" src="assets/professional/otb-bathroom-plans.jpg" data-zoom="assets/professional/otb-bathroom-plans-hi.jpg" alt="hotel renovation - enlarged bathroom plans and interior elevations" loading="lazy">
+                <figcaption class="lp-cap">enlarged bathroom plans and interior elevations</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:42" src="assets/professional/otb-guestroom-elevation.jpg?v=2" data-zoom="assets/professional/otb-guestroom-elevation-hi.jpg?v=2" alt="hotel renovation - typical king guestroom interior elevation, headboard wall" loading="lazy">
+                <figcaption class="lp-cap">typical king guestroom interior elevation, headboard wall</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:80" src="assets/professional/otb-corridor-elevations.jpg" data-zoom="assets/professional/otb-corridor-elevations-hi.jpg" alt="hotel renovation - corridor interior elevations" loading="lazy">
+                <figcaption class="lp-cap">corridor interior elevations</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; construction documents</p>
+                <h4 class="sub-title">ii. residential units.</h4>
+                <p class="sub-text">Floor and unit plans, elevations, and sections for a development of attached residential units.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/kelly-b-plans.jpg" data-zoom="assets/professional/kelly-b-plans-hi.jpg" alt="residential units - floor plans" loading="lazy">
+                <figcaption class="lp-cap">floor plans</figcaption>
+              </figure>
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/kelly-sections.jpg" data-zoom="assets/professional/kelly-sections-hi.jpg" alt="residential units - building sections" loading="lazy">
+                <figcaption class="lp-cap">building sections</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:78" src="assets/professional/kelly-unit-b-plans.jpg" data-zoom="assets/professional/kelly-unit-b-plans-hi.jpg" alt="residential units - unit floor and basement plans" loading="lazy">
+                <figcaption class="lp-cap">unit floor and basement plans</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:80" src="assets/professional/kelly-b-elevations.jpg" data-zoom="assets/professional/kelly-b-elevations-hi.jpg" alt="residential units - building elevations" loading="lazy">
+                <figcaption class="lp-cap">building elevations</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">BLD Architecture &middot; construction documents</p>
+                <h4 class="sub-title">iii. warehouse project.</h4>
+                <p class="sub-text">100% construction documents for an office and warehouse renovation.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/mp-overall-plan.jpg" data-zoom="assets/professional/mp-overall-plan-hi.jpg" alt="warehouse project - overall proposed first floor plan" loading="lazy">
+                <figcaption class="lp-cap">overall proposed plan</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:62" src="assets/professional/mp-rcp-office.jpg" data-zoom="assets/professional/mp-rcp-office-hi.jpg" alt="warehouse project - office reflected ceiling plans" loading="lazy">
+                <figcaption class="lp-cap">office reflected ceiling plans</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:58" src="assets/professional/mp-reception.jpg" data-zoom="assets/professional/mp-reception-hi.jpg" alt="warehouse project - reception millwork section, interior elevation, and enlarged plan" loading="lazy">
+                <figcaption class="lp-cap">reception millwork section, elevation, and plan</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/professional/mp-restroom-women-office.jpg" data-zoom="assets/professional/mp-restroom-women-office-hi.jpg" alt="warehouse project - office restroom enlarged plans and elevations" loading="lazy">
+                <figcaption class="lp-cap">office restroom plans and elevations</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <div class="sub-divider">
+                <p class="sub-eyebrow">individual work</p>
+                <h4 class="sub-title">iv. tree house bim model.</h4>
+                <p class="sub-text">A Revit model and coordinated sheet set of the Tree House, a London house extension designed by 6A Architects, with every plan, elevation, and section generated from the model.</p>
+        </div>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:70" src="assets/computation/bim/axon-model.jpg" alt="Personal work - Revit model, 3D axonometric" loading="lazy">
+                <figcaption class="lp-cap">3D axonometric</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/computation/bim/plans.jpg" data-zoom="assets/computation/bim/plans-hi.jpg" alt="personal work - revit model, floor plans" loading="lazy">
+                <figcaption class="lp-cap">floor plans</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/computation/bim/elevations.jpg" data-zoom="assets/computation/bim/elevations-hi.jpg" alt="personal work - revit model, elevations" loading="lazy">
+                <figcaption class="lp-cap">elevations</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+        <section class="spread spread--lp">
+          <div class="spread-page">
+            <div class="lp lp--center lp--wide-gap">
+              <figure class="lp-fig">
+                <img class="lp-img" style="--h:82" src="assets/computation/bim/sections.jpg" data-zoom="assets/computation/bim/sections-hi.jpg" alt="personal work - revit model, sections" loading="lazy">
+                <figcaption class="lp-cap">sections</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+      </article>
 
     </div>
   </section>
@@ -1161,7 +1920,7 @@
             document.getElementById(group + '-index').scrollIntoView({ behavior: 'smooth' });
             return;
           }
-          if (go === 'computation' || go === 'architecture') {
+          if (go === 'computation' || go === 'architecture' || go === 'professional') {
             activateDiscipline(go, true);
             return;
           }
@@ -1433,5 +2192,36 @@
     })();
   </script>
 
+  <script>
+    (function () {
+      document.querySelectorAll('img[data-zoom]').forEach(function (img) {
+        var wrap = document.createElement('a');
+        wrap.className = 'zoom-wrap'; wrap.href = img.dataset.zoom; wrap.target = '_blank'; wrap.rel = 'noopener';
+        wrap.setAttribute('aria-label', 'Open full-resolution sheet');
+        img.parentNode.insertBefore(wrap, img); wrap.appendChild(img);
+        var lens = document.createElement('span'); lens.className = 'zoom-lens'; wrap.appendChild(lens);
+        var hi = null, loaded = false;
+        function load() {
+          if (hi) return; hi = new Image();
+          hi.onload = function () { loaded = true; lens.style.backgroundImage = 'url("' + img.dataset.zoom + '")'; };
+          hi.src = img.dataset.zoom;
+        }
+        function move(e) {
+          if (!loaded) return;
+          var r = img.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+          if (x < 0 || y < 0 || x > r.width || y > r.height) { wrap.classList.remove('is-zooming'); return; }
+          var scale = Math.min(hi.naturalWidth / r.width, 4);
+          var bw = r.width * scale, bh = r.height * scale, half = lens.offsetWidth / 2;
+          lens.style.left = x + 'px'; lens.style.top = y + 'px';
+          lens.style.backgroundSize = bw + 'px ' + bh + 'px';
+          lens.style.backgroundPosition = (half - x * scale) + 'px ' + (half - y * scale) + 'px';
+          wrap.classList.add('is-zooming');
+        }
+        wrap.addEventListener('mouseenter', load);
+        wrap.addEventListener('mousemove', move);
+        wrap.addEventListener('mouseleave', function () { wrap.classList.remove('is-zooming'); });
+      });
+    })();
+  </script>
 </body>
 </html>
